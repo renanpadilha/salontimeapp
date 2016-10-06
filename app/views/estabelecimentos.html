@@ -1,0 +1,18 @@
+<div class="container-fluid">
+  <h3>Estabelecimentos</h2>
+  <table class="table" ng-controller="EstabelecimentosCtrl">
+    <thead>
+      <tr>
+        <th>Nome</th>
+        <th>Endereço</th>
+        <th>Telefone</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="estabelecimento in estabelecimentos">
+        <td>{{estabelecimento.nome}}</td>
+        <td>{{estabelecimento.telefone}}</td>
+        <td>{{estabelecimento.endereco}}</td>
+      </tr>
+    </tbody>
+</div>
