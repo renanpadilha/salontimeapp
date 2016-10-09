@@ -4,28 +4,81 @@
     </div>
     <form name="criaAgendamento" ng-controller="MainCtrl">
       <div class="form-group">
-        <label for="servicos">Serviços</label>
+        <label for="categoria"><span class="glyphicon glyphicon-th-large"></span> Categoria</label>
+        <select
+          id="categoria"
+          name="categoria"
+          class="form-control"
+          ng-model="categoriaSelecionada"
+          ng-change="atualizaServicos()"
+          ng-options="categoria.id as categoria.nome for categoria in categorias">
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="servicos"><span class="glyphicon glyphicon-th"></span> Serviço</label>
         <select
           id="servico"
           name="servico"
           class="form-control"
+          ng-change="atualizaEstabelecimentos()"
           ng-model="servicoSelecionado"
           ng-options="servico.id as servico.nome for servico in servicos">
         </select>
+      </div>
+      <div class="row">
+        <div class="col-xs-6">
+        <label for="hora"><span class="glyphicon glyphicon-calendar"></span> Data</label>
+         <p class="input-group">
+           <input
+             type="text"
+             class="form-control"
+             popup-placement="bottom"
+             uib-datepicker-popup="{{format}}"
+             ng-model="dt"
+             is-open="popup.opened"
+             datepicker-options="dateOptions"
+             show-button-bar="false"
+             alt-input-formats="altInputFormats" />
+           <span class="input-group-btn">
+             <button type="button" class="btn btn-default" ng-click="open()"><i class="glyphicon glyphicon-calendar"></i></button>
+           </span>
+         </p>
         </div>
-        <div class="form-group">
-            <label for="estabelecimentos">Estabelecimentos</label>
-            <select
-              id="estabelecimento"
-              name="estabelecimento"
-              ng-model="agendamento.estabelecimento"
-              class="form-control"
-              ng-options="estabelecimento.id as estabelecimento.nome for estabelecimento in servicoSelecionado.estabelecimentos">
-            </select>
-        </div>
-        <div class="form-group">
-          <label for="horarios">Horários</label>
-          <input class="form-control">
-        </div>
+          <div class="col-xs-6">
+            <div class="form-group">
+              <label for="hora"><span class="glyphicon glyphicon-time"></span> Hora</label>
+              <div
+                uib-timepicker
+                ng-model="time"
+                ng-change="changed()"
+                hour-step="hstep"
+                minute-step="mstep"
+                readonly-input="true"
+                show-meridian="false">
+              </div>
+            </div>
+          </div>
+      </div>
+      <div class="form-group">
+          <label for="estabelecimento"><span class="glyphicon glyphicon-list"></span> Estabelecimento</label>
+          <select
+            id="estabelecimento"
+            name="estabelecimento"
+            class="form-control"
+            ng-model="estabelecimentoSelecionado"
+            ng-change="atualizaProfissionais()"
+            ng-options="estabelecimento.id as estabelecimento.nome for estabelecimento in estabelecimentos">
+          </select>
+      </div>
+      <div class="form-group">
+        <label for="profissional"><span class="glyphicon glyphicon-user"></span> Profissional</label>
+        <select
+          id="profissional"
+          name="profissional"
+          class="form-control"
+          ng-model="profissionalSelecionado"
+          ng-options="profissional.id as profissional.nome for profissional in profissionais">
+        </select>
+      </div>
     </form>
 </div>

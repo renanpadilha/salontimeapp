@@ -10,6 +10,7 @@
  */
 angular
   .module('salontimeApp', [
+    'ui.bootstrap',
     'ngAnimate',
     'ngCookies',
     'ngResource',
