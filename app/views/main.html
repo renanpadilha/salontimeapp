@@ -34,11 +34,10 @@
              class="form-control"
              popup-placement="bottom"
              uib-datepicker-popup="{{format}}"
-             ng-model="dt"
+             ng-model="date"
              is-open="popup.opened"
              datepicker-options="dateOptions"
-             show-button-bar="false"
-             alt-input-formats="altInputFormats" />
+             show-button-bar="false">
            <span class="input-group-btn">
              <button type="button" class="btn btn-default" ng-click="open()"><i class="glyphicon glyphicon-calendar"></i></button>
            </span>
@@ -80,5 +79,10 @@
           ng-options="profissional.id as profissional.nome for profissional in profissionais">
         </select>
       </div>
+      <div class="btn-group btn-group-justified">
+        <a class="btn btn-primary btn-lg" ng-click="agendar()"><span class="glyphicon glyphicon-ok"></span> Agendar</a>
+        <a class="btn btn-default btn-lg" ><span class="glyphicon glyphicon-trash"></span> Limpar</a>
+      </div>
     </form>
+    <br>
 </div>

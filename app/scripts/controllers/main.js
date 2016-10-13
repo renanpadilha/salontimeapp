@@ -1,12 +1,4 @@
 'use strict';
-
-/**
- * @ngdoc function
- * @name salontimeApp.controller:MainCtrl
- * @description
- * # MainCtrl
- * Controller of the salontimeApp
- */
 angular.module('salontimeApp')
   .controller('MainCtrl', function ($scope, $routeParams, Main, $http) {
     const API_URL = 'http://localhost:9002/api/v1';
@@ -37,6 +29,37 @@ angular.module('salontimeApp')
       });
     };
 
+    //@TODO criar método para validar se a hora está ocupada ou não
+    $scope.validaData = function(){
+
+    };
+
+    //@TODO melhorar essa data/hora, por hora está funcionando
+    var date = moment($scope.date).format('YYYY-MM-DD');
+    var time = moment($scope.time).format('HH:mm:ss');
+    $scope.data =  date + ' ' + time;
+
+    $scope.agendar = function(){
+      //@TODO O ID DO USUÁRIO DEVE SER O ID DE QUEM ESTÁ LOGADO NA APLICAÇÃO
+      var dadosAgendamento = {
+        id_estabelecimento: $scope.estabelecimentos[0].id,
+        id_profissional: $scope.profissionais[0].id,
+        id_servico: $scope.servicos[0].id,
+        data: $scope.data
+      };
+
+      console.log(dadosAgendamento);
+
+      if(!dadosAgendamento) {
+        console.log('Não foram encontrados dados para solicitação');
+        return;
+      }
+      $http.post(API_URL + '/clientes/' + 1 + '/agendamentos', dadosAgendamento).then(function(response){
+        $scope.mensagem = response.data;
+        console.log($scope.mensagem);
+      });
+    };
+
     /* DATEPICKER + TIMEPICKER */
     $scope.dateOptions = {
       dateDisabled: disabled,
@@ -59,11 +82,10 @@ angular.module('salontimeApp')
     };
 
     $scope.setDate = function(year, month, day) {
-      $scope.dt = new Date(year, month, day);
+      $scope.date = new Date(year, month, day);
     };
 
     $scope.format = 'dd/MM/yyyy';
-    $scope.altInputFormats = 'dd/MM/yyyy';
 
     $scope.popup = {
       opened: false
@@ -71,6 +93,7 @@ angular.module('salontimeApp')
 
     $scope.time = new Date();
     $scope.time.setMinutes(0);
+    $scope.time.setSeconds(0);
     $scope.hstep = 1;
     $scope.mstep = 30;
     $scope.ismeridian = false;
