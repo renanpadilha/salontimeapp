@@ -25,38 +25,15 @@
           ng-options="servico.id as servico.nome for servico in servicos">
         </select>
       </div>
-      <div class="row">
-        <div class="col-xs-6">
-        <label for="hora"><span class="glyphicon glyphicon-calendar"></span> Data</label>
-         <p class="input-group">
-           <input
-             type="text"
-             class="form-control"
-             popup-placement="bottom"
-             uib-datepicker-popup="{{format}}"
-             ng-model="date"
-             is-open="popup.opened"
-             datepicker-options="dateOptions"
-             show-button-bar="false">
-           <span class="input-group-btn">
-             <button type="button" class="btn btn-default" ng-click="open()"><i class="glyphicon glyphicon-calendar"></i></button>
-           </span>
-         </p>
-        </div>
-          <div class="col-xs-6">
-            <div class="form-group">
-              <label for="hora"><span class="glyphicon glyphicon-time"></span> Hora</label>
-              <div
-                uib-timepicker
-                ng-model="time"
-                ng-change="changed()"
-                hour-step="hstep"
-                minute-step="mstep"
-                readonly-input="true"
-                show-meridian="false">
-              </div>
-            </div>
-          </div>
+      <div class="form-group">
+        <label for="datahora"><span class="glyphicon glyphicon-calendar"></span> Data</label>
+        <input
+          type="datetime-local"
+          min=8:00 max=19:00 step=1800
+          id="datahora"
+          name="datahora"
+          class="form-control"
+          ng-model="datahora">
       </div>
       <div class="form-group">
           <label for="estabelecimento"><span class="glyphicon glyphicon-list"></span> Estabelecimento</label>

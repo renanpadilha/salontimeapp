@@ -39,13 +39,15 @@ angular.module('salontimeApp')
     var time = moment($scope.time).format('HH:mm:ss');
     $scope.data =  date + ' ' + time;
 
+    console.log('dataHORA', $scope.datahora);
+
     $scope.agendar = function(){
       //@TODO O ID DO USUÁRIO DEVE SER O ID DE QUEM ESTÁ LOGADO NA APLICAÇÃO
       var dadosAgendamento = {
         id_estabelecimento: $scope.estabelecimentos[0].id,
         id_profissional: $scope.profissionais[0].id,
         id_servico: $scope.servicos[0].id,
-        data: $scope.data
+        data: $scope.datahora
       };
 
       console.log(dadosAgendamento);

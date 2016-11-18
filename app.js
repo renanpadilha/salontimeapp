@@ -88,6 +88,7 @@ app.post('/api/v1/clientes/:id/agendamentos', function(req, res){
     id_servico: req.body.id_servico,
     data: req.body.data
   };
+  console.log('hora api', agendamento.data);
   knex.insert(agendamento).into('agendamento').then(function (id){
     console.log(id);
     res.status(201).json(agendamento);
