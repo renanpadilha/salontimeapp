@@ -1,7 +1,7 @@
 'use strict';
 angular.module('salontimeApp')
   .controller('MainCtrl', function ($scope, $routeParams, $http) {
-    const API_URL = 'http://localhost:9002/api/v1';
+    const API_URL = 'https://salontime.herokuapp.com/api/v1';
     $scope.agendamento = {};
 
     $http.get(API_URL + '/categorias').then(function(response){
