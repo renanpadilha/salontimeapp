@@ -41,8 +41,6 @@
     "test": "karma start test\\karma.conf.js"
   },
   "dependencies": {
-    "angular-bootstrap-datetimepicker": "^1.1.2",
-    "angular-ui-bootstrap": "^2.1.4",
     "moment": "^2.15.1"
   }
 }

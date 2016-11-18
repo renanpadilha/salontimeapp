@@ -1,6 +1,6 @@
 'use strict';
 angular.module('salontimeApp')
-  .controller('MainCtrl', function ($scope, $routeParams, Main, $http) {
+  .controller('MainCtrl', function ($scope, $routeParams, $http) {
     const API_URL = 'http://localhost:9002/api/v1';
     $scope.agendamento = {};
 
