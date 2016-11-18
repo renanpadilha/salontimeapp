@@ -89,9 +89,9 @@ app.post('/api/v1/clientes/:id/agendamentos', function(req, res){
     data: req.body.data
   };
   console.log('hora api', agendamento.data);
-  knex.insert(agendamento).into('agendamento').then(function (id){
-    console.log(id);
-    res.status(201).json(agendamento);
+  knex.insert(agendamento).into('agendamento').returning('*').then(function (data){
+    console.log(data);
+    res.status(201).json(data);
   });
 });
 /* LISTA TODOS OS AGENDAMENTOS DE UM CLIENTE*/

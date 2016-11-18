@@ -35,11 +35,15 @@ angular.module('salontimeApp')
     };
 
     $scope.valorData = function(){
+      console.log($scope.datahora.getTime());
+      //var dataLocal = moment.parseZone($scope.datahora).local().format();
+      var dataLocal = moment($scope.datahora).local().format();
+      console.log('datalocal', dataLocal);
     };
 
 
     $scope.agendar = function(){
-      var dataLocal = moment($scope.datahora).local().format();
+      var dataLocal = moment($scope.datahora.getTime()).local().format();
       //@TODO O ID DO USUÁRIO DEVE SER O ID DE QUEM ESTÁ LOGADO NA APLICAÇÃO
       var dadosAgendamento = {
         id_estabelecimento: $scope.estabelecimentos[0].id,
