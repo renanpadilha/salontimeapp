@@ -90,7 +90,7 @@ app.post('/api/v1/clientes/:id/agendamentos', function(req, res){
   };
   console.log('hora api', agendamento.data);
   knex.insert(agendamento).into('agendamento').returning('*').then(function (data){
-    console.log(data);
+    res.setHeader('Location', `/api/v1/clientes/${req.params.id}/agendamentos/${req.data.id}`);
     res.status(201).json(data);
   });
 });
