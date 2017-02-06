@@ -12,6 +12,7 @@ angular.module('salontimeApp')
       $http.get(API_URL + '/categorias/' + $scope.categoriaSelecionada + '/servicos').then(function(response){
           $scope.servicos = response.data;
           console.log($scope.servicos);
+          console.log('lul');
       });
     };
 
