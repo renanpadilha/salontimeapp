@@ -2,12 +2,11 @@
 
 /**
  * @ngdoc service
- * @name salontimeApp.estabelecimentos
+ * @name salontimeApp.clientes
  * @description
- * # estabelecimentos
  * Service in the salontimeApp.
  */
 angular.module('salontimeApp')
-  .service('Main', function ($http, $routeParams) {
+  .service('Clientes', function ($http, $routeParams) {
 
   });
