@@ -1,0 +1,50 @@
+<div class="container">
+  <header>
+    <h2>
+      Agendamentos
+    </h2>
+  </header>
+  <div class="panel panel-default">
+  <div class="panel-heading">
+    <h2 class="panel-title">Agendamentos</h2>
+  </div>
+  <div class="panel-body">
+    <div class="row">
+      <div class="col-lg-2">
+        <span>Serviço</span>
+      </div>
+      <div class="col-lg-4">
+        <span>Data</span>
+      </div>
+      <div class="col-lg-2">
+        <span>Estabelecimento</span>
+      </div>
+      <div class="col-lg-2">
+        <span>Profissional</span>
+      </div>
+      <div class="col-lg-2">
+        <span>Ações</span>
+      </div>
+    </div>
+    <div
+      class="row"
+      ng-repeat="agendamento in agendamentos track by $index">
+      <div class="col-lg-2">
+        <span>{{agendamento.nome}}</span>
+      </div>
+      <div class="col-lg-4">
+        <span>{{agendamento.data}}</span>
+      </div>
+      <div class="col-lg-2">
+        <span>{{agendamento.estabelecimento}}</span>
+      </div>
+      <div class="col-lg-2">
+        <span>{{agendamento.profissional}}</span>
+      </div>
+      <div class="col-lg-2">
+        <button type="button" class="btn btn-primary">Cancelar</button>
+      </div>
+    </div>
+  </div>
+</div>
+</div>

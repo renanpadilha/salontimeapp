@@ -25,25 +25,15 @@ angular
         controller: 'MainCtrl',
         controllerAs: 'main'
       })
-      .when('/about', {
-        templateUrl: 'views/about.html',
-        controller: 'AboutCtrl',
-        controllerAs: 'about'
-      })
       .when('/agendamentos', {
-        templateUrl: 'views/agendamentos.html',
+        templateUrl: 'views/agendamentos/index.html',
         controller: 'AgendamentosCtrl',
-        controllerAs: 'agendamentos'
+        controllerAs: 'ctrl'
       })
-      .when('/clientes', {
-        templateUrl: 'views/clientes.html',
-        controller: 'ClientesCtrl',
-        controllerAs: 'clientes'
-      })
-      .when('/estabelecimentos', {
-        templateUrl: 'views/estabelecimentos.html',
-        controller: 'EstabelecimentosCtrl',
-        controllerAs: 'estabelecimentos'
+      .when('/agendamentos/edit/:id', {
+        templateUrl: 'views/agendamentos/edit.html',
+        controller: 'AgendamentosEditCtrl',
+        controllerAs: 'ctrl'
       })
       .otherwise({
         redirectTo: '/'
