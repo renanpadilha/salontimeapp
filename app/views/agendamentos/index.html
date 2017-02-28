@@ -29,6 +29,7 @@
     <div
       class="row"
       ng-repeat="agendamento in agendamentos track by $index">
+      {{agendamento | json}}
       <div class="col-lg-2">
         <span>{{agendamento.nome}}</span>
       </div>

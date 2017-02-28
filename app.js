@@ -97,8 +97,17 @@ app.post('/api/v1/clientes/:id/agendamentos', function(req, res){
 /* LISTA TODOS OS AGENDAMENTOS DE UM CLIENTE*/
 app.get('/api/v1/clientes/:id/agendamentos', function(req, res){
   var id_cliente = req.params.id;
-  knex.select('*').from('agendamento').where({id_cliente: id_cliente}).then(function (agendamentos) {
-    console.log(agendamentos);
+  knex.raw("SELECT s.nome as servicoNome, a.data AS data, e.nome AS nomeEstabelecimento, p.nome AS profissionalNome FROM"
+        +  "agendamento a"
+        +  "JOIN estabelecimento e"
+        +  "ON id_estabelecimento = e.id"
+        +  "JOIN servico s"
+        +  "ON id_servico = s.id"
+        +  "JOIN profissional p"
+        +  "ON id_profissional = p.id"
+        +  "WHERE id_cliente = ?", id_cliente)
+  .then(function (agendamentos) {
+    console.log('aqui', agendamentos);
     res.json(agendamentos);
   }).catch(function(err) {
     console.log(err);
