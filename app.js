@@ -3,7 +3,7 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var app = express();
 var router = express.Router();
-var port = process.env.PORT || 9002;
+var port = process.env.PORT || 3000;
 var knex = require('knex')({
   client: 'pg',
   connection: {

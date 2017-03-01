@@ -18,7 +18,16 @@ angular.module('salontimeApp')
           console.log(error);
           return;
         }
-        alert(data);
+        switch (data.status) {
+          case 204:
+            alert('Agendamento cancelado com sucesso');
+            break;
+          case 404:
+            alert('Não foi possível localizar o agendamento');
+            break;
+          default:
+            alert('Não foi possível cancelar o agendamento');
+        }
       });
     };
 
