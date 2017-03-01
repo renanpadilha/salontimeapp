@@ -99,7 +99,7 @@ app.get('/api/v1/clientes/:id/agendamentos', function(req, res){
   var id_cliente = req.params.id;
   knex.raw("SELECT s.nome AS servicoNome, a.data AS dataAgendamento, e.nome AS estabelecimentoNome, p.nome AS profissionalNome FROM agendamento a JOIN estabelecimento e ON a.id_estabelecimento = e.id JOIN servico s ON a.id_servico = s.id JOIN profissional p ON a.id_profissional = p.id WHERE id_cliente = ?", id_cliente)
   .then(function (agendamentos) {
-    res.json(agendamentos.row);
+    res.json(agendamentos.rows);
   }).catch(function(err) {
     console.log(err);
   });
