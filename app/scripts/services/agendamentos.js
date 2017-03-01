@@ -21,4 +21,14 @@ angular.module('salontimeApp')
         callback(error, null);
       });
     };
+
+    this.cancel = function(id, callback) {
+      $http.delete(API_URL + '/agendamentos/' + id)
+      .then(function(response) {
+        console.log('resposta delete',response);
+        callback(null, response);
+      }, function(error){
+        callback(error, null);
+      });
+    }
   });

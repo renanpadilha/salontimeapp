@@ -14,7 +14,6 @@ angular.module('salontimeApp')
     this.getAgendamentos = function(callback) {
       $http.get(API_URL + '/clientes/' + 1 + '/agendamentos')
       .then(function(response) {
-        console.log(response);
         callback(null, response.data);
       }, function(error) {
         callback(error, null);

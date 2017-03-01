@@ -88,7 +88,6 @@ app.post('/api/v1/clientes/:id/agendamentos', function(req, res){
     id_servico: req.body.id_servico,
     data: req.body.data
   };
-  console.log('hora api', agendamento.data);
   knex.insert(agendamento).into('agendamento').returning('*').then(function (data){
     res.setHeader('Location', `/api/v1/clientes/${req.params.id}/agendamentos/${req.data.id}`);
     res.status(201).json(data);
@@ -96,7 +95,7 @@ app.post('/api/v1/clientes/:id/agendamentos', function(req, res){
 });
 
 /* EXCLUI UM AGENDAMENTO */
-app.delete('api/v1/agendamentos/:id', function(req, res) {
+app.delete('/api/v1/agendamentos/:id', function(req, res) {
   id_agendamento = req.params.id;
   knex('agendamento').where({id: id_agendamento}).del()
   .then(function(id) {
@@ -195,7 +194,8 @@ app.put('/api/v1/estabelecimentos/:id', function(req, res){
 
 app.delete('/api/v1/estabelecimentos/:id', function(req, res){
   var id = req.params.id;
-  knex('estabelecimento').where({id: id}).del().then(function(estabelecimento) {
+  knex('estabelecimento').where({id: id}).del()
+  .then(function(estabelecimento) {
     res.status(204).json();
   });
 });

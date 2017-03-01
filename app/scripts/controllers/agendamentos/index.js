@@ -9,7 +9,16 @@ angular.module('salontimeApp')
           return;
         }
         $scope.agendamentos = agendamentos;
-        console.log('Agendamentos, lul', $scope.agendamentos);
+      });
+    };
+
+    $scope.cancelarAgendamento = function(id) {
+      Agendamentos.cancel(id, function(error, data) {
+        if(error) {
+          console.log(error);
+          return;
+        }
+        alert(data);
       });
     };
 
