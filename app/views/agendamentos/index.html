@@ -9,7 +9,28 @@
     <h2 class="panel-title">Agendamentos</h2>
   </div>
   <div class="panel-body">
-    <div class="row">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Serviço</th>
+          <th>Data</th>
+          <th>Estabelecimento</th>
+          <th>Profissional</th>
+          <th>Ações</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="agendamento in agendamentos track by $index">
+          <td>{{agendamento.serviconome}}</td>
+          <td>{{agendamento.dataagendamento | date:'dd/MM/yy HH:mm'}}</td>
+          <td>{{agendamento.estabelecimentonome}}</td>
+          <td>{{agendamento.profissionalnome}}</td>
+          <td>{{$index}}</td>
+          <!-- <td><button ng-click="cancelarAgendamento($index)" type="button" class="btn btn-primary">Cancelar</button></td> -->
+        </tr>
+      </tbody>
+    </table>
+    <!-- <div class="row">
       <div class="col-lg-2">
         <span>Serviço</span>
       </div>
@@ -25,26 +46,26 @@
       <div class="col-lg-2">
         <span>Ações</span>
       </div>
-    </div>
-    <div
+    </div> -->
+    <!-- <div
       class="row"
       ng-repeat="agendamento in agendamentos track by $index">
       <div class="col-lg-2">
-        <span>{{agendamento.nome}}</span>
+        <span>{{agendamento.serviconome}}</span>
       </div>
       <div class="col-lg-4">
-        <span>{{agendamento.data}}</span>
+        <span>{{agendamento.dataagendamento | date:'dd/MM/yy HH:mm'}}</span>
       </div>
       <div class="col-lg-2">
-        <span>{{agendamento.estabelecimento}}</span>
+        <span>{{agendamento.estabelecimentonome}}</span>
       </div>
       <div class="col-lg-2">
-        <span>{{agendamento.profissional}}</span>
+        <span>{{agendamento.profissionalnome}}</span>
       </div>
       <div class="col-lg-2">
         <button type="button" class="btn btn-primary">Cancelar</button>
       </div>
-    </div>
+    </div> -->
   </div>
 </div>
 </div>
