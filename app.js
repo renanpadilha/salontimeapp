@@ -94,6 +94,19 @@ app.post('/api/v1/clientes/:id/agendamentos', function(req, res){
     res.status(201).json(data);
   });
 });
+
+/* EXCLUI UM AGENDAMENTO */
+app.delete('api/v1/agendamentos/:id', function(req, res) {
+  id_agendamento = req.params.id;
+  knex('agendamento').where({id: id_agendamento}).del()
+  .then(function(id) {
+    console.log('Agendamento' + id + 'cancelado');
+    res.status(204).json();
+  }).catch(function(error) {
+    console.log(error);
+  });
+});
+
 /* LISTA TODOS OS AGENDAMENTOS DE UM CLIENTE*/
 app.get('/api/v1/clientes/:id/agendamentos', function(req, res){
   var id_cliente = req.params.id;
