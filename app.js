@@ -3,7 +3,7 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var app = express();
 var router = express.Router();
-var port = process.env.PORT || 9002;
+var port = process.env.PORT || 3000;
 var knex = require('knex')({
   client: 'pg',
   connection: {
@@ -88,27 +88,30 @@ app.post('/api/v1/clientes/:id/agendamentos', function(req, res){
     id_servico: req.body.id_servico,
     data: req.body.data
   };
-  console.log('hora api', agendamento.data);
   knex.insert(agendamento).into('agendamento').returning('*').then(function (data){
     res.setHeader('Location', `/api/v1/clientes/${req.params.id}/agendamentos/${req.data.id}`);
     res.status(201).json(data);
   });
 });
+
+/* EXCLUI UM AGENDAMENTO */
+app.delete('/api/v1/agendamentos/:id', function(req, res) {
+  id_agendamento = req.params.id;
+  knex('agendamento').where({id: id_agendamento}).del()
+  .then(function(id) {
+    console.log('Agendamento' + id + 'cancelado');
+    res.status(204).json();
+  }).catch(function(error) {
+    console.log(error);
+  });
+});
+
 /* LISTA TODOS OS AGENDAMENTOS DE UM CLIENTE*/
 app.get('/api/v1/clientes/:id/agendamentos', function(req, res){
   var id_cliente = req.params.id;
-  knex.raw("SELECT s.nome as servicoNome, a.data AS data, e.nome AS nomeEstabelecimento, p.nome AS profissionalNome FROM"
-        +  "agendamento a"
-        +  "JOIN estabelecimento e"
-        +  "ON id_estabelecimento = e.id"
-        +  "JOIN servico s"
-        +  "ON id_servico = s.id"
-        +  "JOIN profissional p"
-        +  "ON id_profissional = p.id"
-        +  "WHERE id_cliente = ?", id_cliente)
+  knex.raw("SELECT a.id, s.nome AS servicoNome, a.data AS dataAgendamento, e.nome AS estabelecimentoNome, p.nome AS profissionalNome FROM agendamento a JOIN estabelecimento e ON a.id_estabelecimento = e.id JOIN servico s ON a.id_servico = s.id JOIN profissional p ON a.id_profissional = p.id WHERE id_cliente = ?", id_cliente)
   .then(function (agendamentos) {
-    console.log('aqui', agendamentos);
-    res.json(agendamentos);
+    res.json(agendamentos.rows);
   }).catch(function(err) {
     console.log(err);
   });
@@ -191,7 +194,8 @@ app.put('/api/v1/estabelecimentos/:id', function(req, res){
 
 app.delete('/api/v1/estabelecimentos/:id', function(req, res){
   var id = req.params.id;
-  knex('estabelecimento').where({id: id}).del().then(function(estabelecimento) {
+  knex('estabelecimento').where({id: id}).del()
+  .then(function(estabelecimento) {
     res.status(204).json();
   });
 });
