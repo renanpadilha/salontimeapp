@@ -9,7 +9,7 @@
 angular.module('salontimeApp')
   .service('Categorias', function ($http, $routeParams) {
     var service = this;
-    const API_URL = 'https://salontime.herokuapp.com/api/v1';
+    const API_URL = 'http://localhost:4002/api/v1';
 
     this.all = function(callback) {
       $http.get(API_URL + '/categorias')

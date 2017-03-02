@@ -91,30 +91,32 @@ CREATE TABLE agendamento (
     FOREIGN KEY (id_servico)
     REFERENCES servico (id)
 );
+INSERT INTO usuarios (username, password, tipo, criado_em) VALUES ('renan', '123123', 'C', CURRENT_TIMESTAMP);
+INSERT INTO usuarios (username, password, tipo, criado_em) VALUES ('dede', '123123', 'E', CURRENT_TIMESTAMP);
 
-INSERT INTO cliente (nome, email, senha, telefone, criado_em) VALUES ('Renan', 'renanpadilha94@hotmail.com', '12345', '5184941322', CURRENT_TIMESTAMP);
-INSERT INTO cliente (nome, email, senha, telefone, criado_em) VALUES ('Déffany', 'deffanyo@gmail.com', '12345', '5199853364', CURRENT_TIMESTAMP);
-INSERT INTO estabelecimento (nome, email, senha, endereco, telefone, criado_em) VALUES ('Hugo Beauty', 'contato@hugobeauty.com.br', '12345', 'Avenida Ipiranga, 8433', '5184941322',CURRENT_TIMESTAMP);
-INSERT INTO estabelecimento (nome, email, senha, endereco, telefone, criado_em) VALUES ('Salão da Dona Ana', 'contato@salaodonaana.com.br', '12345', 'Rua José Alves de Castro, 522', '5133332222',CURRENT_TIMESTAMP);
-INSERT INTO categoria(nome) VALUES ('Barba');
-INSERT INTO categoria(nome) VALUES ('Cabelo');
-INSERT INTO categoria(nome) VALUES ('Depilação');
-INSERT INTO categoria(nome) VALUES ('Estética Corporal');
-INSERT INTO categoria(nome) VALUES ('Estética Facial');
-INSERT INTO categoria(nome) VALUES ('Manicure e Pedicure');
-INSERT INTO categoria(nome) VALUES ('Maquiagem');
-INSERT INTO categoria(nome) VALUES ('Massagem');
-INSERT INTO categoria(nome) VALUES ('Podologia');
-INSERT INTO categoria(nome) VALUES ('Outros');
+INSERT INTO clientes (nome, email, telefone, id_usuario, criado_em) VALUES ('Renan', 'renanpadilha94@hotmail.com', '5184941322', 1, CURRENT_TIMESTAMP);
+INSERT INTO clientes (nome, email, telefone, id_usuario, criado_em) VALUES ('Déffany', 'deffanyo@gmail.com', '5199853364', 2, CURRENT_TIMESTAMP);
+INSERT INTO estabelecimentos (nome, email, endereco, telefone, criado_em) VALUES ('Hugo Beauty', 'contato@hugobeauty.com.br', 'Avenida Ipiranga, 8433', '5184941322',CURRENT_TIMESTAMP);
+INSERT INTO estabelecimentos (nome, email, endereco, telefone, criado_em) VALUES ('Salão da Dona Ana', 'contato@salaodonaana.com.br', 'Rua José Alves de Castro, 522', '5133332222',CURRENT_TIMESTAMP);
+INSERT INTO categorias(nome) VALUES ('Barba');
+INSERT INTO categorias(nome) VALUES ('Cabelo');
+INSERT INTO categorias(nome) VALUES ('Depilação');
+INSERT INTO categorias(nome) VALUES ('Estética Corporal');
+INSERT INTO categorias(nome) VALUES ('Estética Facial');
+INSERT INTO categorias(nome) VALUES ('Manicure e Pedicure');
+INSERT INTO categorias(nome) VALUES ('Maquiagem');
+INSERT INTO categorias(nome) VALUES ('Massagem');
+INSERT INTO categorias(nome) VALUES ('Podologia');
+INSERT INTO categorias(nome) VALUES ('Outros');
 
-INSERT INTO servico(nome, duracao ,id_categoria) VALUES ('Corte masculino', 30, 2);
-INSERT INTO servico(nome, duracao ,id_categoria) VALUES ('Depilação peito', 30, 3);
-INSERT INTO servico(nome, duracao ,id_categoria) VALUES ('Mão', 60, 6);
+INSERT INTO servicos(nome, duracao ,id_categoria) VALUES ('Corte masculino', 30, 2);
+INSERT INTO servicos(nome, duracao ,id_categoria) VALUES ('Depilação peito', 30, 3);
+INSERT INTO servicos(nome, duracao ,id_categoria) VALUES ('Mão', 60, 6);
 
-INSERT INTO profissional (nome, email, telefone, porcentagem, id_estabelecimento, criado_em) VALUES ('Juliana', 'renanpadilha94@hotmail.com', '5184941322', 70, 1, CURRENT_TIMESTAMP);
-INSERT INTO profissional (nome, email, telefone, porcentagem, id_estabelecimento, criado_em) VALUES ('Craudete', 'deffanyo@gmail.com', '51984242312', 50, 2, CURRENT_TIMESTAMP);
-INSERT INTO estabelecimento_servico (preco, id_estabelecimento, id_servico) VALUES (30, 1, 1);
-INSERT INTO estabelecimento_servico (preco, id_estabelecimento, id_servico) VALUES (30, 2, 2);
-INSERT INTO profissional_servico (id_profissional, id_servico) VALUES (1, 1);
-INSERT INTO profissional_servico (id_profissional, id_servico) VALUES (1, 2);
-INSERT INTO profissional_servico (id_profissional, id_servico) VALUES (2, 2);
+INSERT INTO profissionais (nome, email, telefone, porcentagem, id_estabelecimento, criado_em) VALUES ('Juliana', 'renanpadilha94@hotmail.com', '5184941322', 70, 1, CURRENT_TIMESTAMP);
+INSERT INTO profissionais (nome, email, telefone, porcentagem, id_estabelecimento, criado_em) VALUES ('Craudete', 'deffanyo@gmail.com', '51984242312', 50, 2, CURRENT_TIMESTAMP);
+INSERT INTO estabelecimentos_servicos (preco, id_estabelecimento, id_servico) VALUES (30, 1, 1);
+INSERT INTO estabelecimentos_servicos (preco, id_estabelecimento, id_servico) VALUES (30, 2, 2);
+INSERT INTO profissionais_servicos (id_profissional, id_servico) VALUES (1, 1);
+INSERT INTO profissionais_servicos (id_profissional, id_servico) VALUES (1, 2);
+INSERT INTO profissionais_servicos (id_profissional, id_servico) VALUES (2, 2);

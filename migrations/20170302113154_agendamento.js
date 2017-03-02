@@ -1,5 +1,5 @@
 exports.up = (knex, Promise) => {
-  return knex.schema.createTable('clientes', (table) => {
+  return knex.schema.createTableIfNotExists('agendamentos', (table) => {
     table.increments('id').primary();
     table.timestamp('data').notNullable();
     table.integer('id_estabelecimento').references('estabelecimentos.id');
@@ -11,5 +11,5 @@ exports.up = (knex, Promise) => {
 };
 
 exports.down = (knex, Promise) => {
-  return knex.schema.dropTable('clientes');
+  return knex.schema.dropTableIfExists('agendamentos');
 };

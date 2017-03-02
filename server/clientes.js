@@ -1,7 +1,7 @@
 module.exports = function(app) {
-  var knex  = require('./db');
+  var knex  = require('../db');
   app.get('/api/v1/clientes', function(req, res, next) {
-    knex.select("*").from('cliente').then(function(clientes) {
+    knex.select("*").from('clientes').then(function(clientes) {
       console.log(clientes);
       res.json(clientes);
     });
@@ -9,7 +9,7 @@ module.exports = function(app) {
 
   app.get('/api/v1/clientes/:id', function(req, res, next) {
     var id_cliente = req.params.id;
-    knex.select("*").from('cliente').where({id: id}).then(function(cliente) {
+    knex.select("*").from('clientes').where({id: id}).then(function(cliente) {
       res.json(cliente);
     });
   });
@@ -21,29 +21,44 @@ module.exports = function(app) {
       senha: req.body.senha,
       telefone: req.body.telefone
     };
-    knex.insert(cliente).into('cliente').then(function(cliente) {
+    knex.insert(cliente).into('clientes').then(function(cliente) {
       res.status(201).json(cliente);
     });
   });
 
   app.put('/api/v1/clientes/:id', function(req, res){
     var id = req.params.id;
-    knex('cliente').where({id: id}).update(req.body).then(function(cliente) {
+    knex('clientes').where({id: id}).update(req.body).then(function(cliente) {
       res.status(204).json(cliente);
     });
   });
 
   app.delete('/api/v1/clientes/:id', function(req, res){
     var id = req.params.id;
-    knex('cliente').where({id: id}).del().then(function(cliente) {
+    knex('clientes').where({id: id}).del().then(function(cliente) {
       res.status(204).json();
+    });
+  });
+
+  /* CRIA UM AGENDAMENTO */
+  app.post('/api/v1/clientes/:id/agendamentos', function(req, res){
+    var agendamento = {
+      id_cliente: req.params.id,
+      id_estabelecimento: req.body.id_estabelecimento,
+      id_profissional: req.body.id_profissional,
+      id_servico: req.body.id_servico,
+      data: req.body.data
+    };
+    knex.insert(agendamento).into('agendamentos').returning('*').then(function (data){
+      res.setHeader('Location', `/api/v1/clientes/${req.params.id}/agendamentos/${req.data.id}`);
+      res.status(201).json(data);
     });
   });
 
   /* LISTA TODOS OS AGENDAMENTOS DE UM CLIENTE*/
   app.get('/api/v1/clientes/:id/agendamentos', function(req, res){
     var id_cliente = req.params.id;
-    knex.raw("SELECT a.id, s.nome AS servicoNome, a.data AS dataAgendamento, e.nome AS estabelecimentoNome, p.nome AS profissionalNome FROM agendamento a JOIN estabelecimento e ON a.id_estabelecimento = e.id JOIN servico s ON a.id_servico = s.id JOIN profissional p ON a.id_profissional = p.id WHERE id_cliente = ?", id_cliente)
+    knex.raw("SELECT a.id, s.nome AS servicoNome, a.data AS dataAgendamento, e.nome AS estabelecimentoNome, p.nome AS profissionalNome FROM agendamentos a JOIN estabelecimentos e ON a.id_estabelecimento = e.id JOIN servicos s ON a.id_servico = s.id JOIN profissionais p ON a.id_profissional = p.id WHERE id_cliente = ?", id_cliente)
     .then(function (agendamentos) {
       res.json(agendamentos.rows);
     }).catch(function(err) {
@@ -55,7 +70,7 @@ module.exports = function(app) {
   app.get('/api/v1/clientes/:id/agendamentos/:id_agendamento', function(req, res){
     var id_cliente = req.params.id;
     var id_agendamento = req.params.id_agendamento;
-    knex.select('*').from('agendamento').where({id: id_agendamento, id_cliente: id_cliente}).then(function (agendamentos) {
+    knex.select('*').from('agendamentos').where({id: id_agendamento, id_cliente: id_cliente}).then(function (agendamentos) {
       console.log(agendamentos);
       res.json(agendamentos);
     }).catch(function(err) {
@@ -67,7 +82,7 @@ module.exports = function(app) {
   app.get('/api/v1/clientes/:id/estabelecimentos/:id_estabelecimento/agendamentos', function(req, res){
     var id_cliente = req.params.id;
     var id_estabelecimento = req.params.id_estabelecimento;
-    knex.select('*').from('agendamento').where({id_estabelecimento: id_estabelecimento, id_cliente: id_cliente}).then(function (agendamentos) {
+    knex.select('*').from('agendamentos').where({id_estabelecimento: id_estabelecimento, id_cliente: id_cliente}).then(function (agendamentos) {
       console.log(agendamentos);
       res.json(agendamentos);
     }).catch(function(err) {
@@ -81,28 +96,13 @@ module.exports = function(app) {
     var id_estabelecimento = req.params.id_estabelecimento;
     var id_agendamento = req.params.id_agendamento;
     knex.select('*')
-    .from('agendamento')
+    .from('agendamentos')
     .where({id_estabelecimento: id_estabelecimento, id_cliente: id_cliente, id: id_agendamento})
     .then(function (agendamentos) {
       console.log(agendamentos);
       res.json(agendamentos);
     }).catch(function(err) {
       console.log(err);
-    });
-  });
-
-  /* CRIA UM AGENDAMENTO */
-  app.post('/api/v1/clientes/:id/agendamentos', function(req, res){
-    var agendamento = {
-      id_cliente: req.params.id,
-      id_estabelecimento: req.body.id_estabelecimento,
-      id_profissional: req.body.id_profissional,
-      id_servico: req.body.id_servico,
-      data: req.body.data
-    };
-    knex.insert(agendamento).into('agendamento').returning('*').then(function (data){
-      res.setHeader('Location', `/api/v1/clientes/${req.params.id}/agendamentos/${req.data.id}`);
-      res.status(201).json(data);
     });
   });
 }
