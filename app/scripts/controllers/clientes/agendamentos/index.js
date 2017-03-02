@@ -1,6 +1,6 @@
 'use strict';
 angular.module('salontimeApp')
-  .controller('AgendamentosCtrl', function ($scope, $routeParams, Agendamentos, Clientes) {
+  .controller('ClientesAgendamentosCtrl', function ($scope, $routeParams, ClientesAgendamentos, Clientes) {
     $scope.agendamentos = {};
     $scope.init = function() {
       Clientes.getAgendamentos(function(error, agendamentos) {
@@ -28,6 +28,7 @@ angular.module('salontimeApp')
           default:
             alert('Não foi possível cancelar o agendamento');
         }
+        $scope.init();
       });
     };
 

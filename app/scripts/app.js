@@ -25,14 +25,14 @@ angular
         controller: 'MainCtrl',
         controllerAs: 'main'
       })
-      .when('/agendamentos', {
-        templateUrl: 'views/agendamentos/index.html',
-        controller: 'AgendamentosCtrl',
+      .when('/clientes/agendamentos', {
+        templateUrl: 'views/clientes/agendamentos/index.html',
+        controller: 'ClientesAgendamentosCtrl',
         controllerAs: 'ctrl'
       })
-      .when('/agendamentos/edit/:id', {
-        templateUrl: 'views/agendamentos/edit.html',
-        controller: 'AgendamentosEditCtrl',
+      .when('/estabelecimentos/agendamentos', {
+        templateUrl: 'views/estabelecimentos/agendamentos/index.html',
+        controller: 'EstabelecimentosAgendamentosCtrl',
         controllerAs: 'ctrl'
       })
       .otherwise({
