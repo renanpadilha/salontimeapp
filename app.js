@@ -211,6 +211,18 @@ app.get('/api/v1/estabelecimentos/:id/agendamentos', function(req, res){
   });
 });
 
+/* LISTA OS PROFISSIONAIS DO ESTABELECIMENTO*/
+
+app.get('/api/v1/estabelecimentos/:id/profissionais', function(req, res){
+  var id_estabelecimento = req.params.id;
+  knex.raw("SELECT p.id, p.nome, p.email, p.telefone, p.porcentagem FROM profissional p JOIN estabelecimento e ON p.id_estabelecimento = e.id WHERE e.id = ?", id_estabelecimento)
+  .then(function (profissionais) {
+    res.json(profissionais.rows);
+  }).catch(function(err) {
+    console.log(err);
+  });
+});
+
 /* LISTA OS AGENDAMENTOS DE UM CLIENTE ESPECÍFICO*/
 app.get('/api/v1/estabelecimentos/:id/agendamentos/clientes/:id_cliente', function(req, res) {
   var id_estabelecimento = req.params.id;

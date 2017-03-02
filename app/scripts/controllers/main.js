@@ -1,6 +1,6 @@
 'use strict';
 angular.module('salontimeApp')
-  .controller('MainCtrl', function ($scope, $routeParams, $http, Agendamentos, Categorias, Servicos, Estabelecimentos) {
+  .controller('MainCtrl', function ($scope, $routeParams, $http, ClientesAgendamentos, Categorias, Servicos, Estabelecimentos) {
     const API_URL = 'https://salontime.herokuapp.com/api/v1';
     $scope.agendamento = {};
     //@TODO INICIALIZAR TODAS AS VARIÁVEIS NECESSARIAS NO INIT
@@ -38,7 +38,7 @@ angular.module('salontimeApp')
     };
 
     $scope.atualizaProfissionais = function() {
-      Estabelecimentos.getProfissionais($scope.estabelecimentoSelecionado, $scope.servicoSelecionado, function(error, profissionais) {
+      Estabelecimentos.getProfissionaisByServico($scope.estabelecimentoSelecionado, $scope.servicoSelecionado, function(error, profissionais) {
         if(error) {
           console.log(error);
           return;
@@ -57,7 +57,7 @@ angular.module('salontimeApp')
         id_servico: $scope.servicoSelecionado,
         data: dataLocal
       };
-      Agendamentos.create(agendamento, function(error, data){
+      ClientesAgendamentos.create(agendamento, function(error, data){
         if(error) {
           console.log(error);
           return;

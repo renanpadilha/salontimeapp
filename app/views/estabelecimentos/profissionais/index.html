@@ -1,0 +1,30 @@
+<header>
+  <h1>
+    Profissionais
+  </h1>
+</header>
+<div class="panel-body">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Nome</th>
+        <th>Telefone</th>
+        <th>E-mail</th>
+        <th>Porcentagem</th>
+        <th>Ações</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="profissional in profissionais track by $index">
+        <td>{{profissional.nome}}</td>
+        <td>{{profissional.telefone}}</td>
+        <td>{{profissional.email}}</td>
+        <td>{{profissional.porcentagem}}</td>
+        <td>
+          <button ng-click="editarProfissional(profissional.id)" type="button" class="btn btn-primary">Editar</button>
+          <button ng-click="excluirProfissional(profissional.id)" type="button" class="btn btn-warning">Excluir</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

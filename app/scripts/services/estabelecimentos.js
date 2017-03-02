@@ -21,7 +21,16 @@ angular.module('salontimeApp')
       });
     };
 
-    this.getProfissionais = function(idEstabelecimento, idServico, callback) {
+    this.getProfissionais = function(callback) {
+      $http.get(API_URL + '/estabelecimentos/' + 1 + '/profissionais')
+      .then(function(response) {
+        callback(null, response.data);
+      }, function(error) {
+        callback(error, null);
+      });
+    };
+
+    this.getProfissionaisByServico = function(idEstabelecimento, idServico, callback) {
       $http.get(API_URL + '/estabelecimentos/' + idEstabelecimento + '/servicos/' + idServico + '/profissionais')
       .then(function(response) {
         callback(null, response.data);

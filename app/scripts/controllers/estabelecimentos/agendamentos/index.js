@@ -3,6 +3,7 @@ angular.module('salontimeApp')
   .controller('EstabelecimentosAgendamentosCtrl', function ($scope, $routeParams, EstabelecimentosAgendamentos, Estabelecimentos) {
     $scope.agendamentos = {};
     $scope.init = function() {
+      console.log('lul');
       Estabelecimentos.getAgendamentos(function(error, agendamentos) {
         if(error) {
           console.log(error);

@@ -35,6 +35,16 @@ angular
         controller: 'EstabelecimentosAgendamentosCtrl',
         controllerAs: 'ctrl'
       })
+      .when('/estabelecimentos/profissionais', {
+        templateUrl: 'views/estabelecimentos/profissionais/index.html',
+        controller: 'EstabelecimentosProfissionaisCtrl',
+        controllerAs: 'ctrl'
+      })
+      .when('/estabelecimentos/profissionais/:id', {
+        templateUrl: 'views/estabelecimentos/profissionais/edit.html',
+        controller: 'EstabelecimentosProfissionaisCtrl',
+        controllerAs: 'ctrl'
+      })
       .otherwise({
         redirectTo: '/'
       });
