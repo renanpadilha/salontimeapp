@@ -8,18 +8,18 @@
     <table class="table table-striped">
       <thead>
         <tr>
-          <th>Serviço</th>
+          <th>Cliente</th>
           <th>Data</th>
-          <th>Estabelecimento</th>
+          <th>Serviço</th>
           <th>Profissional</th>
           <th>Ações</th>
         </tr>
       </thead>
       <tbody>
         <tr ng-repeat="agendamento in agendamentos track by $index">
-          <td>{{agendamento.serviconome}}</td>
+          <td>{{agendamento.clientenome}}</td>
           <td>{{agendamento.dataagendamento | date:'dd/MM/yy HH:mm'}}</td>
-          <td>{{agendamento.estabelecimentonome}}</td>
+          <td>{{agendamento.serviconome}}</td>
           <td>{{agendamento.profissionalnome}}</td>
           <td>
             <button ng-click="cancelarAgendamento(agendamento.id)" type="button" class="btn btn-primary">Cancelar</button>

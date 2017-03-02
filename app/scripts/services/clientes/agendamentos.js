@@ -15,7 +15,6 @@ angular.module('salontimeApp')
     this.create = function(agendamento, callback) {
       $http.post(API_URL + '/clientes/' + 1 + '/agendamentos', agendamento)
       .then(function(response) {
-        console.log('Agendado', response.data);
         callback(null, response.data);
       }, function(error) {
         callback(error, null);

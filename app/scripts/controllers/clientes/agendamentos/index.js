@@ -13,7 +13,7 @@ angular.module('salontimeApp')
     };
 
     $scope.cancelarAgendamento = function(id) {
-      Agendamentos.cancel(id, function(error, data) {
+      ClientesAgendamentos.cancel(id, function(error, data) {
         if(error) {
           console.log(error);
           return;

@@ -129,17 +129,6 @@ app.get('/api/v1/clientes/:id/agendamentos/:id_agendamento', function(req, res){
   });
 });
 
-/* LISTA TODOS OS AGENDAMENTOS DE UM ESTABELECIMENTO*/
-app.get('/api/v1/estabelecimentos/:id/agendamentos', function(req, res){
-  var id_estabelecimento = req.params.id_estabelecimento;
-  knex.raw("SELECT a.id, s.nome AS servicoNome, a.data AS dataAgendamento, c.nome AS clienteNome, p.nome AS profissionalNome FROM agendamento a JOIN cliente c ON a.id_cliente = c.id JOIN servico s ON a.id_servico = s.id JOIN profissional p ON a.id_profissional = p.id WHERE a.id_estabelecimento = ?", id_estabelecimento)
-  .then(function (agendamentos) {
-    res.json(agendamentos.rows);
-  }).catch(function(err) {
-    console.log(err);
-  });
-});
-
 /* LISTA OS AGENDAMENTOS DE UM CLIENTE PARA UM ESTABELECIMENTO*/
 app.get('/api/v1/clientes/:id/estabelecimentos/:id_estabelecimento/agendamentos', function(req, res){
   var id_cliente = req.params.id;
@@ -212,11 +201,11 @@ app.delete('/api/v1/estabelecimentos/:id', function(req, res){
 });
 
 /* LISTA OS AGENDAMENTOS DO ESTABELECIMENTO*/
-app.get('/api/v1/estabelecimentos/:id/agendamentos', function(req, res) {
-  var id_estabelecimento = req.params.id;
-  knex.select('*').from('agendamento').where({id_estabelecimento: id_estabelecimento}).then(function (agendamentos) {
-    console.log(agendamentos);
-    res.json(agendamentos);
+app.get('/api/v1/estabelecimentos/:id/agendamentos', function(req, res){
+  var id_estabelecimento = req.params.id_estabelecimento;
+  knex.raw("SELECT a.id, s.nome AS servicoNome, a.data AS dataAgendamento, c.nome AS clienteNome, p.nome AS profissionalNome FROM agendamento a JOIN cliente c ON a.id_cliente = c.id JOIN servico s ON a.id_servico = s.id JOIN profissional p ON a.id_profissional = p.id WHERE a.id_estabelecimento = ?", id_estabelecimento)
+  .then(function (agendamentos) {
+    res.json(agendamentos.rows);
   }).catch(function(err) {
     console.log(err);
   });
