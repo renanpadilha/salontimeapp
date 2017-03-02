@@ -202,7 +202,7 @@ app.delete('/api/v1/estabelecimentos/:id', function(req, res){
 
 /* LISTA OS AGENDAMENTOS DO ESTABELECIMENTO*/
 app.get('/api/v1/estabelecimentos/:id/agendamentos', function(req, res){
-  var id_estabelecimento = req.params.id_estabelecimento;
+  var id_estabelecimento = req.params.id;
   knex.raw("SELECT a.id, s.nome AS servicoNome, a.data AS dataAgendamento, c.nome AS clienteNome, p.nome AS profissionalNome FROM agendamento a JOIN cliente c ON a.id_cliente = c.id JOIN servico s ON a.id_servico = s.id JOIN profissional p ON a.id_profissional = p.id WHERE a.id_estabelecimento = ?", id_estabelecimento)
   .then(function (agendamentos) {
     res.json(agendamentos.rows);
