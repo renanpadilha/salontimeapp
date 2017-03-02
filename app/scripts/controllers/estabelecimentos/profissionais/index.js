@@ -23,8 +23,8 @@ angular.module('salontimeApp')
           console.log(error);
           return;
         }
+        $scope.init();
       });
-      $scope.init();
     };
 
     $scope.cancelar = function() {

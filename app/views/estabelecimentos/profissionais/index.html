@@ -49,8 +49,10 @@
         <td>{{profissional.email}}</td>
         <td>{{profissional.porcentagem}} %</td>
         <td>
-          <button ng-click="editar(profissional.id)" type="button" class="btn btn-primary">Editar</button>
-          <button ng-click="excluir(profissional.id)" type="button" class="btn btn-danger">Excluir</button>
+          <div class="btn-group">
+            <a class="btn btn-primary btn-md" ng-click="editar(profissional.id)"><span class="glyphicon glyphicon-pencil"></span></a>
+            <a class="btn btn-danger btn-md" ng-click="excluir(profissional.id)"><span class="glyphicon glyphicon-trash"></span></a>
+          </div>
         </td>
       </tr>
     </tbody>
