@@ -1,31 +1,29 @@
-<div class="container">
-  <header>
-    <h1>
-      Agendamentos
-    </h1>
-  </header>
-  <div class="panel-body">
-    <table class="table table-striped">
-      <thead>
-        <tr>
-          <th>Serviço</th>
-          <th>Data</th>
-          <th>Estabelecimento</th>
-          <th>Profissional</th>
-          <th>Ações</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr ng-repeat="agendamento in agendamentos track by $index">
-          <td>{{agendamento.serviconome}}</td>
-          <td>{{agendamento.dataagendamento | date:'dd/MM/yy HH:mm'}}</td>
-          <td>{{agendamento.estabelecimentonome}}</td>
-          <td>{{agendamento.profissionalnome}}</td>
-          <td>
-            <button ng-click="cancelarAgendamento(agendamento.id)" type="button" class="btn btn-primary">Cancelar</button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+<header>
+  <h1>
+    Agendamentos
+  </h1>
+</header>
+<div class="panel-body">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Serviço</th>
+        <th>Data</th>
+        <th>Estabelecimento</th>
+        <th>Profissional</th>
+        <th>Ações</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="agendamento in agendamentos track by $index">
+        <td>{{agendamento.serviconome}}</td>
+        <td>{{agendamento.dataagendamento | date:'dd/MM/yy HH:mm'}}</td>
+        <td>{{agendamento.estabelecimentonome}}</td>
+        <td>{{agendamento.profissionalnome}}</td>
+        <td>
+          <button ng-click="cancelarAgendamento(agendamento.id)" type="button" class="btn btn-warning">Cancelar</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
 </div>

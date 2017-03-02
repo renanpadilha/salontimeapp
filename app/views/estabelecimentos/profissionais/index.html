@@ -3,6 +3,34 @@
     Profissionais
   </h1>
 </header>
+<a class="btn btn-success btn-lg" ng-click="novo()"><span class="glyphicon glyphicon-plus"></span> Novo</a>
+<div class="panel-body">
+  <form ng-if="profissional">
+    <div class="form-group">
+      <label><span class="glyphicon glyphicon-user"></span> Nome</label>
+      <input type="text" class="form-control" ng-model="profissional.nome">
+    </div>
+    <div class="form-group">
+      <label><span class="glyphicon glyphicon-phone"></span> Telefone</label>
+      <input type="text" class="form-control" ng-model="profissional.telefone">
+    </div>
+    <div class="form-group">
+      <label><span class="glyphicon glyphicon-envelope"></span> E-mail</label>
+      <input type="text" class="form-control" ng-model="profissional.email">
+    </div>
+    <div class="form-group">
+      <label><span class="glyphicon glyphicon-scale"></span> Porcentagem</label>
+      <div class="input-group">
+        <input type="number" step="5" min="0" max="100" class="form-control" ng-model="profissional.porcentagem">
+        <span class="input-group-addon">%</span>
+      </div>
+    </div>
+    <div class="btn-group btn-group-justified">
+      <a class="btn btn-success btn-lg" ng-click="criar()"><span class="glyphicon glyphicon-ok"></span> Criar</a>
+      <a class="btn btn-default btn-lg" ng-click="cancelar()"><span class="glyphicon glyphicon-remove"></span> Cancelar</a>
+    </div>
+  </form>
+</div>
 <div class="panel-body">
   <table class="table table-striped">
     <thead>
@@ -19,10 +47,10 @@
         <td>{{profissional.nome}}</td>
         <td>{{profissional.telefone}}</td>
         <td>{{profissional.email}}</td>
-        <td>{{profissional.porcentagem}}</td>
+        <td>{{profissional.porcentagem}} %</td>
         <td>
-          <button ng-click="editarProfissional(profissional.id)" type="button" class="btn btn-primary">Editar</button>
-          <button ng-click="excluirProfissional(profissional.id)" type="button" class="btn btn-warning">Excluir</button>
+          <button ng-click="editar(profissional.id)" type="button" class="btn btn-primary">Editar</button>
+          <button ng-click="excluir(profissional.id)" type="button" class="btn btn-danger">Excluir</button>
         </td>
       </tr>
     </tbody>

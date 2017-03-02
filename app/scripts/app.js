@@ -42,7 +42,7 @@ angular
       })
       .when('/estabelecimentos/profissionais/:id', {
         templateUrl: 'views/estabelecimentos/profissionais/edit.html',
-        controller: 'EstabelecimentosProfissionaisCtrl',
+        controller: 'EstabelecimentosProfissionaisEditCtrl',
         controllerAs: 'ctrl'
       })
       .otherwise({

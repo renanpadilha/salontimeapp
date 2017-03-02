@@ -306,6 +306,8 @@ app.get('/api/v1/profissionais/:id', function(req, res, next) {
 app.post('/api/v1/profissionais', function(req, res){
   var profissional = {
     nome: req.body.nome,
+    telefone: req.body.telefone,
+    email: req.body.email,
     porcentagem: req.body.porcentagem,
     id_estabelecimento: req.body.id_estabelecimento
   };
