@@ -3,17 +3,25 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var app = express();
 var router = express.Router();
-var port = process.env.PORT || 3000;
+var port = process.env.PORT || 4002;
 var knex = require('knex')({
   client: 'pg',
-  connection: {
-    host : 'ec2-54-235-177-62.compute-1.amazonaws.com',
-    user : 'asjofobobcqtsm',
-    password : 'aLdrhhmSzZxOYmCYIG4i_pyxKy',
-    database : 'd6pje4mqqq69d2',
-    ssl: true
-    //debug: ['ComQueryPacket']
-  }
+	connection: {
+		host : 'localhost',
+		user : 'postgres',
+		password : '',
+		database : 'salontime_dev',
+		// ssl: true
+		debug: ['ComQueryPacket']
+	}
+  // connection: {
+  //   host : 'ec2-54-235-177-62.compute-1.amazonaws.com',
+  //   user : 'asjofobobcqtsm',
+  //   password : 'aLdrhhmSzZxOYmCYIG4i_pyxKy',
+  //   database : 'd6pje4mqqq69d2',
+  //   ssl: true
+  //   //debug: ['ComQueryPacket']
+  // }
 });
 app.use(express.static(__dirname + '/app'));
 app.use('/bower_components',  express.static(__dirname + '/bower_components'));
