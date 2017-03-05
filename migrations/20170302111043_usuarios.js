@@ -3,7 +3,6 @@ exports.up = (knex, Promise) => {
     table.increments('id').primary();
     table.string('username').unique().notNullable();
     table.string('password').notNullable();
-    table.string('tipo').notNullable();
     table.timestamp('criado_em').notNullable().defaultTo(knex.raw('now()'));
   });
 };
