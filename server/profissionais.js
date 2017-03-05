@@ -1,19 +1,19 @@
-module.exports = function(app) {
+module.exports = function(app, auth) {
   var knex = require('../db');
-  app.get('/api/v1/profissionais/', function(req, res){
+  app.get('/api/v1/profissionais/', auth, function(req, res){
     knex.select("*").from('profissional').then(function(profissional) {
       res.json(profissional);
     });
   });
 
-  app.get('/api/v1/profissionais/:id', function(req, res, next) {
+  app.get('/api/v1/profissionais/:id', auth, function(req, res, next) {
     var id = req.params.id;
     knex.select("*").from('profissional').where({id: id}).then(function(profissional) {
       res.json(profissional);
     });
   });
 
-  app.post('/api/v1/profissionais', function(req, res){
+  app.post('/api/v1/profissionais', auth, function(req, res){
     var profissional = {
       nome: req.body.nome,
       telefone: req.body.telefone,
@@ -26,14 +26,14 @@ module.exports = function(app) {
     });
   });
 
-  app.put('/api/v1/profissionais/:id', function(req, res){
+  app.put('/api/v1/profissionais/:id', auth, function(req, res){
     var id = req.params.id;
     knex('profissional').where({id: id}).update(req.body).then(function(profissional) {
       res.status(204).json(profissional);
     });
   });
 
-  app.delete('/api/v1/profissionais/:id', function(req, res){
+  app.delete('/api/v1/profissionais/:id', auth, function(req, res){
     var id = req.params.id;
     knex('profissional').where({id: id}).del().then(function(profissional) {
       res.status(204).json();
@@ -41,7 +41,7 @@ module.exports = function(app) {
   });
 
   /* ASSOCIA UM PROFISSIONAL A UM SERVIÇO */
-  app.post('/api/v1/profissionais/:id/servicos', function(req, res){
+  app.post('/api/v1/profissionais/:id/servicos', auth, function(req, res){
     var id = req.params.id;
     var id_servico = req.body.id_servico;
     knex.insert({id_profissional: id, id_servico: id_servico}).then(function(profissional_servico) {

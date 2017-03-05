@@ -55,9 +55,9 @@ app.get('/api/v1/health', function(req, res) {
 });
 
 var clientes = require('./server/clientes')(app, auth);
-var estabelecimentos = require('./server/estabelecimentos')(app);
-var profissionais = require('./server/profissionais')(app);
-var categorias = require('./server/categorias')(app);
-var servicos = require('./server/servicos')(app);
+var estabelecimentos = require('./server/estabelecimentos')(app, auth);
+var profissionais = require('./server/profissionais')(app, auth);
+var categorias = require('./server/categorias')(app, auth);
+var servicos = require('./server/servicos')(app, auth);
 
 app.listen(port);

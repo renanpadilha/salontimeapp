@@ -1,7 +1,7 @@
-module.exports = function(app) {
+module.exports = function(app, auth) {
   var knex = require('../db');
   /* EXCLUI UM AGENDAMENTO */
-  app.delete('/api/v1/agendamentos/:id', function(req, res) {
+  app.delete('/api/v1/agendamentos/:id', auth, function(req, res) {
     id_agendamento = req.params.id;
     knex('agendamento').where({id: id_agendamento}).del()
     .then(function(id) {
