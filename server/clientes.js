@@ -1,6 +1,6 @@
-module.exports = function(app) {
+module.exports = function(app, auth) {
   var knex  = require('../db');
-  app.get('/api/v1/clientes', function(req, res, next) {
+  app.get('/api/v1/clientes', auth, function(req, res, next) {
     knex.select("*").from('clientes').then(function(clientes) {
       console.log(clientes);
       res.json(clientes);
@@ -9,7 +9,7 @@ module.exports = function(app) {
 
   app.get('/api/v1/clientes/:id', function(req, res, next) {
     var id_cliente = req.params.id;
-    knex.select("*").from('clientes').where({id: id}).then(function(cliente) {
+    knex.select("*").from('clientes').where({id: id_cliente}).then(function(cliente) {
       res.json(cliente);
     });
   });
