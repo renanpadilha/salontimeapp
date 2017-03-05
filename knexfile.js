@@ -1,22 +1,11 @@
+const databaseName = 'salontime';
+
 module.exports = {
   development: {
     client: 'pg',
-    debug: true,
-    connection: {
-      debug: true,
-      pool: {max: 1, min: 1},
-      host : 'localhost',
-      port: 5432,
-      user : 'postgres',
-      database : 'salontime',
-      password : 'renancio123'
-    },
+    connection: `postgres://postgres:renancio123@localhost:5432/${databaseName}`,
     migrations: {
-      tableName: 'knex_migrations'
-    },
-    pool: {
-      min: 2,
-      max: 10
+      directory: './migrations'
     }
   },
   production: {

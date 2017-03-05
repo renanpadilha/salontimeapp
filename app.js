@@ -1,16 +1,12 @@
 var basicAuth = require('basic-auth');
 var express = require('express');
 var bodyParser = require('body-parser');
-  var knex = require('./db');
+var knex = require('./db');
 var app = express();
 var router = express.Router();
 var port = process.env.PORT || 4002;
-var session = require('express-session');
-// app.use(session({
-//   secret: '2C44-4D44-WppQ38S',
-//   resave: true,
-//   saveUninitialized: true
-// }));
+var passport = require('passport');
+var Strategy = require('passport-local').Strategy;
 
 app.use(express.static(__dirname + '/app'));
 app.use('/bower_components',  express.static(__dirname + '/bower_components'));
@@ -26,6 +22,11 @@ app.use(function (req, res, next) {
     res.setHeader('Access-Control-Expose-Headers', 'Location');
     next();
 });
+
+app.use(require('cookie-parser'));
+app.use(require('express-session')({ secret: 'keyboard cat', resave: false, saveUninitialized: false }));
+app.use(passport.initialize());
+app.use(passport.session());
 
 var auth = function (req, res, next) {
   function unauthorized(res) {
@@ -50,9 +51,43 @@ var auth = function (req, res, next) {
 
 };
 
-app.get('/api/v1/health', function(req, res) {
+passport.use(new Strategy(
+  function(username, password, callback) {
+    knex.select('*').from('usuarios').where({username: username})
+    .then(function(usuario) {
+      var user = usuario[0];
+      if (!user) {
+        return callback(null);
+      }
+      if (user.password !== password) {
+        return callback(false);
+      }
+      return callback(user);
+    });
+  }));
+
+passport.serializeUser(function(user, callback) {
+  callback(null, user.id);
+});
+
+passport.deserializeUser(function(id, callback) {
+  knex.select('*').from('usuarios').where({id: id})
+  .then(function(usuario) {
+    var user = usuario[0];
+    callback(null, user);
+  });
+});
+
+app.get('/api/v1/health',
+  passport.authenticate('local', { failureRedirect: '/login' }), function(req, res) {
   res.send('Bem vindo a SALONTIME API');
 });
+
+app.get('/profile',
+  require('connect-ensure-login').ensureLoggedIn(),
+  function(req, res){
+    res.send('profile', { user: req.user });
+  });
 
 var clientes = require('./server/clientes')(app, auth);
 var estabelecimentos = require('./server/estabelecimentos')(app, auth);
