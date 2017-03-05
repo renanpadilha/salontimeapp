@@ -8,8 +8,8 @@ module.exports = {
       host : 'localhost',
       port: 5432,
       user : 'postgres',
-      database : 'salontime_dev',
-      password : ''
+      database : 'salontime',
+      password : 'renancio123'
     },
     migrations: {
       tableName: 'knex_migrations'
