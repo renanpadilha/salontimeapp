@@ -95,7 +95,8 @@ app.post('/api/v1/clientes/:id/agendamentos', function(req, res) {
 		id_profissional: req.body.id_profissional,
 		id_servico: req.body.id_servico
 	};
-	knex.insert(agendamento).into('agendamentos').returning('*').then(function (data){
+	knex.insert(agendamento).into('agendamentos').returning('*')
+	.then(function (data){
 		res.status(201).json(data);
 	});
 });
@@ -319,14 +320,14 @@ app.get('/api/v1/estabelecimentos/:id/servicos/:id_servico/precos', function(req
 // PROFISSIONAIS
 //
 app.get('/api/v1/profissionais/', function(req, res){
-	knex.select("*").from('profissional').then(function(profissional) {
+	knex.select("*").from('profissionais').then(function(profissional) {
 		res.json(profissional);
 	});
 });
 
 app.get('/api/v1/profissionais/:id', function(req, res, next) {
 	var id = req.params.id;
-	knex.select("*").from('profissional').where({id: id}).then(function(profissional) {
+	knex.select("*").from('profissionais').where({id: id}).then(function(profissional) {
 		res.json(profissional);
 	});
 });
@@ -339,21 +340,21 @@ app.post('/api/v1/profissionais', function(req, res){
 		porcentagem: req.body.porcentagem,
 		id_estabelecimento: req.body.id_estabelecimento
 	};
-	knex.insert(profissional).into('profissional').then(function(profissional) {
+	knex.insert(profissional).into('profissionais').then(function(profissional) {
 		res.status(201).json(profissional);
 	});
 });
 
 app.put('/api/v1/profissionais/:id', function(req, res){
 	var id = req.params.id;
-	knex('profissional').where({id: id}).update(req.body).then(function(profissional) {
+	knex('profissionais').where({id: id}).update(req.body).then(function(profissional) {
 		res.status(204).json(profissional);
 	});
 });
 
 app.delete('/api/v1/profissionais/:id', function(req, res){
 	var id = req.params.id;
-	knex('profissional').where({id: id}).del().then(function(profissional) {
+	knex('profissionais').where({id: id}).del().then(function(profissional) {
 		res.status(204).json();
 	});
 });
@@ -440,14 +441,16 @@ app.get('/api/v1/servicos/:id/estabelecimentos', function(req, res){
 // CATEGORIAS
 //
 app.get('/api/v1/categorias/', function(req, res){
-	knex.select("*").from('categorias').then(function(categorias) {
+	knex.select("*").from('categorias')
+	.then(function(categorias) {
 		res.json(categorias);
 	});
 });
 
 app.get('/api/v1/categorias/:id', function(req, res, next) {
 	var id = req.params.id;
-	knex.select("*").from('categorias').where({id: id}).then(function(categoria) {
+	knex.select("*").from('categorias').where({id: id})
+	.then(function(categoria) {
 		res.json(categoria);
 	});
 });
@@ -456,21 +459,24 @@ app.post('/api/v1/categorias', function(req, res){
 	var categoria = {
 		nome: req.body.nome
 	};
-	knex.insert(categoria).into('servicos').then(function(categoria) {
+	knex.insert(categoria).into('servicos')
+	.then(function(categoria) {
 		res.status(201).json(categoria);
 	});
 });
 
 app.put('/api/v1/categorias/:id', function(req, res){
 	var id = req.params.id;
-	knex('categorias').where({id: id}).update(req.body).then(function(categoria) {
+	knex('categorias').where({id: id}).update(req.body)
+	.then(function(categoria) {
 		res.status(204).json(categoria);
 	});
 });
 
 app.delete('/api/v1/categorias/:id', function(req, res){
 	var id = req.params.id;
-	knex('categorias').where({id: id}).del().then(function(categoria) {
+	knex('categorias').where({id: id}).del()
+	.then(function(categoria) {
 		res.status(204).json();
 	});
 });
@@ -489,5 +495,66 @@ app.get('/api/v1/categorias/:id/servicos', function(req, res){
 //
 // FIM CATEGORIAS
 //
+
+//
+// PROMOÇÕES
+//
+
+app.get('/api/v1/promocoes', function(req, res, next) {
+	knex.select("*").from('promocoes')
+	.then(function(promocoes) {
+		res.json(promocoes);
+	});
+});
+
+app.get('/api/v1/estabelecimentos/:id/promocoes', function(req, res, next) {
+	var id = req.params.id;
+	knex.select("*").from('promocoes').where({id_estabelecimento: id})
+	.then(function(promocoes) {
+		res.json(promocoes);
+	});
+});
+
+app.get('/api/v1/estabelecimentos/:id/servicos/:id_servico/promocoes', function(req, res, next) {
+	var id = req.params.id;
+	var id_servico = req.params.id_servico;
+	knex.raw("SELECT p.id, p.nome, p.preco, s.id, s.nome, e.id FROM promocoes p JOIN servicos s ON p.id_servico = s.id JOIN estabelecimentos e ON p.id_estabelecimento = e.id WHERE s.id = ? AND e.id = ?", [id_servico, id])
+	.then(function(promocoes) {
+		res.json(promocoes);
+	});
+});
+
+app.post('/api/v1/promocoes', function(req, res) {
+	var promocao = {
+		nome: req.body.nome,
+		preco: req.body.preco,
+		id_estabelecimento: req.body.id_estabelecimento,
+		id_servico: req.body.id_servico
+	};
+	knex.insert(promocao).into('promocoes').returning('*')
+	.then(function(promocao) {
+		res.status(201).json(promocao);
+	});
+});
+
+app.delete('/api/v1/promocoes/:id', function(req, res){
+	var id = req.params.id;
+	knex('promocoes').where({id: id}).del()
+	.then(function(cliente) {
+		res.status(204).json();
+	});
+});
+
+app.put('/api/v1/promocoes/:id', function(req, res){
+	var id = req.params.id;
+	knex('promocoes').where({id: id}).update(req.body)
+	.then(function(promocoes) {
+		res.status(204).json(promocoes);
+	});
+});
+//
+// FIM PROMOÇÕES
+//
+
 
 app.listen(port);

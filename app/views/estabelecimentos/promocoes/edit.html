@@ -1,0 +1,24 @@
+<header>
+  <h1>
+    Promoções
+  </h1>
+</header>
+<form>
+  <div class="form-group">
+    <label><span class="glyphicon glyphicon-bullhorn"></span> Nome</label>
+    <input type="text" class="form-control" ng-model="promocao.nome">
+  </div>
+  <div class="form-group">
+    <label><span class="glyphicon glyphicon-th"></span> Serviço</label>
+    <input type="text" class="form-control" ng-model="promocao.servico">
+  </div>
+  <div class="form-group">
+    <label><span class="glyphicon glyphicon-usd"></span> Valor</label>
+    <input type="text" class="form-control" ng-model="promocao.valor">
+  </div>
+  <div class="btn-group btn-group-justified">
+    <a class="btn btn-success btn-lg" ng-click="salvar()"><span class="glyphicon glyphicon-ok"></span> Salvar</a>
+    <a class="btn btn-default btn-lg" ng-click="voltar()"><span class="glyphicon glyphicon-remove"></span> Cancelar</a>
+  </div>
+</form>
+<br/>
