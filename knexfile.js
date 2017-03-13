@@ -3,13 +3,13 @@ module.exports = {
     client: 'pg',
     debug: true,
     connection: {
-      debug: true,
+      // debug: true,
       pool: {max: 1, min: 1},
       host : 'localhost',
       port: 5432,
       user : 'postgres',
-      database : 'salontime_dev',
-      password : ''
+      database : 'salontime',
+      password : 'renancio123'
     },
     migrations: {
       tableName: 'knex_migrations'

@@ -91,13 +91,13 @@ CREATE TABLE agendamento (
     FOREIGN KEY (id_servico)
     REFERENCES servico (id)
 );
-INSERT INTO usuarios (username, password, tipo, criado_em) VALUES ('renan', '123123', 'C', CURRENT_TIMESTAMP);
-INSERT INTO usuarios (username, password, tipo, criado_em) VALUES ('dede', '123123', 'E', CURRENT_TIMESTAMP);
+INSERT INTO usuarios (username, password, token, criado_em) VALUES ('renan', '123', uuid_generate_v4(), CURRENT_TIMESTAMP);
+INSERT INTO usuarios (username, password, token, criado_em) VALUES ('dede', '123', uuid_generate_v4(), CURRENT_TIMESTAMP);
+INSERT INTO usuarios (username, password, token, criado_em) VALUES ('teste', '123', uuid_generate_v4(), CURRENT_TIMESTAMP);
 
 INSERT INTO clientes (nome, email, telefone, id_usuario, criado_em) VALUES ('Renan', 'renanpadilha94@hotmail.com', '5184941322', 1, CURRENT_TIMESTAMP);
-INSERT INTO clientes (nome, email, telefone, id_usuario, criado_em) VALUES ('Déffany', 'deffanyo@gmail.com', '5199853364', 2, CURRENT_TIMESTAMP);
-INSERT INTO estabelecimentos (nome, email, endereco, telefone, criado_em) VALUES ('Hugo Beauty', 'contato@hugobeauty.com.br', 'Avenida Ipiranga, 8433', '5184941322',CURRENT_TIMESTAMP);
-INSERT INTO estabelecimentos (nome, email, endereco, telefone, criado_em) VALUES ('Salão da Dona Ana', 'contato@salaodonaana.com.br', 'Rua José Alves de Castro, 522', '5133332222',CURRENT_TIMESTAMP);
+INSERT INTO estabelecimentos (nome, email, endereco, telefone, id_usuario, criado_em) VALUES ('Hugo Beauty', 'contato@hugobeauty.com.br', 'Avenida Ipiranga, 8433', '5184941322', 2, CURRENT_TIMESTAMP);
+INSERT INTO estabelecimentos (nome, email, endereco, telefone, id_usuario, criado_em) VALUES ('Salão da Dona Ana', 'contato@salaodonaana.com.br', 'Rua José Alves de Castro, 522', '5133332222', 3, CURRENT_TIMESTAMP);
 INSERT INTO categorias(nome) VALUES ('Barba');
 INSERT INTO categorias(nome) VALUES ('Cabelo');
 INSERT INTO categorias(nome) VALUES ('Depilação');

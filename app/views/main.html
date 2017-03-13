@@ -1,8 +1,9 @@
 <div ng-app="salontimeApp">
-    <div class="jumbotron">
-      <h1>SalonTime</h1>
-    </div>
-    <form name="criaAgendamento" ng-controller="MainCtrl">
+  <div class="jumbotron">
+    <h1>SalonTime</h1>
+  </div>
+  <form name="criaAgendamento" ng-controller="MainCtrl">
+    <div class="col-xs-12">
       <div class="form-group">
         <label for="categoria"><span class="glyphicon glyphicon-th-large"></span> Categoria</label>
         <select
@@ -14,6 +15,8 @@
           ng-options="categoria.id as categoria.nome for categoria in categorias">
         </select>
       </div>
+    </div>
+    <div class="col-xs-12">
       <div class="form-group">
         <label for="servicos"><span class="glyphicon glyphicon-th"></span> Serviço</label>
         <select
@@ -25,6 +28,8 @@
           ng-options="servico.id as servico.nome for servico in servicos">
         </select>
       </div>
+    </div>
+    <div class="col-xs-12">
       <div class="form-group">
         <label for="datahora"><span class="glyphicon glyphicon-calendar"></span> Data</label>
         <input
@@ -38,17 +43,27 @@
           ng-change="valorData(datahora)"
           ng-model="datahora">
       </div>
+    </div>
+    <div class="col-xs-12 col-lg-6">
       <div class="form-group">
-          <label for="estabelecimento"><span class="glyphicon glyphicon-list"></span> Estabelecimento</label>
-          <select
-            id="estabelecimento"
-            name="estabelecimento"
-            class="form-control"
-            ng-model="estabelecimentoSelecionado"
-            ng-change="atualizaProfissionais()"
-            ng-options="estabelecimento.id as estabelecimento.nome for estabelecimento in estabelecimentos">
-          </select>
+        <label for="estabelecimento"><span class="glyphicon glyphicon-list"></span> Estabelecimento</label>
+        <select
+          id="estabelecimento"
+          name="estabelecimento"
+          class="form-control"
+          ng-model="estabelecimentoSelecionado"
+          ng-change="atualizaProfissionais()"
+          ng-options="estabelecimento.id as estabelecimento.nome for estabelecimento in estabelecimentos">
+        </select>
       </div>
+    </div>
+    <div class="col-xs-12 col-lg-6">
+      <div class="form-group">
+        <label for="preco"><span class="glyphicon glyphicon-usd"></span> Preço</label>
+        <span class="form-control">{{preco | currency:"R$ "}}</span>
+      </div>
+    </div>
+    <div class="col-xs-12">
       <div class="form-group">
         <label for="profissional"><span class="glyphicon glyphicon-user"></span> Profissional</label>
         <select
@@ -59,10 +74,13 @@
           ng-options="profissional.id as profissional.nome for profissional in profissionais">
         </select>
       </div>
+    </div>
+    <div class="col-xs-12">
       <div class="btn-group btn-group-justified">
-        <a class="btn btn-success btn-lg" ng-click="agendar()"><span class="glyphicon glyphicon-ok"></span> Agendar</a>
-        <a class="btn btn-default btn-lg" ><span class="glyphicon glyphicon-trash"></span> Limpar</a>
+        <a class="btn btn-success btn-md" ng-click="agendar()"><span class="glyphicon glyphicon-ok"></span> Agendar</a>
+        <a class="btn btn-default btn-md" ><span class="glyphicon glyphicon-trash"></span> Limpar</a>
       </div>
-    </form>
-    <br>
+      <br/>
+    </div>
+  </form>
 </div>

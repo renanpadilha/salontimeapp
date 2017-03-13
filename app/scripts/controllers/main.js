@@ -2,9 +2,11 @@
 angular.module('salontimeApp')
   .controller('MainCtrl', function ($scope, $routeParams, $http, ClientesAgendamentos, Categorias, Servicos, Estabelecimentos) {
     const API_URL = 'https://salontime.herokuapp.com/api/v1';
-    $scope.agendamento = {};
-    //@TODO INICIALIZAR TODAS AS VARIÁVEIS NECESSARIAS NO INIT
-    // $scope.init();
+    $scope.init = function() {
+      if(!$scope.agendamento) {
+        $scope.agendamento = {};
+      }
+    };
 
     Categorias.all(function(error, categorias) {
       if(error) {
@@ -33,7 +35,6 @@ angular.module('salontimeApp')
           return;
         }
         $scope.estabelecimentos = estabelecimentos;
-        console.log('Estabelecimentos', $scope.estabelecimentos);
       });
     };
 
@@ -45,6 +46,13 @@ angular.module('salontimeApp')
         }
         $scope.profissionais = profissionais;
         console.log('Profissionais', $scope.profissionais);
+      });
+      Estabelecimentos.getPreco($scope.estabelecimentoSelecionado, $scope.servicoSelecionado, function(error, preco) {
+        if(error) {
+          console.log(error);
+          return;
+        }
+        $scope.preco = preco.preco;
       });
     };
 
@@ -65,4 +73,6 @@ angular.module('salontimeApp')
         console.log('Dados do agendamento', data);
       });
     };
+
+    $scope.init();
 });

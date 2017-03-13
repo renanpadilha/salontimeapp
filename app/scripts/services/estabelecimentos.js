@@ -38,4 +38,13 @@ angular.module('salontimeApp')
         callback(error, null);
       });
     };
+
+    this.getPreco = function(idEstabelecimento, idServico, callback) {
+      $http.get(API_URL + '/estabelecimentos/' + idEstabelecimento + '/servicos/' + idServico + '/precos')
+      .then(function(response) {
+        callback(null, response.data[0]);
+      }, function(error){
+        callback(error, null);
+      });
+    };
   });
