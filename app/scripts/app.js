@@ -47,12 +47,12 @@ angular
       })
       .when('/estabelecimentos/promocoes', {
         templateUrl: 'views/estabelecimentos/promocoes/index.html',
-        controller: 'EstabelecimentosPromocoesCtrl',
+        controller: 'PromocoesCtrl',
         controllerAs: 'ctrl'
       })
       .when('/estabelecimentos/promocoes/:id', {
         templateUrl: 'views/estabelecimentos/promocoes/edit.html',
-        controller: 'EstabelecimentosPromocoesEditCtrl',
+        controller: 'PromocoesEditCtrl',
         controllerAs: 'ctrl'
       })
       .otherwise({

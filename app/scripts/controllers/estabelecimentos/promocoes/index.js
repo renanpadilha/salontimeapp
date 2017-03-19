@@ -1,10 +1,10 @@
 'use strict';
 angular.module('salontimeApp')
-  .controller('EstabelecimentosPromocoesCtrl', function ($scope, $location, $routeParams, EstabelecimentosPromocoes, Estabelecimentos, _) {
+  .controller('PromocoesCtrl', function ($scope, $location, $routeParams, Promocoes, Estabelecimentos, _, $window) {
     $scope.promocoes = {};
 
     $scope.init = function() {
-      EstabelecimentosPromocoes.getPromocoes(function(error, promocoes) {
+      Promocoes.getPromocoes(function(error, promocoes) {
         if(error) {
           console.log(error);
           return;
@@ -26,7 +26,7 @@ angular.module('salontimeApp')
     };
 
     $scope.criar = function() {
-      EstabelecimentosPromocoes.create($scope.promocao, function(error, data) {
+      Promocoes.create($scope.promocao, function(error, data) {
         if(error) {
           console.log(error);
           return;
@@ -36,7 +36,10 @@ angular.module('salontimeApp')
     };
 
     $scope.excluir = function(id) {
-      EstabelecimentosPromocoes.cancel(id, function(error, data) {
+      if(!$window.confirm('Essa operação não poderá ser revertida, deseja continuar?')){
+        return;
+      }
+      Promocoes.cancel(id, function(error, data) {
         if(error) {
           console.log(error);
           return;

@@ -9,7 +9,7 @@
  * Service in the salontimeApp.
  */
 angular.module('salontimeApp')
-  .service('EstabelecimentosPromocoes', function ($http, $routeParams) {
+  .service('Promocoes', function ($http, $routeParams) {
     var service = this;
     const API_URL = 'http://localhost:4002/api/v1';
 

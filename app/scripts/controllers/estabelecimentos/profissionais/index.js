@@ -1,6 +1,6 @@
 'use strict';
 angular.module('salontimeApp')
-  .controller('EstabelecimentosProfissionaisCtrl', function ($scope, $location, $routeParams, Estabelecimentos, Profissionais) {
+  .controller('EstabelecimentosProfissionaisCtrl', function ($scope, $location, $routeParams, Estabelecimentos, Profissionais, $window) {
     $scope.profissionais = {};
 
     $scope.init = function() {
@@ -19,6 +19,19 @@ angular.module('salontimeApp')
 
     $scope.criar = function() {
       Profissionais.create($scope.profissional, function(error, data) {
+        if(error) {
+          console.log(error);
+          return;
+        }
+        $scope.init();
+      });
+    };
+
+    $scope.excluir = function(id) {
+      if(!$window.confirm('Essa operação não poderá ser revertida, deseja continuar?')) {
+        return;
+      }
+      Profissionais.excluir(id, function(error, data) {
         if(error) {
           console.log(error);
           return;

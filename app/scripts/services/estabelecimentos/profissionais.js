@@ -38,4 +38,13 @@ angular.module('salontimeApp')
         callback(error, null);
       });
     };
+
+    this.excluir = function(idProfissional, callback) {
+      $http.delete(API_URL + '/profissionais/' + idProfissional)
+      .then(function(response) {
+        callback(null, response);
+      }, function(error) {
+        callback(error, null);
+      });
+    };
   });

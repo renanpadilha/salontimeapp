@@ -364,7 +364,8 @@ app.put('/api/v1/profissionais/:id', function(req, res){
 
 app.delete('/api/v1/profissionais/:id', function(req, res){
 	var id = req.params.id;
-	knex('profissionais').where({id: id}).del().then(function(profissional) {
+	knex('profissionais').where({id: id}).del()
+	.then(function(profissional) {
 		res.status(204).json();
 	});
 });
