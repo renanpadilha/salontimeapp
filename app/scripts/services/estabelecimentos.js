@@ -13,6 +13,7 @@ angular.module('salontimeApp')
     const API_URL = 'http://localhost:4002/api/v1';
 
     this.getAgendamentos = function(callback) {
+      //TODO Adicionar variavel de logado
       $http.get(API_URL + '/estabelecimentos/' + 1 + '/agendamentos')
       .then(function(response) {
         callback(null, response.data);
@@ -22,6 +23,7 @@ angular.module('salontimeApp')
     };
 
     this.getProfissionais = function(callback) {
+      //TODO Adicionar variavel de logado
       $http.get(API_URL + '/estabelecimentos/' + 1 + '/profissionais')
       .then(function(response) {
         callback(null, response.data);
@@ -47,4 +49,14 @@ angular.module('salontimeApp')
         callback(error, null);
       });
     };
+
+    this.getServicos = function(callback) {
+      //TODO Adicionar variavel de logado
+      $http.get(API_URL + '/estabelecimentos/' + 1 + '/servicos')
+      .then(function(response) {
+        callback(null, response.data);
+      }, function(error) {
+        callback(error, null);
+      });
+    }
   });

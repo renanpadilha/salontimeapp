@@ -3,49 +3,57 @@
     Promoções
   </h1>
 </header>
-<a class="btn btn-success btn-lg" ng-click="novo()"><span class="glyphicon glyphicon-plus"></span> Nova</a>
-<div class="panel-body">
-  <form ng-if="promocao">
-    <div class="form-group">
-      <label><span class="glyphicon glyphicon-bullhorn"></span> Nome</label>
-      <input type="text" class="form-control" ng-model="promocao.nome">
-    </div>
-    <div class="form-group">
-      <label><span class="glyphicon glyphicon-th"></span> Serviço</label>
-      <input type="text" class="form-control" ng-model="promocao.servico">
-    </div>
-    <div class="form-group">
-      <label><span class="glyphicon glyphicon-usd"></span> Valor</label>
-      <input type="text" class="form-control" ng-model="promocao.valor">
-    </div>
-    <div class="btn-group btn-group-justified">
-      <a class="btn btn-success btn-lg" ng-click="criar()"><span class="glyphicon glyphicon-ok"></span> Criar</a>
-      <a class="btn btn-default btn-lg" ng-click="cancelar()"><span class="glyphicon glyphicon-remove"></span> Cancelar</a>
-    </div>
-  </form>
-</div>
-<div class="panel-body">
-  <table class="table table-striped">
-    <thead>
-      <tr>
-        <th>Nome</th>
-        <th>Serviço</th>
-        <th>Valor</th>
-        <th>Ações</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr ng-repeat="promocao in promocoes track by $index">
-        <td>{{promocao.nome}}</td>
-        <td>{{promocao.servico}}</td>
-        <td>{{promocao.valor | currency:"R$ "}}</td>
-        <td>
-          <div class="btn-group">
-            <a class="btn btn-primary btn-md" ng-click="editar(promocao.id)"><span class="glyphicon glyphicon-pencil"></span></a>
-            <a class="btn btn-danger btn-md" ng-click="excluir(promocao.id)"><span class="glyphicon glyphicon-trash"></span></a>
-          </div>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+<div class="col-xs-12">
+  <a class="btn btn-success btn-lg" ng-click="novo()"><span class="glyphicon glyphicon-plus"></span> Nova</a>
+  <div class="panel-body">
+    <form ng-if="promocao">
+      <div class="form-group">
+        <label><span class="glyphicon glyphicon-bullhorn"></span> Nome</label>
+        <input type="text" class="form-control" ng-model="promocao.nome">
+      </div>
+      <div class="form-group">
+        <label><span class="glyphicon glyphicon-th"></span> Serviço</label>
+        <select
+          id="servico"
+          name="servico"
+          class="form-control"
+          ng-model="promocao.servico.id"
+          ng-options="servico.id as servico.nome for servico in promocao.servicos">
+        </select>
+      </div>
+      <div class="form-group">
+        <label><span class="glyphicon glyphicon-usd"></span> Valor</label>
+        <input type="text" class="form-control" ng-model="promocao.preco">
+      </div>
+      <div class="btn-group btn-group-justified">
+        <a class="btn btn-success btn-lg" ng-click="criar()"><span class="glyphicon glyphicon-ok"></span> Criar</a>
+        <a class="btn btn-default btn-lg" ng-click="cancelar()"><span class="glyphicon glyphicon-remove"></span> Cancelar</a>
+      </div>
+    </form>
+  </div>
+  <div class="panel-body">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Nome</th>
+          <th>Serviço</th>
+          <th>Valor</th>
+          <th>Ações</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="promocao in promocoes track by $index">
+          <td>{{promocao.nome}}</td>
+          <td>{{promocao.servico}}</td>
+          <td>{{promocao.preco | currency:"R$ "}}</td>
+          <td>
+            <div class="btn-group">
+              <a class="btn btn-primary btn-md" ng-click="editar(promocao.id)"><span class="glyphicon glyphicon-pencil"></span></a>
+              <a class="btn btn-danger btn-md" ng-click="excluir(promocao.id)"><span class="glyphicon glyphicon-trash"></span></a>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </div>

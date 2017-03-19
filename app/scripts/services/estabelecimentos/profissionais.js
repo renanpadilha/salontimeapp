@@ -13,7 +13,15 @@ angular.module('salontimeApp')
       });
     };
 
-    this.create = function(profissional, callback) {
+    this.create = function(object, callback) {
+      //TODO Adicionar variavel de logado
+      var profissional = {
+        nome: object.nome,
+        telefone: object.telefone,
+        email: object.email,
+        porcentagem: object.porcentagem,
+        id_estabelecimento: 1
+      };
       $http.post(API_URL + '/profissionais/', profissional)
       .then(function(response) {
         callback(null, response.data);

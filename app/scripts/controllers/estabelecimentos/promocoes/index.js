@@ -1,6 +1,6 @@
 'use strict';
 angular.module('salontimeApp')
-  .controller('EstabelecimentosPromocoesCtrl', function ($scope, $location, $routeParams, EstabelecimentosPromocoes) {
+  .controller('EstabelecimentosPromocoesCtrl', function ($scope, $location, $routeParams, EstabelecimentosPromocoes, Estabelecimentos, _) {
     $scope.promocoes = {};
 
     $scope.init = function() {
@@ -14,11 +14,29 @@ angular.module('salontimeApp')
     };
 
     $scope.novo = function() {
-      $scope.promocao = {};
+      Estabelecimentos.getServicos(function(error, batata) {
+        if (error) {
+          console.log(error);
+        }
+        $scope.promocao = {};
+        _.extend($scope.promocao, {
+          servicos: batata
+        });
+      });
     };
 
     $scope.criar = function() {
-      EstabelecimentosPromocoes.create($scope.promocoes, function(error, data) {
+      EstabelecimentosPromocoes.create($scope.promocao, function(error, data) {
+        if(error) {
+          console.log(error);
+          return;
+        }
+        $scope.init();
+      });
+    };
+
+    $scope.excluir = function(id) {
+      EstabelecimentosPromocoes.cancel(id, function(error, data) {
         if(error) {
           console.log(error);
           return;

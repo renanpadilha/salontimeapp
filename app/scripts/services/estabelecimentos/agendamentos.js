@@ -13,6 +13,7 @@ angular.module('salontimeApp')
     const API_URL = 'http://localhost:4002/api/v1';
 
     this.create = function(agendamento, callback) {
+      //TODO Adicionar variavel de logado
       $http.post(API_URL + '/estabelecimentos/' + 1 + '/agendamentos', agendamento)
       .then(function(response) {
         callback(null, response.data);
