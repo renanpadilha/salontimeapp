@@ -21,7 +21,16 @@ module.exports = {
   },
   production: {
     client: 'pg',
-    connection: 'postgres://asjofobobcqtsm:aLdrhhmSzZxOYmCYIG4i_pyxKy@ec2-54-235-177-62.compute-1.amazonaws.com:5432/d6pje4mqqq69d2',
+    connection: {
+      // debug: true,
+      pool: {max: 1, min: 1},
+      host : 'ec2-54-235-177-62.compute-1.amazonaws.com',
+      port: 5432,
+      user : 'asjofobobcqtsm',
+      database : 'd6pje4mqqq69d2',
+      password : 'aLdrhhmSzZxOYmCYIG4i_pyxKy',
+      ssl: true
+    },
     migrations: {
       tableName: 'knex_migrations'
     },
