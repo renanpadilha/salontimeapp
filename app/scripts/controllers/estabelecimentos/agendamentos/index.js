@@ -1,7 +1,7 @@
 'use strict';
 angular.module('salontimeApp')
   .controller('EstabelecimentosAgendamentosCtrl', function ($scope, $routeParams, EstabelecimentosAgendamentos, Estabelecimentos, _, $window) {
-    $scope.agendamentos = {};
+    $scope.agendamentos = [];
     $scope.init = function() {
       console.log('lul');
       Estabelecimentos.getAgendamentos(function(error, agendamentos) {

@@ -1,6 +1,6 @@
 <header>
   <h1>
-    Agendamentos
+    Agendamentos <span class="small">Qualificação: </span>
   </h1>
 </header>
 <div class="panel-body">
@@ -16,7 +16,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr ng-repeat="agendamento in agendamentos track by $index">
+      <tr ng-repeat="agendamento in agendamentos | orderBy:dataagendamento:true">
         <td>{{agendamento.clientenome}}</td>
         <td>{{agendamento.dataagendamento | date:'dd/MM/yy HH:mm'}}</td>
         <td>{{agendamento.serviconome}}</td>
