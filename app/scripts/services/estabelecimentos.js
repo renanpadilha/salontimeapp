@@ -10,7 +10,7 @@
 angular.module('salontimeApp')
   .service('Estabelecimentos', function ($http, $routeParams) {
     var service = this;
-    const API_URL = 'http://localhost:4002/api/v1';
+    const API_URL = 'https://salontime.herokuapp.com/api/v1';
 
     this.getAgendamentos = function(callback) {
       //TODO Adicionar variavel de logado
