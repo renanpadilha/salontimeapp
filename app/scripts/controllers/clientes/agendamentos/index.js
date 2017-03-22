@@ -1,7 +1,7 @@
 'use strict';
 angular.module('salontimeApp')
   .controller('ClientesAgendamentosCtrl', function ($scope, $routeParams, ClientesAgendamentos, Clientes) {
-    $scope.agendamentos = {};
+    $scope.agendamentos = [];
     $scope.init = function() {
       Clientes.getAgendamentos(function(error, agendamentos) {
         if(error) {
@@ -9,6 +9,27 @@ angular.module('salontimeApp')
           return;
         }
         $scope.agendamentos = agendamentos;
+        console.log(agendamentos);
+      });
+    };
+
+    $scope.openModal = function(agendamento) {
+      $scope.model = {};
+      $scope.model.agendamento = agendamento;
+    };
+
+    $scope.qualificarAgendamento = function(object) {
+      var agendamento = {
+        id: object.id,
+        rate: object.rate
+      };
+      ClientesAgendamentos.qualify(agendamento, function(error, agendamento) {
+        if(error) {
+          console.log(error);
+          return;
+        }
+        $('.modal').modal('hide');
+        $scope.init();
       });
     };
 

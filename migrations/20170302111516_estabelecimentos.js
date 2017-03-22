@@ -6,6 +6,7 @@ exports.up = (knex, Promise) => {
     table.string('endereco').notNullable();
     table.string('telefone').notNullable();
     table.integer('id_usuario').references('usuarios.id');
+    table.decimal('rate');
     table.timestamp('criado_em').notNullable().defaultTo(knex.raw('now()'));
   });
 };

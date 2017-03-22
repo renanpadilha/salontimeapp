@@ -29,6 +29,19 @@ angular.module('salontimeApp')
       }, function(error){
         callback(error, null);
       });
-    }
+    };
+
+    this.conclude = function(object, callback) {
+      var agendamento = {
+        id: object.id,
+        atendido: true
+      };
+      $http.patch(API_URL + '/agendamentos/' + agendamento.id, agendamento)
+      .then(function(response) {
+        callback(null, response);
+      }, function(error) {
+        callback(error, null);
+      });
+    };
 
   });

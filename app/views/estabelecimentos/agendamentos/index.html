@@ -11,6 +11,7 @@
         <th>Data</th>
         <th>Serviço</th>
         <th>Profissional</th>
+        <th>Concluído</th>
         <th>Ações</th>
       </tr>
     </thead>
@@ -20,8 +21,12 @@
         <td>{{agendamento.dataagendamento | date:'dd/MM/yy HH:mm'}}</td>
         <td>{{agendamento.serviconome}}</td>
         <td>{{agendamento.profissionalnome}}</td>
+        <td>{{agendamento.atendido === false ? 'Não' : 'Sim'}}</td>
         <td>
-          <button ng-click="cancelarAgendamento(agendamento.id)" type="button" class="btn btn-warning">Cancelar</button>
+          <div class="btn-group">
+            <button class="btn btn-success" ng-click="concluirAgendamento(agendamento)" ng-disabled="agendamento.atendido"><span class="glyphicon glyphicon-ok"></span> Concluir</a>
+            <button class="btn btn-warning" ng-click="cancelarAgendamento(agendamento.id)" ng-disabled="agendamento.atendido"><span class="glyphicon glyphicon-remove"></span> Cancelar</a>
+          </div>
         </td>
       </tr>
     </tbody>

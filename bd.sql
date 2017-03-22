@@ -91,13 +91,36 @@ CREATE TABLE agendamento (
     FOREIGN KEY (id_servico)
     REFERENCES servico (id)
 );
+
+--trigger
+CREATE OR REPLACE FUNCTION tg_atualizarate()
+RETURNS TRIGGER AS $tg_atualizarate$
+	BEGIN
+     UPDATE estabelecimentos
+     SET rate = media
+     FROM (SELECT AVG(rate) as media FROM agendamentos WHERE id_estabelecimento = new.id_estabelecimento AND criado_em >= (NOW() - interval '1 day')) as media
+     WHERE estabelecimentos.id = new.id_estabelecimento;
+     RETURN NEW;
+   END;
+   $tg_atualizarate$ LANGUAGE 'plpgsql';
+
+-- FIM FUNCTION
+
+   CREATE TRIGGER tg_atualizarate
+	AFTER UPDATE OF rate ON agendamentos
+    FOR EACH ROW
+    EXECUTE PROCEDURE tg_atualizarate();
+
+-- FIM TRIGGER
+
+
 INSERT INTO usuarios (username, password, token, criado_em) VALUES ('renan', '123', uuid_generate_v4(), CURRENT_TIMESTAMP);
 INSERT INTO usuarios (username, password, token, criado_em) VALUES ('dede', '123', uuid_generate_v4(), CURRENT_TIMESTAMP);
 INSERT INTO usuarios (username, password, token, criado_em) VALUES ('teste', '123', uuid_generate_v4(), CURRENT_TIMESTAMP);
 
 INSERT INTO clientes (nome, email, telefone, id_usuario, criado_em) VALUES ('Renan', 'renanpadilha94@hotmail.com', '5184941322', 1, CURRENT_TIMESTAMP);
-INSERT INTO estabelecimentos (nome, email, endereco, telefone, id_usuario, criado_em) VALUES ('Hugo Beauty', 'contato@hugobeauty.com.br', 'Avenida Ipiranga, 8433', '5184941322', 2, CURRENT_TIMESTAMP);
-INSERT INTO estabelecimentos (nome, email, endereco, telefone, id_usuario, criado_em) VALUES ('Salão da Dona Ana', 'contato@salaodonaana.com.br', 'Rua José Alves de Castro, 522', '5133332222', 3, CURRENT_TIMESTAMP);
+INSERT INTO estabelecimentos (nome, email, endereco, telefone, id_usuario, rate, criado_em) VALUES ('Hugo Beauty', 'contato@hugobeauty.com.br', 'Avenida Ipiranga, 8433', '5184941322', 2, 5, CURRENT_TIMESTAMP);
+INSERT INTO estabelecimentos (nome, email, endereco, telefone, id_usuario, rate, criado_em) VALUES ('Salão da Dona Ana', 'contato@salaodonaana.com.br', 'Rua José Alves de Castro, 522', '5133332222', 3, 3, CURRENT_TIMESTAMP);
 INSERT INTO categorias(nome) VALUES ('Barba');
 INSERT INTO categorias(nome) VALUES ('Cabelo');
 INSERT INTO categorias(nome) VALUES ('Depilação');

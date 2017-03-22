@@ -6,6 +6,8 @@ exports.up = (knex, Promise) => {
     table.integer('id_cliente').references('clientes.id');
     table.integer('id_profissional').references('profissionais.id');
     table.integer('id_servico').references('servicos.id');
+    table.decimal('rate');
+    table.boolean('atendido').notNullable().defaultTo(false);
     table.timestamp('criado_em').notNullable().defaultTo(knex.raw('now()'));
   });
 };

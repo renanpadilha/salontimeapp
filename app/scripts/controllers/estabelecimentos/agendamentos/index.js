@@ -1,6 +1,6 @@
 'use strict';
 angular.module('salontimeApp')
-  .controller('EstabelecimentosAgendamentosCtrl', function ($scope, $routeParams, EstabelecimentosAgendamentos, Estabelecimentos) {
+  .controller('EstabelecimentosAgendamentosCtrl', function ($scope, $routeParams, EstabelecimentosAgendamentos, Estabelecimentos, _, $window) {
     $scope.agendamentos = {};
     $scope.init = function() {
       console.log('lul');
@@ -31,6 +31,21 @@ angular.module('salontimeApp')
         }
         $scope.init();
       });
+    };
+
+    $scope.concluirAgendamento = function(agendamento) {
+      var confirm = $window.confirm('Deseja concluir o atendimento?');
+      if(confirm === true) {
+        EstabelecimentosAgendamentos.conclude(agendamento, function(error, agendamento) {
+          if(error) {
+            console.log(error);
+            return;
+          }
+          alert('Agendamento concluído com sucesso!');
+          console.log('lul', agendamento);
+          $scope.init();
+        });
+      }
     };
 
     $scope.init();
