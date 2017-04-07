@@ -1,4 +1,3 @@
-//var basicAuth = require('basic-auth');
 var express = require('express');
 var bodyParser = require('body-parser');
 var app = express();
@@ -20,6 +19,63 @@ app.use(function (req, res, next) {
     res.setHeader('Access-Control-Expose-Headers', 'Location');
     next();
 });
+
+function auth(req, res, next) {
+	var authorization = req.headers.authorization;
+	if(!authorization) {
+		res.sendStatus(401);
+		return;
+	}
+	var parts = authorization.trim().split(' ');
+
+	switch (parts[0]) {
+		case 'Basic':
+			var secret = new Buffer(parts[1], 'base64').toString();
+			var credentials = secret.split(':');
+
+			getUsuarioByCredentials(credentials)
+			.then(function(users) {
+				if(users.length === 0) {
+					res.sendStatus(401);
+					return;
+				}
+				req.user = users[0];
+				next();
+			}).catch(function(error) {
+				console.warn(error);
+				res.sendStatus(401);
+				return;
+			});
+			break;
+		case 'Token':
+			var token = parts[1].split('=')[1];
+			getUsuarioByToken(token)
+			.then(function(users) {
+				if(users.length === 0) {
+					res.sendStatus(401);
+					return;
+				}
+				req.user = users[0];
+				next();
+			}).catch(function(error) {
+				console.warn(error);
+				res.sendStatus(401);
+				return;
+			});
+			break;
+		default:
+			res.sendStatus(401);
+			return;
+	}
+};
+
+function getUsuarioByCredentials(credentials) {
+	return knex.select("*").from('usuarios').where({username: credentials[0], password: credentials[1]});
+}
+
+function getUsuarioByToken(token) {
+	return knex.select("*").from('usuarios').where({token: token});
+}
 
 app.get('/health', function(req, res) {
   res.send('Bem vindo a SALONTIME API');
@@ -54,8 +110,9 @@ app.patch('/api/v1/agendamentos/:id', function(req, res) {
 // CLIENTES
 //
 
-app.get('/api/v1/clientes', function(req, res, next) {
-	knex.select("*").from('clientes').then(function(clientes) {
+app.get('/api/v1/clientes', auth, function(req, res, next) {
+	knex.select("*").from('clientes')
+	.then(function(clientes) {
 		console.log(clientes);
 		res.json(clientes);
 	});
