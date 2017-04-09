@@ -16,46 +16,88 @@ angular
     'ngResource',
     'ngRoute',
     'ngSanitize',
-    'ngTouch'
+    'ngTouch',
+    'ngStorage'
   ])
   .config(function ($routeProvider) {
     $routeProvider
       .when('/', {
         templateUrl: 'views/main.html',
         controller: 'MainCtrl',
-        controllerAs: 'main'
+        controllerAs: 'main',
+        authenticated: true
+      })
+      .when('/login', {
+        templateUrl: 'views/login.html',
+        controller: 'LoginCtrl',
+        controllerAs: 'ctrl',
+        authenticated: true
       })
       .when('/clientes/agendamentos', {
         templateUrl: 'views/clientes/agendamentos/index.html',
         controller: 'ClientesAgendamentosCtrl',
-        controllerAs: 'ctrl'
+        controllerAs: 'ctrl',
+        authenticated: true
       })
       .when('/estabelecimentos/agendamentos', {
         templateUrl: 'views/estabelecimentos/agendamentos/index.html',
         controller: 'EstabelecimentosAgendamentosCtrl',
-        controllerAs: 'ctrl'
+        controllerAs: 'ctrl',
+        authenticated: true
       })
       .when('/estabelecimentos/profissionais', {
         templateUrl: 'views/estabelecimentos/profissionais/index.html',
         controller: 'EstabelecimentosProfissionaisCtrl',
-        controllerAs: 'ctrl'
+        controllerAs: 'ctrl',
+        authenticated: true
       })
       .when('/estabelecimentos/profissionais/:id', {
         templateUrl: 'views/estabelecimentos/profissionais/edit.html',
         controller: 'EstabelecimentosProfissionaisEditCtrl',
-        controllerAs: 'ctrl'
+        controllerAs: 'ctrl',
+        authenticated: true
       })
       .when('/estabelecimentos/promocoes', {
         templateUrl: 'views/estabelecimentos/promocoes/index.html',
         controller: 'PromocoesCtrl',
-        controllerAs: 'ctrl'
+        controllerAs: 'ctrl',
+        authenticated: true
       })
       .when('/estabelecimentos/promocoes/:id', {
         templateUrl: 'views/estabelecimentos/promocoes/edit.html',
         controller: 'PromocoesEditCtrl',
-        controllerAs: 'ctrl'
+        controllerAs: 'ctrl',
+        authenticated: true
       })
       .otherwise({
         redirectTo: '/'
       });
+  })
+  .config(['$locationProvider', function($locationProvider) {
+    $locationProvider.hashPrefix('');
+  }])
+  .run(function($rootScope, $location, Authentication, $route) {
+    $rootScope.isLoggedIn = function() {
+      return Authentication.getLoggedInUser(function(data) {
+        return !!data;
+      });
+    };
+    $rootScope.logout = function() {
+      Authentication.logout(function(){
+        $location.path('/login');
+        $route.reload();
+      });
+    };
+    $rootScope.$on('$routeChangeStart', function(event, next) {
+      if (!$rootScope.isLoggedIn()) {
+        if (next.authenticated === true) {
+          $location.path('/login');
+        }
+      } else {
+        if (next.templateUrl === 'views/login.html') {
+          $location.path('/');
+        }
+      }
+    });
+
   });

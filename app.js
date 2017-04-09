@@ -81,6 +81,27 @@ app.get('/health', function(req, res) {
   res.send('Bem vindo a SALONTIME API');
 });
 
+// AUTÊNTICAÇÃO
+
+app.post('/api/v1/authentication', function(req, res, next) {
+	getUsuarioByCredentials(req.body)
+	.then(function(users) {
+		if(users.length === 0) {
+			res.sendStatus(401);
+			return;
+		}
+		req.user = users[0];
+		res.send(req.user);
+		next();
+	}).catch(function(error) {
+		console.warn(error);
+		res.sendStatus(401);
+		return;
+	});
+});
+
+// END AUTÊNTICAÇÃO
+
 //
 // AGENDAMENTOS
 //
