@@ -3,7 +3,7 @@
     Agendamentos <span class="small">Qualificação: </span>
   </h1>
 </header>
-<div class="panel-body">
+<div class="panel-body table-responsive">
   <table class="table table-striped">
     <thead>
       <tr>
@@ -23,7 +23,7 @@
         <td>{{agendamento.profissionalnome}}</td>
         <td>{{agendamento.atendido === false ? 'Não' : 'Sim'}}</td>
         <td>
-          <div class="btn-group">
+          <div class="btn-group nowrap nowrap">
             <button class="btn btn-success" ng-click="concluirAgendamento(agendamento)" ng-disabled="agendamento.atendido"><span class="glyphicon glyphicon-ok"></span> Concluir</a>
             <button class="btn btn-warning" ng-click="cancelarAgendamento(agendamento.id)" ng-disabled="agendamento.atendido"><span class="glyphicon glyphicon-remove"></span> Cancelar</a>
           </div>
