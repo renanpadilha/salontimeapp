@@ -16,6 +16,7 @@ angular.module('salontimeApp')
       Authentication.getLoggedInUser(function(data) {
         $scope.user = data;
       });
+      $scope.logado = Authentication.isLoggedIn();
     };
 
     $rootScope.$on('carregaNav', function() {

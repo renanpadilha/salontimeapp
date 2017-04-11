@@ -75,7 +75,8 @@ angular
         authenticated: true
       })
       .otherwise({
-        redirectTo: '/'
+        redirectTo: '/404',
+        templateUrl: '404.html'
       });
   })
   .config(['$locationProvider', function($locationProvider) {
