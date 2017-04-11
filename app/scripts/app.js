@@ -33,6 +33,11 @@ angular
         controllerAs: 'ctrl',
         authenticated: true
       })
+      .when('/register', {
+        templateUrl: 'views/register.html',
+        controller: 'RegisterCtrl',
+        controllerAs: 'ctrl',
+      })
       .when('/clientes/agendamentos', {
         templateUrl: 'views/clientes/agendamentos/index.html',
         controller: 'ClientesAgendamentosCtrl',

@@ -100,6 +100,18 @@ app.post('/api/v1/authentication', function(req, res, next) {
 	});
 });
 
+app.post('/api/v1/register', function(req, res) {
+	var usuario = {
+		username: req.body.username,
+		password: req.body.password,
+		tipo: req.body.tipo
+	};
+	knex.insert(usuario).into('usuarios').returning('*')
+	.then(function(usuario) {
+		res.status(201).json(usuario);
+	});
+});
+
 // END AUTÊNTICAÇÃO
 
 //
@@ -141,7 +153,8 @@ app.get('/api/v1/clientes', auth, function(req, res, next) {
 
 app.get('/api/v1/clientes/:id', function(req, res, next) {
 	var id = req.params.id;
-	knex.select("*").from('clientes').where({id: id}).then(function(cliente) {
+	knex.select("*").from('clientes').where({id: id})
+	.then(function(cliente) {
 		res.json(cliente);
 	});
 });
@@ -150,10 +163,11 @@ app.post('/api/v1/clientes', function(req, res){
 	var cliente = {
 		nome: req.body.nome,
 		email: req.body.email,
-		senha: req.body.senha,
+		id_usuario: req.body.id_usuario,
 		telefone: req.body.telefone
 	};
-	knex.insert(cliente).into('clientes').then(function(cliente) {
+	knex.insert(cliente).into('clientes')
+	.then(function(cliente) {
 		res.status(201).json(cliente);
 	});
 });
@@ -263,7 +277,7 @@ app.post('/api/v1/estabelecimentos', function(req, res){
 	var estabelecimento = {
 		nome: req.body.nome,
 		email: req.body.email,
-		senha: req.body.senha,
+		id_usuario: req.body.id_usuario,
 		endereco: req.body.endereco,
 		telefone: req.body.telefone
 	};

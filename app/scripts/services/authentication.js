@@ -28,13 +28,6 @@ angular.module('salontimeApp')
       $localStorage.$reset();
       callback();
     };
-    // this.setOrganization = function(organization) {
-    //   $localStorage.organization = organization;
-    //   $rootScope.$emit('organizationChanged', organization);
-    // };
-    // this.getOrganization = function(callback) {
-    //   return callback($localStorage.organization);
-    // };
     this.getLoggedInUser = function(callback) {
       return callback($localStorage.loggedInUser);
     };
