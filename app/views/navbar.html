@@ -25,6 +25,11 @@
         <li>
           <a href="#/estabelecimentos/promocoes">Promoções</a>
         </li>
+        <li>
+          <a ng-click="sair()"> Logout
+            <span class="glyphicon glyphicon-log-out"></span>
+          </a>
+        </li>
       </ul>
       <ul class="nav navbar-nav" ng-if="user.tipo === 'C'">
         <li>
@@ -32,6 +37,11 @@
         </li>
         <li>
           <a href="#/clientes/favoritos">Favoritos</a>
+        </li>
+        <li>
+          <a ng-click="sair()"> Logout
+            <span class="glyphicon glyphicon-log-out"></span>
+          </a>
         </li>
       </ul>
     </div>

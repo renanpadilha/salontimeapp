@@ -8,7 +8,7 @@
  * Controller of the zetaWebClient
  */
 angular.module('salontimeApp')
-  .controller('NavbarCtrl', function($scope, Authentication, $rootScope) {
+  .controller('NavbarCtrl', function($scope, Authentication, $rootScope, $location) {
     $scope.init = function() {
       $scope.isNavCollapsed = true;
       $scope.isCollapsed = false;
@@ -17,6 +17,13 @@ angular.module('salontimeApp')
         $scope.user = data;
       });
       $scope.logado = Authentication.isLoggedIn();
+    };
+
+    $scope.sair = function() {
+      Authentication.logout(function() {
+        $location.path('/login');
+        $scope.logado = false;
+      });
     };
 
     $rootScope.$on('carregaNav', function() {
