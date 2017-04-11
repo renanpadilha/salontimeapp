@@ -29,33 +29,27 @@ angular.module('salontimeApp')
       });
     };
 
-    this.cadastrar = function(cliente, callback) {
-      $http.post(API_URL + '/register', cliente)
+    this.usuario = function(usuario, callback) {
+      $http.post(API_URL + '/register', usuario)
       .then(function(response) {
-        var usuario = response.data;
-        _.extend(cliente, {
-          id_usuario: usuario.id
-        });
-        switch (usuario.tipo) {
-          case 'C':
-            $http.post(API_URL + '/clientes', cliente)
-            .then(function(response) {
-              console.log('Cliente criado', response.data);
-            }, function(error) {
-              console.warn(error);
-            });
-            break;
-          case 'E':
-            $http.post(API_URL + '/estabelecimentos', cliente)
-            .then(function(response) {
-              console.log('estabelecimento criado', response.data);
-            }, function(error) {
-              console.warn(error);
-            });
-            break;
-          default:
-            console.warn('Erro ao registrar');
-        }
+        callback(null, response.data[0]);
+      }, function(error) {
+        callback(error, null);
+      });
+    };
+
+    this.cliente = function(cliente, callback) {
+      $http.post(API_URL + '/clientes', cliente)
+      .then(function(response) {
+        callback(null, response.data);
+      }, function(error) {
+        callback(error, null);
+      });
+    };
+
+    this.estabelecimento = function(estabelecimento, callback) {
+      $http.post(API_URL + '/estabelecimentos', estabelecimento)
+      .then(function(response) {
         callback(null, response.data);
       }, function(error) {
         callback(error, null);

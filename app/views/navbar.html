@@ -1,0 +1,39 @@
+<div ng-controller="NavbarCtrl">
+  <nav class="navbar navbar-default" role="navigation" ng-if="logado">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" ng-click="isNavCollapsed = !isNavCollapsed">
+        <span class="glyphicon glyphicon-menu-hamburger"></span>
+      </button>
+      <div ng-if="user.tipo === 'E'">
+        <a class="navbar-brand" href="#/estabelecimentos/agendamentos">SalonTime</a>
+      </div>
+      <div ng-if="user.tipo === 'C'">
+        <a class="navbar-brand" href="#">SalonTime</a>
+      </div>
+    </div>
+    <div class="navbar-collapse collapse" uib-collapse="isNavCollapsed" aria-expanded="false" aria-hidden="true" style="height: 0px;">
+      <ul class="nav navbar-nav" ng-if="user.tipo === 'E'">
+        <li>
+          <a href="#/estabelecimentos/agendamentos">Agendamentos</a>
+        </li>
+        <li>
+          <a href="#/estabelecimentos/servicos">Serviços</a>
+        </li>
+        <li>
+          <a href="#/estabelecimentos/profissionais">Profissionais</a>
+        </li>
+        <li>
+          <a href="#/estabelecimentos/promocoes">Promoções</a>
+        </li>
+      </ul>
+      <ul class="nav navbar-nav" ng-if="user.tipo === 'C'">
+        <li>
+          <a href="#/clientes/agendamentos">Agendamentos</a>
+        </li>
+        <li>
+          <a href="#/clientes/favoritos">Favoritos</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+</div>

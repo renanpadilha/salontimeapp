@@ -12,7 +12,12 @@ angular.module('salontimeApp')
     $scope.login = function() {
       Authentication.login($scope.username, $scope.password, function(error, data) {
           if (!error) {
-            $location.path('/');
+            $rootScope.$emit('carregaNav', data);
+            if(data.tipo === 'E') {
+              $location.path('/estabelecimentos/agendamentos');
+            } else {
+              $location.path('/');
+            }
           } else {
             console.log(data);
             console.log(error);

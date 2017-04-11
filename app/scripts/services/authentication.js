@@ -10,8 +10,7 @@
 angular.module('salontimeApp')
   .service('Authentication', function ($rootScope, $http, $localStorage) {
     var service = this;
-    // const API_URL = 'https://salontime.herokuapp.com/api/v1';
-    const API_URL = 'http://localhost:4002/api/v1';
+    const API_URL = 'https://salontime.herokuapp.com/api/v1';
     this.login = function(username, password, callback) {
       $http.post(API_URL + '/authentication',
         [username, password],

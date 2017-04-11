@@ -16,7 +16,6 @@ angular.module('salontimeApp')
     };
 
     $scope.atualizarEndereco = function(cep) {
-      $scope.init();
       Register.findEndereco(cep, function(error, localidade) {
         if(error) {
           $scope.error = 'CEP não encontrado';
@@ -33,39 +32,65 @@ angular.module('salontimeApp')
     $scope.cadastrar = function() {
       switch ($scope.cliente.tipo) {
         case 'C':
-        var cliente = {
+        var usuario = {
           tipo: 'C',
-          email: $scope.cliente.email,
           username: $scope.cliente.username,
-          senha: $scope.cliente.password,
-          nome: $scope.cliente.nome,
-          telefone: $scope.cliente.telefone
+          password: $scope.cliente.password,
         };
+        Register.usuario(usuario, function(error, data) {
+          if(error) {
+            console.warn(error);
+            return;
+          }
+          var cliente = {
+            id_usuario: data.id,
+            nome: $scope.cliente.nome,
+            email: $scope.cliente.password,
+            telefone: $scope.cliente.telefone
+          };
+          Register.cliente(cliente, function(error, cliente) {
+            if(error) {
+              console.warn(error);
+              return;
+            }
+            alert('Cliente cadastrado com sucesso');
+            $location.path('/login');
+          });
+        });
           break;
         case 'E':
         var complemento = $scope.endereco.complemento ? '/' + $scope.endereco.complemento : '';
         var endereco = $scope.endereco.logradouro + ', ' + $scope.endereco.numero + complemento + ', ' + $scope.endereco.cidade + ' - ' + $scope.endereco.estado;
-        var cliente = {
+        var usuario = {
           tipo: 'E',
-          email: $scope.cliente.email,
           username: $scope.cliente.username,
-          senha: $scope.cliente.password,
-          nome: $scope.cliente.nomeestab,
-          telefone: $scope.cliente.telefone,
-          endereco: endereco
+          password: $scope.cliente.password,
         };
+        Register.usuario(usuario, function(error, data) {
+          if(error) {
+            console.warn(error);
+            return;
+          }
+          var estabelecimento = {
+            id_usuario: data.id,
+            email: $scope.cliente.email,
+            nome: $scope.cliente.nome,
+            telefone: $scope.cliente.telefone,
+            endereco: endereco
+          };
+          Register.estabelecimento(estabelecimento, function(error, estabelecimento) {
+            if(error) {
+              console.warn(error);
+              return;
+            }
+            alert('Estabelecimento cadastrado com sucesso');
+            $location.path('/login');
+          });
+        });
           break;
         default:
         $scope.error = 'Não foi possível criar sua conta';
       }
-      Register.cadastrar(cliente, function(error, data) {
-        if(error) {
-          console.warn(error);
-          return;
-        }
-        alert('Cliente cadastrado com sucesso');
-        $location.path('/login');
-      });
     };
     $scope.init();
   });
