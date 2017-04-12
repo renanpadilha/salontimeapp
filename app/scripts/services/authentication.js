@@ -37,7 +37,7 @@ angular.module('salontimeApp')
     };
     this.me = function(callback) {
       if($localStorage.loggedInUser.tipo === 'C'){
-        $http.get(API_URL + '/clientelogado')
+        $http.get(API_URL + '/clientelogado/' + $localStorage.loggedInUser.id)
         .then(function(response) {
           console.log('ae', response);
           callback(null, response.data);
@@ -46,7 +46,7 @@ angular.module('salontimeApp')
           console.warn(error);
         });
       } else {
-        $http.get(API_URL + '/estabelecimentologado')
+        $http.get(API_URL + '/estabelecimentologado/' + $localStorage.loggedInUser.id)
         .then(function(response) {
           $localStorage.estabelecimentoLogado = response.data;
           callback(null, $localStorage.estabelecimentoLogado);
