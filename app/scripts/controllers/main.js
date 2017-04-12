@@ -1,6 +1,6 @@
 'use strict';
 angular.module('salontimeApp')
-  .controller('MainCtrl', function ($scope, $routeParams, $http, ClientesAgendamentos, Categorias, Servicos, Estabelecimentos) {
+  .controller('MainCtrl', function ($scope, $routeParams, $http, ClientesAgendamentos, Categorias, Servicos, Estabelecimentos, Blacklist) {
     const API_URL = 'https://salontime.herokuapp.com/api/v1';
     $scope.init = function() {
       if(!$scope.agendamento) {
@@ -58,19 +58,29 @@ angular.module('salontimeApp')
 
     $scope.agendar = function() {
       //@TODO fazer get no banco pra saber se existe um horário igual marcado
-      var dataLocal = moment($scope.datahora.getTime()).local().format();
-      var agendamento = {
-        id_estabelecimento: $scope.estabelecimentoSelecionado,
-        id_profissional: $scope.profissionalSelecionado,
-        id_servico: $scope.servicoSelecionado,
-        data: dataLocal
-      };
-      ClientesAgendamentos.create(agendamento, function(error, data){
+      Blacklist.getgetByCliente(function(error, blacklist) {
         if(error) {
-          console.log(error);
+          console.warn(error);
+        }
+        var blacklist = blacklist;
+        if(blacklist.length >= 2) {
+          $window.alert('Você não pode agendar nesse estabelecimento porque se atrasou/faltou ao compromisso');
           return;
         }
-        console.log('Dados do agendamento', data);
+        var dataLocal = moment($scope.datahora.getTime()).local().format();
+        var agendamento = {
+          id_estabelecimento: $scope.estabelecimentoSelecionado,
+          id_profissional: $scope.profissionalSelecionado,
+          id_servico: $scope.servicoSelecionado,
+          data: dataLocal
+        };
+        ClientesAgendamentos.create(agendamento, function(error, data){
+          if(error) {
+            console.log(error);
+            return;
+          }
+          console.log('Dados do agendamento', data);
+        });
       });
     };
 

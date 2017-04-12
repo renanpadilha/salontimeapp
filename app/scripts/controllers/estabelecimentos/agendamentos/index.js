@@ -1,6 +1,6 @@
 'use strict';
 angular.module('salontimeApp')
-  .controller('EstabelecimentosAgendamentosCtrl', function ($scope, $routeParams, EstabelecimentosAgendamentos, Estabelecimentos, _, $window) {
+  .controller('EstabelecimentosAgendamentosCtrl', function ($scope, $routeParams, EstabelecimentosAgendamentos, Estabelecimentos, _, $window, Blacklist) {
     $scope.agendamentos = [];
     $scope.init = function() {
       Estabelecimentos.getAgendamentos(function(error, agendamentos) {
@@ -48,9 +48,23 @@ angular.module('salontimeApp')
     };
 
     $scope.enviarParaBlacklist = function(agendamento) {
-      console.log('agendamento', agendamento);
+      Blacklist.create(agendamento.idCliente, function(error, data) {
+        if(error) {
+          console.warn(error);
+          return;
+        }
+        $window.alert('Cliente enviado para blacklist\nPara que o cliente seja bloqueado, são necessárias 2 inserções');
+      });
+    };
 
-
+    $scope.checkDay = function(agendamento) {
+      var agora = moment.utc(new Date()).local().format();
+      var dataAgend = moment.utc(agendamento.dataagendamento).local().format();
+      if(agora > dataAgend) {
+        return false;
+      } else {
+        return true;
+      }
     };
 
     $scope.init();

@@ -26,7 +26,7 @@
           <div class="btn-group nowrap nowrap">
             <button class="btn btn-success btn-sm" ng-click="concluirAgendamento(agendamento)" ng-disabled="agendamento.atendido"><span class="glyphicon glyphicon-ok"></span> Concluir</a>
             <button class="btn btn-warning btn-sm" ng-click="cancelarAgendamento(agendamento.id)" ng-disabled="agendamento.atendido"><span class="glyphicon glyphicon-remove"></span> Cancelar</a>
-            <button class="btn btn-danger btn-sm" ng-click="enviarParaBlacklist(agendamento)" ng-disabled="checkDay(agendamento.dataagendamento)"><span class="glyphicon glyphicon-thumbs-down"></span> Blacklist</a>
+            <button class="btn btn-danger btn-sm" ng-click="enviarParaBlacklist(agendamento)" ng-disabled="checkDay(agendamento)"><span class="glyphicon glyphicon-thumbs-down"></span> Blacklist</a>
           </div>
         </td>
       </tr>
