@@ -23,11 +23,11 @@ angular.module('salontimeApp')
       });
     };
 
-    this.create = function(id_cliente, callback) {
+    this.create = function(idcliente, callback) {
       Authentication.me(function(error, data) {
         var userId = data[0].id;
         var dadosBlacklist = {
-          id_cliente: id_cliente,
+          id_cliente: idcliente,
           id_estabelecimento: userId
         };
         $http.post(API_URL + '/blacklist', dadosBlacklist)

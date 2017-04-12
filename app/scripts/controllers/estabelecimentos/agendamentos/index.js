@@ -48,7 +48,7 @@ angular.module('salontimeApp')
     };
 
     $scope.enviarParaBlacklist = function(agendamento) {
-      Blacklist.create(agendamento.idCliente, function(error, data) {
+      Blacklist.create(agendamento.idcliente, function(error, data) {
         if(error) {
           console.warn(error);
           return;
