@@ -63,6 +63,11 @@
         <span class="form-control">{{preco | currency:"R$ "}}</span>
       </div>
     </div>
+    <div class="col-xs-12" ng-if="promocao">
+      <div class="alert alert-success" role="alert">
+        Preço com promoção
+      </div>
+    </div>
     <div class="col-xs-12">
       <div class="form-group">
         <label for="profissional"><span class="glyphicon glyphicon-user"></span> Profissional</label>

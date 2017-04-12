@@ -52,7 +52,18 @@ angular.module('salontimeApp')
           console.log(error);
           return;
         }
-        $scope.preco = preco.preco;
+        Estabelecimentos.getPromocoes($scope.estabelecimentoSelecionado, function(error, promocao) {
+          if(error) {
+            console.warn(error);
+            return;
+          }
+          if(promocao.servico === $scope.servicos[0].nome) {
+            $scope.promocao = promocao.preco;
+            $scope.preco = $scope.promocao;
+          } else {
+            $scope.preco = preco.preco;
+          }
+        });
       });
     };
 

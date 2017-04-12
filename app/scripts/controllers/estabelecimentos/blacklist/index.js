@@ -7,11 +7,12 @@ angular.module('salontimeApp')
           console.warn(error);
           return;
         }
+        console.log(blacklist);
         $scope.blacklist = blacklist;
       });
     };
 
-    $scope.remover(idCliente) = function() {
+    $scope.remover = function(idCliente) {
       Blacklist.remover(idCliente, function(error, data) {
         if(error) {
           console.log(error);
@@ -19,7 +20,7 @@ angular.module('salontimeApp')
         }
         switch (data.status) {
           case 204:
-            alert('Agendamento cancelado com sucesso');
+            alert('Cliente removido da blacklist com sucesso');
             break;
           case 404:
             alert('Não foi possível localizar o agendamento');

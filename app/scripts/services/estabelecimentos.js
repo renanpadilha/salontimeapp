@@ -54,6 +54,15 @@ angular.module('salontimeApp')
       });
     };
 
+    this.getPromocoes = function(idEstabelecimento, callback) {
+      $http.get(API_URL + '/estabelecimentos/' + idEstabelecimento + '/promocoes')
+      .then(function(response) {
+        callback(null, response.data[0]);
+      }, function(error) {
+        callback(error, null);
+      });
+    };
+
     this.getServicos = function(callback) {
       Authentication.me(function(error, data) {
         var userId = data[0].id;
