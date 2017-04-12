@@ -1,6 +1,6 @@
 'use strict';
 angular.module('salontimeApp')
-  .controller('MainCtrl', function ($scope, $routeParams, $http, ClientesAgendamentos, Categorias, Servicos, Estabelecimentos, Blacklist) {
+  .controller('MainCtrl', function ($scope, $routeParams, $http, ClientesAgendamentos, Categorias, Servicos, Estabelecimentos, Blacklist, $window) {
     const API_URL = 'https://salontime.herokuapp.com/api/v1';
     $scope.init = function() {
       if(!$scope.agendamento) {
