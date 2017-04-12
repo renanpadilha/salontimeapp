@@ -23,6 +23,27 @@ angular.module('salontimeApp')
       });
     };
 
+    this.getByEstabelecimento = function(callback) {
+      Authentication.me(function(error, data) {
+        var userId = data[0].id;
+        $http.get(API_URL + '/estabelecimentos/' + userId + '/blacklist')
+        .then(function(response) {
+          callback(null, response.data);
+        }, function(error) {
+          callback(error, null);
+        });
+      });
+    };
+
+    this.remover = function(idCliente, callback) {
+      $http.delete(API_URL + '/blacklist/' + idCliente)
+      .then(function(response) {
+        callback(null, response);
+      }, function(error){
+        callback(error, null);
+      });
+    }
+
     this.create = function(idcliente, callback) {
       Authentication.me(function(error, data) {
         var userId = data[0].id;

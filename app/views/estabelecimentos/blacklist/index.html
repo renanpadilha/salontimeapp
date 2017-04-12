@@ -1,0 +1,26 @@
+<header>
+  <h1>
+    Blacklist
+  </h1>
+</header>
+<div class="panel-body table-responsive">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Cliente</th>
+        <th>E-mail</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="cliente in blacklist">
+        <td>{{blacklist.cliente}}</td>
+        <td>{{blacklist.email}}</td>
+        <td>
+          <div class="btn-group nowrap nowrap">
+            <button class="btn btn-success btn-sm" ng-click="remover(cliente)"><span class="glyphicon glyphicon-ok"></span> Remover</a>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

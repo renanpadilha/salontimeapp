@@ -155,6 +155,16 @@ app.post('/api/v1/blacklist', function(req, res) {
 		res.status(201).json(blacklisted);
 	});
 });
+
+app.delete('/api/v1/blacklist/:id', function(req, res) {
+	id_cliente = req.params.id;
+	knex('blacklist').where({id_cliente: id_cliente}).del()
+	.then(function(id) {
+		res.status(204).json();
+	}).catch(function(error) {
+		console.log(error);
+	});
+});
 //
 // END BLACKLIST
 //
@@ -164,9 +174,8 @@ app.post('/api/v1/blacklist', function(req, res) {
 //
 app.delete('/api/v1/agendamentos/:id', function(req, res) {
 	id_agendamento = req.params.id;
-	knex('agendamento').where({id: id_agendamento}).del()
+	knex('agendamentos').where({id: id_agendamento}).del()
 	.then(function(id) {
-		console.log('Agendamento' + id + 'cancelado');
 		res.status(204).json();
 	}).catch(function(error) {
 		console.log(error);
@@ -464,6 +473,15 @@ app.get('/api/v1/estabelecimentos/:id/servicos/:id_servico/precos', function(req
 		res.json(response.rows);
 	}).catch(function(err) {
 		console.log(err);
+	});
+});
+
+app.get('/api/v1/estabelecimentos/:id/blacklist', function(req, res) {
+	knex.raw('SELECT c.id, c.nome, c.email from blacklist b JOIN cliente c ON b.id_cliente = c.id WHERE b.id_estabelecimento = ? GROUP BY c.id HAVING COUNT(c.id) >= 2', req.params.id)
+	.then(function(blacklisted) {
+		res.json(blacklisted.rows);
+	}).catch(function(error){
+		console.warn(error);
 	});
 });
 
