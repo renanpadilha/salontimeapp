@@ -58,7 +58,7 @@ angular.module('salontimeApp')
 
     $scope.agendar = function() {
       //@TODO fazer get no banco pra saber se existe um horário igual marcado
-      Blacklist.getgetByCliente(function(error, blacklist) {
+      Blacklist.getByCliente(function(error, blacklist) {
         if(error) {
           console.warn(error);
         }

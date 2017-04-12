@@ -12,7 +12,7 @@ angular.module('salontimeApp')
     const API_URL = 'https://salontime.herokuapp.com/api/v1';
 
     this.getByCliente = function(callback) {
-      Authentication.me(function(data) {
+      Authentication.me(function(error, data) {
         var userId = data[0].id;
         $http.get(API_URL + '/blacklist/' + userId)
         .then(function(response) {
@@ -24,7 +24,7 @@ angular.module('salontimeApp')
     };
 
     this.create = function(id_cliente, callback) {
-      Authentication.me(function(data) {
+      Authentication.me(function(error, data) {
         var userId = data[0].id;
         var dadosBlacklist = {
           id_cliente: id_cliente,

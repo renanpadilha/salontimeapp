@@ -137,7 +137,7 @@ app.post('/api/v1/register', function(req, res) {
 //
 app.get('/api/v1/blacklist/:id', function(req, res) {
 	var id_cliente = req.body.id;
-	knex('blacklist').where({id: id_cliente})
+	knex('blacklist').where({id_cliente: id_cliente})
 	.then(function(blacklisted) {
 		res.json(blacklisted);
 	}).catch(function(error) {

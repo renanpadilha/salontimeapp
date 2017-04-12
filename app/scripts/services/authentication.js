@@ -36,7 +36,7 @@ angular.module('salontimeApp')
       });
     };
     this.me = function(callback) {
-      if($localStorage.loggedInUser.tipo === 'C'){
+      if($localStorage.loggedInUser.tipo === 'C') {
         $http.get(API_URL + '/clientelogado/' + $localStorage.loggedInUser.id)
         .then(function(response) {
           callback(null, response.data);
