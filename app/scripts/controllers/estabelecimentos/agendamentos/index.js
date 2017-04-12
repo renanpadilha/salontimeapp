@@ -3,6 +3,12 @@ angular.module('salontimeApp')
   .controller('EstabelecimentosAgendamentosCtrl', function ($scope, $routeParams, EstabelecimentosAgendamentos, Estabelecimentos, _, $window, Blacklist) {
     $scope.agendamentos = [];
     $scope.init = function() {
+      EstabelecimentosAgendamentos.getRating(function(error, rate) {
+        if(error) {
+          console.warn(error);
+        }
+        $scope.rate = rate;
+      });
       Estabelecimentos.getAgendamentos(function(error, agendamentos) {
         if(error) {
           console.log(error);
