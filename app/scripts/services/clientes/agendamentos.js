@@ -13,9 +13,8 @@ angular.module('salontimeApp')
     const API_URL = 'https://salontime.herokuapp.com/api/v1';
 
     this.create = function(agendamento, callback) {
-      //TODO Adicionar variavel de logado
-      Authentication.me(function(data) {
-        var userId = data
+      Authentication.me(function(error, data) {
+        var userId = data[0].id;
         $http.post(API_URL + '/clientes/' + userId + '/agendamentos', agendamento)
         .then(function(response) {
           callback(null, response.data);

@@ -9,7 +9,7 @@
  * Service in the salontimeApp.
  */
 angular.module('salontimeApp')
-  .service('Promocoes', function ($http, $routeParams) {
+  .service('Promocoes', function ($http, $routeParams, Authentication) {
     var service = this;
     const API_URL = 'https://salontime.herokuapp.com/api/v1';
 
@@ -24,18 +24,20 @@ angular.module('salontimeApp')
     };
 
     this.create = function(object, callback) {
-      //TODO Adicionar variavel de logado
-      var promocao = {
-        nome: object.nome,
-        id_estabelecimento: 1,
-        id_servico: object.servico.id,
-        preco: object.preco
-      };
-      $http.post(API_URL + '/promocoes', promocao)
-      .then(function(response) {
-        callback(null, response.data);
-      }, function(error) {
-        callback(error, null);
+      Authentication.me(function(error, data) {
+        var userId = data[0].id;
+        var promocao = {
+          nome: object.nome,
+          id_estabelecimento: userId,
+          id_servico: object.servico.id,
+          preco: object.preco
+        };
+        $http.post(API_URL + '/promocoes', promocao)
+        .then(function(response) {
+          callback(null, response.data);
+        }, function(error) {
+          callback(error, null);
+        });
       });
     };
 
@@ -49,12 +51,14 @@ angular.module('salontimeApp')
     };
 
     this.getPromocoes = function(callback) {
-      //TODO Adicionar variavel de logado
-      $http.get(API_URL + '/estabelecimentos/' + 1 + '/promocoes')
-      .then(function(response) {
-        callback(null, response.data);
-      }, function(error) {
-        callback(error, null);
+      Authentication.me(function(error, data) {
+        var userId = data[0].id;
+        $http.get(API_URL + '/estabelecimentos/' + userId + '/promocoes')
+        .then(function(response) {
+          callback(null, response.data);
+        }, function(error) {
+          callback(error, null);
+        });
       });
     };
 

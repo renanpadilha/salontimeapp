@@ -39,7 +39,6 @@ angular.module('salontimeApp')
       if($localStorage.loggedInUser.tipo === 'C'){
         $http.get(API_URL + '/clientelogado/' + $localStorage.loggedInUser.id)
         .then(function(response) {
-          console.log('ae', response);
           callback(null, response.data);
         }, function(error) {
           callback(error, null);
@@ -48,8 +47,7 @@ angular.module('salontimeApp')
       } else {
         $http.get(API_URL + '/estabelecimentologado/' + $localStorage.loggedInUser.id)
         .then(function(response) {
-          $localStorage.estabelecimentoLogado = response.data;
-          callback(null, $localStorage.estabelecimentoLogado);
+          callback(null, response.data);
         }, function(error) {
           callback(error, null);
           console.warn(error);

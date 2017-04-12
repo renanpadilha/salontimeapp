@@ -113,14 +113,6 @@ RETURNS TRIGGER AS $tg_atualizarate$
 
 -- FIM TRIGGER
 
-
-INSERT INTO usuarios (username, password, token, criado_em) VALUES ('renan', '123', uuid_generate_v4(), CURRENT_TIMESTAMP);
-INSERT INTO usuarios (username, password, token, criado_em) VALUES ('dede', '123', uuid_generate_v4(), CURRENT_TIMESTAMP);
-INSERT INTO usuarios (username, password, token, criado_em) VALUES ('teste', '123', uuid_generate_v4(), CURRENT_TIMESTAMP);
-
-INSERT INTO clientes (nome, email, telefone, id_usuario, criado_em) VALUES ('Renan', 'renanpadilha94@hotmail.com', '5184941322', 1, CURRENT_TIMESTAMP);
-INSERT INTO estabelecimentos (nome, email, endereco, telefone, id_usuario, rate, criado_em) VALUES ('Hugo Beauty', 'contato@hugobeauty.com.br', 'Avenida Ipiranga, 8433', '5184941322', 2, 5, CURRENT_TIMESTAMP);
-INSERT INTO estabelecimentos (nome, email, endereco, telefone, id_usuario, rate, criado_em) VALUES ('Salão da Dona Ana', 'contato@salaodonaana.com.br', 'Rua José Alves de Castro, 522', '5133332222', 3, 3, CURRENT_TIMESTAMP);
 INSERT INTO categorias(nome) VALUES ('Barba');
 INSERT INTO categorias(nome) VALUES ('Cabelo');
 INSERT INTO categorias(nome) VALUES ('Depilação');
@@ -137,9 +129,9 @@ INSERT INTO servicos(nome, duracao ,id_categoria) VALUES ('Depilação peito', 3
 INSERT INTO servicos(nome, duracao ,id_categoria) VALUES ('Mão', 60, 6);
 
 INSERT INTO profissionais (nome, email, telefone, porcentagem, id_estabelecimento, criado_em) VALUES ('Juliana', 'renanpadilha94@hotmail.com', '5184941322', 70, 1, CURRENT_TIMESTAMP);
-INSERT INTO profissionais (nome, email, telefone, porcentagem, id_estabelecimento, criado_em) VALUES ('Craudete', 'deffanyo@gmail.com', '51984242312', 50, 2, CURRENT_TIMESTAMP);
+INSERT INTO profissionais (nome, email, telefone, porcentagem, id_estabelecimento, criado_em) VALUES ('Craudete', 'deffanyo@gmail.com', '51984242312', 50, 1, CURRENT_TIMESTAMP);
 INSERT INTO estabelecimentos_servicos (preco, id_estabelecimento, id_servico) VALUES (30, 1, 1);
-INSERT INTO estabelecimentos_servicos (preco, id_estabelecimento, id_servico) VALUES (30, 2, 2);
+INSERT INTO estabelecimentos_servicos (preco, id_estabelecimento, id_servico) VALUES (30, 1, 2);
 INSERT INTO profissionais_servicos (id_profissional, id_servico) VALUES (1, 1);
 INSERT INTO profissionais_servicos (id_profissional, id_servico) VALUES (1, 2);
 INSERT INTO profissionais_servicos (id_profissional, id_servico) VALUES (2, 2);

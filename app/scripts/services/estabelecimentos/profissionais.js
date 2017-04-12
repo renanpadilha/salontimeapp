@@ -1,6 +1,6 @@
 'use strict';
 angular.module('salontimeApp')
-  .service('Profissionais', function ($http) {
+  .service('Profissionais', function ($http, Authentication) {
     var service = this;
     const API_URL = 'https://salontime.herokuapp.com/api/v1';
 
@@ -14,19 +14,21 @@ angular.module('salontimeApp')
     };
 
     this.create = function(object, callback) {
-      //TODO Adicionar variavel de logado
-      var profissional = {
-        nome: object.nome,
-        telefone: object.telefone,
-        email: object.email,
-        porcentagem: object.porcentagem,
-        id_estabelecimento: 1
-      };
-      $http.post(API_URL + '/profissionais/', profissional)
-      .then(function(response) {
-        callback(null, response.data);
-      }, function(error) {
-        callback(error, null);
+      Authentication.me(function(error, data) {
+        var userId = data[0].id;
+        var profissional = {
+          nome: object.nome,
+          telefone: object.telefone,
+          email: object.email,
+          porcentagem: object.porcentagem,
+          id_estabelecimento: userId
+        };
+        $http.post(API_URL + '/profissionais/', profissional)
+        .then(function(response) {
+          callback(null, response.data);
+        }, function(error) {
+          callback(error, null);
+        });
       });
     };
 

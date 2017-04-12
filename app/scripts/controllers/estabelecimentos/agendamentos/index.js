@@ -47,5 +47,11 @@ angular.module('salontimeApp')
       }
     };
 
+    $scope.enviarParaBlacklist = function(agendamento) {
+      console.log('agendamento', agendamento);
+
+
+    };
+
     $scope.init();
   });
