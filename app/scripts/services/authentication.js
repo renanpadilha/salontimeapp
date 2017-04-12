@@ -35,4 +35,25 @@ angular.module('salontimeApp')
         return !!data;
       });
     };
+    this.me = function(callback) {
+      if($localStorage.loggedInUser.tipo === 'C'){
+        $http.get(API_URL + '/clientelogado')
+        .then(function(response) {
+          $localStorage.clienteLogado = response.data;
+          callback(null, $localStorage.clientelogado);
+        }, function(error) {
+          callback(error, null);
+          console.warn(error);
+        });
+      } else {
+        $http.get(API_URL + '/estabelecimentologado')
+        .then(function(response) {
+          $localStorage.estabelecimentoLogado = response.data;
+          callback(null, $localStorage.estabelecimentoLogado);
+        }, function(error) {
+          callback(error, null);
+          console.warn(error);
+        });
+      }
+    };
   });

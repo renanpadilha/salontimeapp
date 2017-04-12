@@ -83,6 +83,24 @@ app.get('/health', function(req, res) {
 
 // AUTÊNTICAÇÃO
 
+app.get('/api/v1/clientelogado', function(req, res) {
+	knex.raw('SELECT * FROM clientes WHERE id_usuario =  ?', id_usuario)
+	.then(function (cliente) {
+		res.json(cliente.rows);
+	}).catch(function(err) {
+		console.log(err);
+	});
+});
+
+app.get('/api/v1/estabelecimentologado', function(req, res) {
+	knex.raw('SELECT * FROM estabelecimentos WHERE id_usuario =  ?', id_usuario)
+	.then(function (estabelecimento) {
+		res.json(estabelecimento.rows);
+	}).catch(function(err) {
+		console.log(err);
+	});
+});
+
 app.post('/api/v1/authentication', function(req, res, next) {
 	getUsuarioByCredentials(req.body)
 	.then(function(users) {
