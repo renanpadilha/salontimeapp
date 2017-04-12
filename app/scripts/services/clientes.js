@@ -7,17 +7,22 @@
  * Service in the salontimeApp.
  */
 angular.module('salontimeApp')
-  .service('Clientes', function ($http, $routeParams) {
+  .service('Clientes', function ($http, $routeParams, Authentication) {
     var service = this;
     const API_URL = 'https://salontime.herokuapp.com/api/v1';
 
     this.getAgendamentos = function(callback) {
       //TODO Adicionar variavel de logado
-      $http.get(API_URL + '/clientes/' + 1 + '/agendamentos')
-      .then(function(response) {
-        callback(null, response.data);
-      }, function(error) {
-        callback(error, null);
+      Authentication.me(function(error, data) {
+        console.log(data);
+        return;
+        var userId = data.id;
+        $http.get(API_URL + '/clientes/' + 1 + '/agendamentos')
+        .then(function(response) {
+          callback(null, response.data);
+        }, function(error) {
+          callback(error, null);
+        });
       });
     };
   });

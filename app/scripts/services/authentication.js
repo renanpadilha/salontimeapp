@@ -39,8 +39,8 @@ angular.module('salontimeApp')
       if($localStorage.loggedInUser.tipo === 'C'){
         $http.get(API_URL + '/clientelogado')
         .then(function(response) {
-          $localStorage.clienteLogado = response.data;
-          callback(null, $localStorage.clientelogado);
+          console.log('ae', response);
+          callback(null, response.data);
         }, function(error) {
           callback(error, null);
           console.warn(error);
