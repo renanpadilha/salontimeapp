@@ -150,8 +150,6 @@ app.post('/api/v1/blacklist', function(req, res) {
 		id_cliente: req.body.id_cliente,
 		id_estabelecimento: req.body.id_estabelecimento
 	};
-	console.log(blacklisted);
-	return;
 	knex.insert(blacklisted).into('blacklist')
 	.then(function(blacklisted) {
 		res.status(201).json(blacklisted);
