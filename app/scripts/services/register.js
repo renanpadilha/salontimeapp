@@ -11,7 +11,7 @@ angular.module('salontimeApp')
   .service('Register', function ($http, _) {
     var service = this;
     const API_URL = 'https://salontime.herokuapp.com/api/v1';
-    const POSTMON = 'http://api.postmon.com.br/v1/cep/'
+    const POSTMON = 'https://api.postmon.com.br/v1/cep/'
 
     this.findEndereco = function(cep, callback) {
       $http.get(POSTMON + cep)

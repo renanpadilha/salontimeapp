@@ -57,7 +57,7 @@ angular.module('salontimeApp')
             console.warn(error);
             return;
           }
-          if(promocao.servico === $scope.servicos[0].nome) {
+          if(promocao && promocao.servico === $scope.servicos[0].nome) {
             $scope.promocao = promocao.preco;
             $scope.preco = $scope.promocao;
           } else {

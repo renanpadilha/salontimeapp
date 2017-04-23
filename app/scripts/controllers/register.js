@@ -59,13 +59,13 @@ angular.module('salontimeApp')
         });
           break;
         case 'E':
-        var complemento = $scope.endereco.complemento ? '/' + $scope.endereco.complemento : '';
-        var endereco = $scope.endereco.logradouro + ', ' + $scope.endereco.numero + complemento + ', ' + $scope.endereco.cidade + ' - ' + $scope.endereco.estado;
-        var usuario = {
-          tipo: 'E',
-          username: $scope.cliente.username,
-          password: $scope.cliente.password,
-        };
+          var complemento = $scope.endereco.complemento ? '/' + $scope.endereco.complemento : '';
+          var endereco = $scope.endereco.logradouro + ', ' + $scope.endereco.numero + complemento + ', ' + $scope.endereco.cidade + ' - ' + $scope.endereco.estado;
+          var usuario = {
+            tipo: 'E',
+            username: $scope.cliente.username,
+            password: $scope.cliente.password,
+          };
         Register.usuario(usuario, function(error, data) {
           if(error) {
             console.warn(error);
