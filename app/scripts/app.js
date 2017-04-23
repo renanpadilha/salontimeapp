@@ -70,7 +70,7 @@ angular
       })
       .when('/estabelecimentos/promocoes/:id', {
         templateUrl: 'views/estabelecimentos/promocoes/edit.html',
-        controller: 'BlacklistCtrl',
+        controller: 'PromocoesEditCtrl',
         controllerAs: 'ctrl',
         authenticated: true
       })

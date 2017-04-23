@@ -5,10 +5,9 @@ angular.module('salontimeApp')
     $scope.init = function() {
       Promocoes.get($routeParams.id, function(error, promocao) {
         if(error) {
-          console.log(error);
+          console.warn(error);
           return;
         }
-        console.log(promocao);
         $scope.promocao = promocao;
       });
     };
@@ -17,7 +16,7 @@ angular.module('salontimeApp')
       delete $scope.promocao.servico;
       Promocoes.update($scope.promocao, function(error, promocao) {
         if(error) {
-          console.log(error);
+          console.warn(error);
           return;
         }
         $scope.init();
