@@ -80,6 +80,18 @@ angular
         controllerAs: 'ctrl',
         authenticated: true
       })
+      .when('/estabelecimentos/servicos', {
+        templateUrl: 'views/estabelecimentos/servicos/index.html',
+        controller: 'ServicosCtrl',
+        controllerAs: 'ctrl',
+        authenticated: true
+      })
+      .when('/estabelecimentos/servicos/:id', {
+        templateUrl: 'views/estabelecimentos/servicos/edit.html',
+        controller: 'ServicosEditCtrl',
+        controllerAs: 'ctrl',
+        authenticated: true
+      })
       .otherwise({
         redirectTo: '/404',
         templateUrl: '404.html'

@@ -1,0 +1,69 @@
+<header>
+  <h1>
+    Serviços
+  </h1>
+</header>
+<a class="btn btn-success btn-lg" ng-click="novo()"><span class="glyphicon glyphicon-plus"></span> Novo</a>
+<div class="panel-body">
+  <form ng-if="servico">
+  <!-- <form> -->
+    <div class="form-group">
+      <label><span class="glyphicon glyphicon-th-large"></span> Categoria</label>
+      <select
+        class="form-control"
+        ng-model="model.categoriaSelecionada"
+        ng-change="atualizaServicos()"
+        ng-options="categoria.id as categoria.nome for categoria in categorias">
+      </select>
+    </div>
+    <div class="form-group">
+      <label><span class="glyphicon glyphicon-th"></span> Serviço</label>
+      <select
+        class="form-control"
+        ng-change="carregarProfissionais()"
+        ng-model="servicoSelecionado"
+        ng-options="servico.id as servico.nome for servico in model.servicos">
+      </select>
+    </div>
+    <div class="form-group">
+      <label><span class="glyphicon glyphicon-usd"></span> Preço</label>
+      <input class="form-control" ng-model="preco">
+    </div>
+    <div class="form-group">
+      <label><span class="glyphicon glyphicon-user"></span> Selecione os profissionais que executam esse serviço</label>
+      <div class="form-control" ng-repeat="profissional in model.profissionais track by $index">
+        <input type="checkbox" ng-model="profissional[$index]">
+        {{profissional.nome}}
+      </div>
+    </div>
+    <div class="btn-group nowrap btn-group nowrap-justified">
+      <a class="btn btn-success btn-lg" ng-click="associar()"><span class="glyphicon glyphicon-ok"></span> Associar</a>
+      <a class="btn btn-default btn-lg" ng-click="cancelar()"><span class="glyphicon glyphicon-remove"></span> Cancelar</a>
+    </div>
+  </form>
+</div>
+<div class="panel-body table-responsive">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Serviço</th>
+        <th>Categoria</th>
+        <th>Preço</th>
+        <th>Ações</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="servico in servicos track by $index">
+        <td>{{servico.nome}}</td>
+        <td>{{servico.categoria}}</td>
+        <td>{{servico.preco | currency}}</td>
+        <td>
+          <div class="btn-group nowrap">
+            <a class="btn btn-primary btn-md" ng-click="editar(servico.id)"><span class="glyphicon glyphicon-pencil"></span></a>
+            <a class="btn btn-danger btn-md" ng-click="excluir(servico.id)"><span class="glyphicon glyphicon-trash"></span></a>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
