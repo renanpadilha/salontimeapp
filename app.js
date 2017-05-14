@@ -428,7 +428,7 @@ app.get('/api/v1/estabelecimentos/:id/clientes/', function(req, res) {
 
 app.get('/api/v1/estabelecimentos/:id/servicos/', function(req, res) {
 	var id_estabelecimento = req.params.id;
-	knex.raw("SELECT es.id, es.preco, es.id_estabelecimento, es.id_servico, s.nome, c.nome FROM estabelecimentos_servicos es JOIN servicos s ON es.id_servico = s.id JOIN estabelecimentos e ON es.id_estabelecimento = e.id JOIN categorias c ON s.id_categoria = c.id WHERE es.id_estabelecimento = ?", id_estabelecimento)
+	knex.raw("SELECT es.id, es.preco, es.id_estabelecimento, es.id_servico, s.nome as nomeServico, c.nome as nomeCategoria FROM estabelecimentos_servicos es JOIN servicos s ON es.id_servico = s.id JOIN estabelecimentos e ON es.id_estabelecimento = e.id JOIN categorias c ON s.id_categoria = c.id WHERE es.id_estabelecimento = ?", id_estabelecimento)
 	.then(function (servicos) {
 		res.json(servicos.rows);
 	}).catch(function(err) {
