@@ -579,9 +579,9 @@ app.get('/api/v1/servicos/', function(req, res){
 	});
 });
 
-app.get('/api/v1/servicos/:id/estabelecimentos/:id_estabelecimentos', function(req, res, next) {
+app.get('/api/v1/servicos/:id/estabelecimentos/:id_estabelecimento', function(req, res, next) {
+	var id_estabelecimento = req.params.id_estabelecimento;
 	var id = req.params.id;
-	var id_estabelecimento = req.params.id;
 	knex.raw("SELECT s.*, es.preco FROM servicos s JOIN estabelecimentos_servicos es ON s.id = es.id_servico WHERE es.id_estabelecimento = ? AND s.id = ?", [id_estabelecimento, id])
 	.then(function(servicos) {
 		res.json(servicos.row);
