@@ -5,32 +5,16 @@
 </header>
 <form>
   <div class="form-group">
-    <label><span class="glyphicon glyphicon-th-large"></span> Categoria</label>
-    <select
-      class="form-control"
-      ng-model="categoriaSelecionado"
-      ng-change="atualizaServicos()"
-      ng-options="categoria.id as categoria.nome for categoria in categorias">
-    </select>
-  </div>
-  <div class="form-group">
     <label><span class="glyphicon glyphicon-th"></span> Serviço</label>
-    <select
-      class="form-control"
-      ng-change="carregarProfissionais()"
-      ng-model="servicoSelecionado"
-      ng-options="servico.id as servico.nome for servico in servicos">
-    </select>
+    <input class="form-control" type="text" ng-model="servico.nome" readonly>
   </div>
   <div class="form-group">
-    <label for="profissional"><span class="glyphicon glyphicon-user"></span> Profissional</label>
-    <div ng-repeat="profissional.id as profissional.nome for profissional in profissionais track by $index">
-      <input class="form-control" type="checkbox" ng-model="profissional">
-    </div>
+    <label><span class="glyphicon glyphicon-usd"></span> Preço</label>
+    <input class="form-control" type="number" min="0" ng-model="servico.preco">
   </div>
   <div class="btn-group nowrap btn-group nowrap-justified">
-    <a class="btn btn-success btn-lg" ng-click="salvar()"><span class="glyphicon glyphicon-ok"></span> Salvar</a>
-    <a class="btn btn-default btn-lg" ng-click="voltar()"><span class="glyphicon glyphicon-remove"></span> Cancelar</a>
+    <a class="btn btn-success btn-lg" ng-click="atualizar()"><span class="glyphicon glyphicon-ok"></span> Atualizar</a>
+    <a class="btn btn-default btn-lg" ng-click="voltar()"><span class="glyphicon glyphicon-remove"></span> Voltar</a>
   </div>
 </form>
 <br/>

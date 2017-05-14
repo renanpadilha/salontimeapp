@@ -38,7 +38,7 @@
           <th>Nome</th>
           <th>Serviço</th>
           <th>Valor</th>
-          <th>Ações</th>
+          <th class="text-right">Ações</th>
         </tr>
       </thead>
       <tbody>
@@ -47,7 +47,7 @@
           <td>{{promocao.servico}}</td>
           <td>{{promocao.preco | currency:"R$ "}}</td>
           <td>
-            <div class="btn-group nowrap">
+            <div class="btn-group pull-right nowrap">
               <a class="btn btn-primary btn-md" ng-click="editar(promocao.id)"><span class="glyphicon glyphicon-pencil"></span></a>
               <a class="btn btn-danger btn-md" ng-click="excluir(promocao.id)"><span class="glyphicon glyphicon-trash"></span></a>
             </div>

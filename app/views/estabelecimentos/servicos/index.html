@@ -6,7 +6,6 @@
 <a class="btn btn-success btn-lg" ng-click="novo()"><span class="glyphicon glyphicon-plus"></span> Novo</a>
 <div class="panel-body">
   <form ng-if="servico">
-  <!-- <form> -->
     <div class="form-group">
       <label><span class="glyphicon glyphicon-th-large"></span> Categoria</label>
       <select
@@ -21,18 +20,18 @@
       <select
         class="form-control"
         ng-change="carregarProfissionais()"
-        ng-model="servicoSelecionado"
+        ng-model="model.servicoSelecionado"
         ng-options="servico.id as servico.nome for servico in model.servicos">
       </select>
     </div>
     <div class="form-group">
       <label><span class="glyphicon glyphicon-usd"></span> Preço</label>
-      <input class="form-control" ng-model="preco">
+      <input class="form-control" type="number" min="0" ng-model="model.preco">
     </div>
     <div class="form-group">
       <label><span class="glyphicon glyphicon-user"></span> Selecione os profissionais que executam esse serviço</label>
       <div class="form-control" ng-repeat="profissional in model.profissionais track by $index">
-        <input type="checkbox" ng-model="profissional[$index]">
+        <input type="checkbox" ng-model="profissional[$index]" ng-change="addProfissional(profissional)">
         {{profissional.nome}}
       </div>
     </div>
@@ -47,18 +46,16 @@
     <thead>
       <tr>
         <th>Serviço</th>
-        <th>Categoria</th>
-        <th>Preço</th>
-        <th>Ações</th>
+        <th class="text-right">Preço</th>
+        <th class="text-right">Ações</th>
       </tr>
     </thead>
     <tbody>
       <tr ng-repeat="servico in servicos track by $index">
         <td>{{servico.nome}}</td>
-        <td>{{servico.categoria}}</td>
-        <td>{{servico.preco | currency}}</td>
+        <td class="text-right">{{servico.preco | currency:"R$ "}}</td>
         <td>
-          <div class="btn-group nowrap">
+          <div class="btn-group pull-right nowrap">
             <a class="btn btn-primary btn-md" ng-click="editar(servico.id)"><span class="glyphicon glyphicon-pencil"></span></a>
             <a class="btn btn-danger btn-md" ng-click="excluir(servico.id)"><span class="glyphicon glyphicon-trash"></span></a>
           </div>

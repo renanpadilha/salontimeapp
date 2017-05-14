@@ -9,7 +9,7 @@
       <tr>
         <th>Cliente</th>
         <th>E-mail</th>
-        <th>Ações</th>
+        <th class="text-right">Ações</th>
       </tr>
     </thead>
     <tbody>
@@ -17,7 +17,7 @@
         <td>{{cliente.nome}}</td>
         <td>{{cliente.email}}</td>
         <td>
-          <div class="btn-group nowrap nowrap">
+          <div class="btn-group pull-right nowrap">
             <button class="btn btn-success btn-sm" ng-click="remover(cliente.id)"><span class="glyphicon glyphicon-ok"></span> Remover</a>
           </div>
         </td>

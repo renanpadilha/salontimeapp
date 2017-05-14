@@ -437,17 +437,29 @@ app.get('/api/v1/estabelecimentos/:id/servicos/', function(req, res) {
 });
 
 /* CRIA UM SERVIÇO RELACIONADO AO ESTABELECIMENTO */
-app.post('/api/v1/estabelecimentos/:id/servicos/:id_servico', function(req, res){
+app.post('/api/v1/estabelecimentos/:id/servicos/', function(req, res){
 	var servico_estabelecimento = {
-		id_estabelecimento: req.params.id,
-		id_servico: req.params.id_servico, // ID DO SERVIÇO PRIMÁRIO EX: BARBA, CABELO, MANICURE E PEDICURE
-		descricao: req.body.descricao,
 		preco: req.body.preco,
-		duracao: req.body.duracao
+		id_estabelecimento: req.params.id,
+		id_servico: req.body.id_servico
 	};
-	knex.insert(servico_estabelecimento).into('estabelecimentos_servicos').then(function (id){
-		console.log(id);
+	knex.insert(servico_estabelecimento).into('estabelecimentos_servicos')
+	.then(function (id) {
 		res.status(201).json(servico_estabelecimento);
+	});
+});
+
+/* atualiza um serviço do estabelecimento */
+app.put('/api/v1/estabelecimentos/:id/servicos/', function(req, res) {
+	var servico_estabelecimento = {
+		id: req.body.id,
+		preco: req.body.preco
+	};
+	knex('estabelecimentos_servicos')
+	.where({id: id})
+	.update(servico_estabelecimento)
+	.then(function(profissional) {
+		res.status(200).json(profissional);
 	});
 });
 
@@ -561,15 +573,20 @@ app.get('/api/v1/profissionais/:id/servicos', function(req, res){
 // SERVIÇOS
 //
 app.get('/api/v1/servicos/', function(req, res){
-	knex.select("*").from('servicos').then(function(servicos) {
+	knex.select("*").from('servicos')
+	.then(function(servicos) {
 		res.json(servicos);
 	});
 });
 
-app.get('/api/v1/servicos/:id', function(req, res, next) {
+app.get('/api/v1/servicos/:id/estabelecimentos/:id_estabelecimentos', function(req, res, next) {
 	var id = req.params.id;
-	knex.select("*").from('servicos').where({id: id}).then(function(servico) {
-		res.json(servico);
+	var id_estabelecimento = req.params.id;
+	knex.raw("SELECT s.*, es.preco FROM servicos s JOIN estabelecimentos_servicos es ON s.id = es.id_servico WHERE es.id_estabelecimento = ? AND s.id = ?", [id_estabelecimento, id])
+	.then(function(servicos) {
+		res.json(servicos.row);
+	}).catch(function(err) {
+		console.log(err);
 	});
 });
 
