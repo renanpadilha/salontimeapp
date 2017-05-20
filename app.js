@@ -551,6 +551,7 @@ app.post('/api/v1/profissionais/:id/servicos', function(req, res){
 	var id_servico = req.body.id_servico;
 	var id_estabelecimento = req.body.id_estabelecimento;
 	knex.insert({id_profissional: id, id_servico: id_servico, id_estabelecimento: id_estabelecimento})
+	.into('profissionais_servicos')
 	.then(function(profissional_servico) {
 		res.status(201).json(profissional_servico);
 	}).catch(function(error) {

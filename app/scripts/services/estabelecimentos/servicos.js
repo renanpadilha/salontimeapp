@@ -48,11 +48,11 @@ angular.module('salontimeApp')
     this.associarServicoProfissional = function(profissional, servico, callback) {
       Authentication.me(function(error, data) {
         var userId = data[0].id;
-        var servico = {
+        var data = {
           id_servico: servico,
           id_estabelecimento: userId
         };
-        $http.post(API_URL + '/profissionais/' + profissional + '/servicos', servico)
+        $http.post(API_URL + '/profissionais/' + profissional + '/servicos', data)
         .then(function(response) {
           callback(null, response.data);
         }, function(error) {
