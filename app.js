@@ -635,22 +635,24 @@ app.get('/api/v1/servicos/:id/estabelecimentos', function(req, res){
 app.delete('api/v1/servicos/:id/estabelecimentos/:id_estabelecimento', function(req, res) {
 	var id_servico = req.params.id;
 	var id_estabelecimento = req.params.id_estabelecimento;
-	knex('estabelecimentos_servicos').where({id_servico: id_servico, id_estabelecimento: id_estabelecimento}).del()
+	// knex('estabelecimentos_servicos').where({id_servico: id_servico, id_estabelecimento: id_estabelecimento}).del()
+	knex.raw("DELETE FROM estabelecimentos_servicos WHERE id_servico = ? AND id_estabelecimento = ?", [id_servico, id_estabelecimento])
 	.then(function(response) {
 		res.status(204).json();
-	}).catch(function(error) {
-		console.warn(error);
+	}, function(error) {
+		console.log(error);
 	});
 });
 
 app.delete('api/v1/servicos/:id/estabelecimentos/:id_estabelecimento/profissionais', function(req, res) {
 	var id_servico = req.params.id;
 	var id_estabelecimento = req.params.id_estabelecimento;
-	knex('profissionais_servicos').where({id_servico: id_servico, id_estabelecimento: id_estabelecimento}).del()
+	// knex('profissionais_servicos').where({id_servico: id_servico, id_estabelecimento: id_estabelecimento}).del()
+	knex.raw("DELETE FROM profissionais_servicos WHERE id_servico = ? AND id_estabelecimento = ?", [id_servico, id_estabelecimento])
 	.then(function(response) {
 		res.status(204).json();
-	}).catch(function(error) {
-		console.warn(error);
+	}, function(error) {
+		console.log(error);
 	});
 });
 

@@ -81,7 +81,7 @@ angular.module('salontimeApp')
     this.excluirServicoEstabelecimento = function(idServico, callback) {
       Authentication.me(function(error, data) {
         var userId = data[0].id;
-        $http.delete(API_URL + '/servicos/' + idServico + '/estabelecimentos/' + userId)
+        $http.delete('http://localhost:4002/api/v1/servicos/' + idServico + '/estabelecimentos/' + userId)
         .then(function(response) {
           callback(null, response);
         }, function(error) {
@@ -93,7 +93,7 @@ angular.module('salontimeApp')
     this.excluirProfissionalServico = function(idServico, callback) {
       Authentication.me(function(error, data) {
         var userId = data[0].id;
-        $http.delete(API_URL + '/servicos/' + idServico + '/estabelecimentos/' + userId + '/profissionais')
+        $http.delete('http://localhost:4002/api/v1/servicos/' + idServico + '/estabelecimentos/' + userId + '/profissionais')
         .then(function(response) {
           callback(null, response);
         }, function(error) {
