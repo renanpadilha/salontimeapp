@@ -92,6 +92,9 @@ CREATE TABLE agendamento (
     REFERENCES servico (id)
 );
 
+
+CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+
 --trigger
 CREATE OR REPLACE FUNCTION tg_atualizarate()
 RETURNS TRIGGER AS $tg_atualizarate$

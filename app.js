@@ -467,7 +467,7 @@ app.put('/api/v1/estabelecimentos/:id/servicos/', function(req, res) {
 app.get('/api/v1/estabelecimentos/:id/servicos/:id_servico/profissionais', function(req, res){
 	var id = req.params.id;
 	var id_servico= req.params.id_servico;
-	knex.raw("SELECT DISTINCT p.id, p.nome FROM profissionais p JOIN profissionais_servicos ps ON p.id = ps.id_profissional JOIN estabelecimentos e ON p.id_estabelecimento = e.id WHERE ps.id_servico = ? AND e.id = ?", [id, id_servico])
+	knex.raw("SELECT DISTINCT p.id, p.nome FROM profissionais p JOIN profissionais_servicos ps ON p.id = ps.id_profissional JOIN estabelecimentos e ON p.id_estabelecimento = e.id WHERE ps.id_servico = ? AND e.id = ?", [id_servico, id])
 	.then(function(response){
 		console.log(response);
 		res.json(response.rows);

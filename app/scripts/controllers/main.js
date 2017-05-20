@@ -9,54 +9,34 @@ angular.module('salontimeApp')
     };
 
     Categorias.all(function(error, categorias) {
-      if(error) {
-        console.log(error);
-        return;
-      }
+      if(error) return console.warn(error);
       $scope.categorias = categorias;
-      console.log('Categorias', $scope.categorias);
     });
 
     $scope.atualizaServicos = function() {
       Categorias.getServicos($scope.categoriaSelecionada, function(error, servicos) {
-        if(error) {
-          console.log(error);
-          return;
-        }
+        if(error) return console.warn(error);
         $scope.servicos = servicos;
-        console.log('Serviços', $scope.servicos);
       });
     };
 
     $scope.atualizaEstabelecimentos = function() {
       Servicos.getEstabelecimentos($scope.servicoSelecionado, function(error, estabelecimentos) {
-        if(error) {
-          console.log(error);
-          return;
-        }
+        if(error) return console.warn(error);
         $scope.estabelecimentos = estabelecimentos;
       });
     };
 
     $scope.atualizaProfissionais = function() {
       Estabelecimentos.getProfissionaisByServico($scope.estabelecimentoSelecionado, $scope.servicoSelecionado, function(error, profissionais) {
-        if(error) {
-          console.log(error);
-          return;
-        }
+        if(error) return console.warn(error);
         $scope.profissionais = profissionais;
         console.log('Profissionais', $scope.profissionais);
       });
       Estabelecimentos.getPreco($scope.estabelecimentoSelecionado, $scope.servicoSelecionado, function(error, preco) {
-        if(error) {
-          console.log(error);
-          return;
-        }
+        if(error) return console.warn(error);
         Estabelecimentos.getPromocoes($scope.estabelecimentoSelecionado, function(error, promocao) {
-          if(error) {
-            console.warn(error);
-            return;
-          }
+          if(error) return console.warn(error);
           if(promocao && promocao.servico === $scope.servicos[0].nome) {
             $scope.promocao = promocao.preco;
             $scope.preco = $scope.promocao;
@@ -70,9 +50,7 @@ angular.module('salontimeApp')
     $scope.agendar = function() {
       //@TODO fazer get no banco pra saber se existe um horário igual marcado
       Blacklist.getByCliente(function(error, blacklist) {
-        if(error) {
-          console.warn(error);
-        }
+        if(error) return console.warn(error);
         var blacklist = blacklist;
         if(blacklist.length >= 2) {
           $window.alert('Você não pode agendar nesse estabelecimento porque se atrasou/faltou ao compromisso');
@@ -86,11 +64,7 @@ angular.module('salontimeApp')
           data: dataLocal
         };
         ClientesAgendamentos.create(agendamento, function(error, data){
-          if(error) {
-            console.log(error);
-            return;
-          }
-          console.log('Dados do agendamento', data);
+          if(error) return console.warn(error);
         });
       });
     };

@@ -43,6 +43,7 @@ angular.module('salontimeApp')
           Servicos.associarServicoProfissional(profissional.id, $scope.model.servicoSelecionado, function(error, profissional) {
             if(error) return console.warn(error);
             $scope.servico = false;
+            $scope.profissionaisAdicionados = [];
             $scope.init();
           });
         });

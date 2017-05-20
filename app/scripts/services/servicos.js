@@ -8,7 +8,7 @@
  * Service in the salontimeApp.
  */
 angular.module('salontimeApp')
-  .service('Servicos', function ($http, $routeParams) {
+  .service('Teste', function ($http, $routeParams) {
     var service = this;
     const API_URL = 'https://salontime.herokuapp.com/api/v1';
 
