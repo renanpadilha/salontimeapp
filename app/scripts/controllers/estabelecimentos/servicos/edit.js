@@ -12,7 +12,7 @@ angular.module('salontimeApp')
     };
 
     $scope.salvar = function() {
-      Servico.update($scope.servico, function(error, servico) {
+      Servicos.update($scope.servico, function(error, servico) {
         if(error) return console.warn(error);
         $scope.init();
       });

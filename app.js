@@ -457,7 +457,7 @@ app.put('/api/v1/estabelecimentos/:id/servicos/', function(req, res) {
 	};
 	knex('estabelecimentos_servicos')
 	.where({id: id})
-	.update(servico_estabelecimento)
+	.update(servico_estabelecimento.preco)
 	.then(function(profissional) {
 		res.status(200).json(profissional);
 	});

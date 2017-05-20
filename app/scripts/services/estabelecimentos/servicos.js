@@ -21,6 +21,9 @@ angular.module('salontimeApp')
         var userId = data[0].id;
         $http.get(API_URL + '/servicos/' + id + '/estabelecimentos/' + userId)
         .then(function(response) {
+          if(response.data[0]) {
+            response.data[0].preco = parseFloat(response.data[0].preco);
+          }
           callback(null, response.data[0]);
         }, function(error) {
           callback(error, null);
@@ -44,7 +47,7 @@ angular.module('salontimeApp')
           id: object.id,
           preco: object.preco
         };
-        $http.put(API_URL + '/estabelecimentos/' + userId + '/servicos', estabelecimentos_servicos)
+        $http.put(API_URL + '/estabelecimentos/' + userId + '/servicos/', estabelecimentos_servicos)
         .then(function(response) {
           callback(null, response.data);
         }, function(error) {
