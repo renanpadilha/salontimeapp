@@ -14,10 +14,8 @@ angular.module('salontimeApp')
 
     $scope.salvar = function() {
       Profissionais.update($scope.profissional, function(error, profissional) {
-        if(error) {
-          console.log(error);
-          return;
-        }
+        if(error) return console.warn(error);
+        $scope.voltar();
       });
     };
 

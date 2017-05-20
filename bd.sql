@@ -113,20 +113,32 @@ RETURNS TRIGGER AS $tg_atualizarate$
 
 -- FIM TRIGGER
 
-INSERT INTO categorias(nome) VALUES ('Barba');
-INSERT INTO categorias(nome) VALUES ('Cabelo');
-INSERT INTO categorias(nome) VALUES ('Depilação');
-INSERT INTO categorias(nome) VALUES ('Estética Corporal');
-INSERT INTO categorias(nome) VALUES ('Estética Facial');
-INSERT INTO categorias(nome) VALUES ('Manicure e Pedicure');
-INSERT INTO categorias(nome) VALUES ('Maquiagem');
-INSERT INTO categorias(nome) VALUES ('Massagem');
-INSERT INTO categorias(nome) VALUES ('Podologia');
-INSERT INTO categorias(nome) VALUES ('Outros');
+INSERT INTO categorias(nome) VALUES ('Barba'); --1
+INSERT INTO categorias(nome) VALUES ('Cabelo'); --2
+INSERT INTO categorias(nome) VALUES ('Depilação'); --3
+INSERT INTO categorias(nome) VALUES ('Estética Corporal'); --4
+INSERT INTO categorias(nome) VALUES ('Estética Facial'); --5
+INSERT INTO categorias(nome) VALUES ('Manicure e Pedicure'); --6
+INSERT INTO categorias(nome) VALUES ('Maquiagem'); --7
+INSERT INTO categorias(nome) VALUES ('Massagem'); --8
 
-INSERT INTO servicos(nome, duracao ,id_categoria) VALUES ('Corte masculino', 30, 2);
-INSERT INTO servicos(nome, duracao ,id_categoria) VALUES ('Depilação peito', 30, 3);
-INSERT INTO servicos(nome, duracao ,id_categoria) VALUES ('Mão', 60, 6);
+INSERT INTO servicos(nome, duracao, id_categoria) VALUES ('Barba Completa', 60, 1);
+INSERT INTO servicos(nome, duracao, id_categoria) VALUES ('Aparar', 30, 1);
+INSERT INTO servicos(nome, duracao, id_categoria) VALUES ('Corte Masculino', 30, 2);
+INSERT INTO servicos(nome, duracao, id_categoria) VALUES ('Corte Feminino', 60, 2);
+INSERT INTO servicos(nome, duracao, id_categoria) VALUES ('Depilação Peito', 60, 3);
+INSERT INTO servicos(nome, duracao, id_categoria) VALUES ('Depilação Perna', 60, 3);
+INSERT INTO servicos(nome, duracao, id_categoria) VALUES ('Depilação Axilas', 30, 3);
+INSERT INTO servicos(nome, duracao, id_categoria) VALUES ('Bronzeamento Artificial', 60, 4);
+INSERT INTO servicos(nome, duracao, id_categoria) VALUES ('Criolipólise', 60, 4);
+INSERT INTO servicos(nome, duracao, id_categoria) VALUES ('Limpeza de Pele', 60, 5);
+INSERT INTO servicos(nome, duracao, id_categoria) VALUES ('Drenagem Facial', 60, 5);
+INSERT INTO servicos(nome, duracao, id_categoria) VALUES ('Mão', 30, 6);
+INSERT INTO servicos(nome, duracao, id_categoria) VALUES ('Pé', 30, 6);
+INSERT INTO servicos(nome, duracao, id_categoria) VALUES ('Mão e Pé', 60, 6);
+INSERT INTO servicos(nome, duracao, id_categoria) VALUES ('Maquiagem', 60, 7);
+INSERT INTO servicos(nome, duracao, id_categoria) VALUES ('Massagem Relaxante', 60, 8);
+
 
 INSERT INTO profissionais (nome, email, telefone, porcentagem, id_estabelecimento, criado_em) VALUES ('Juliana', 'renanpadilha94@hotmail.com', '5184941322', 70, 1, CURRENT_TIMESTAMP);
 INSERT INTO profissionais (nome, email, telefone, porcentagem, id_estabelecimento, criado_em) VALUES ('Craudete', 'deffanyo@gmail.com', '51984242312', 50, 1, CURRENT_TIMESTAMP);
