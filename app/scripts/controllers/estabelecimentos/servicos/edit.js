@@ -11,15 +11,12 @@ angular.module('salontimeApp')
       });
     };
 
-    // $scope.salvar = function() {
-    //   Servico.update($scope.servico, function(error, servico) {
-    //     if(error) {
-    //       console.warn(error);
-    //       return;
-    //     }
-    //     $scope.init();
-    //   });
-    // };
-    //
+    $scope.salvar = function() {
+      Servico.update($scope.servico, function(error, servico) {
+        if(error) return console.warn(error);
+        $scope.init();
+      });
+    };
+
     $scope.init();
   });

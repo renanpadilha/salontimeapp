@@ -71,8 +71,28 @@ angular.module('salontimeApp')
       });
     };
 
-    this.excluir = function(idServico, callback) {
-      //IMPLEMENTAR DELETE
+    this.excluirServicoEstabelecimento = function(idServico, callback) {
+      Authentication.me(function(error, data) {
+        var userId = data[0].id;
+        $http.delete(API_URL + '/servicos/' + idServico + '/estabelecimentos/' + userId)
+        .then(function(response) {
+          callback(null, response);
+        }, function(error) {
+          callback(error, null);
+        });
+      });
+    };
+
+    this.excluirProfissionalServico = function(idServico, callback) {
+      Authentication.me(function(error, data) {
+        var userId = data[0].id;
+        $http.delete(API_URL + '/servicos/' + idServico + '/estabelecimentos/' + userId + '/profissionais')
+        .then(function(response) {
+          callback(null, response);
+        }, function(error) {
+          callback(error, null);
+        });
+      });
     };
 
   });

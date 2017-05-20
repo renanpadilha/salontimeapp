@@ -19,8 +19,6 @@ angular.module('salontimeApp')
               $location.path('/');
             }
           } else {
-            console.log(data);
-            console.log(error);
             $scope.error = error;
           }
       });

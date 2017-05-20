@@ -20,7 +20,7 @@ angular.module('salontimeApp')
     };
 
     $scope.addProfissional = function(profissional) {
-      if(!profissional) return console.warn('Não há profissionais associados');;
+      if(!profissional) return console.warn('Não há profissionais associados');
       $scope.profissionaisAdicionados.push(profissional);
     };
 
@@ -49,12 +49,15 @@ angular.module('salontimeApp')
     };
 
     $scope.excluir = function(id) {
-      if(!$window.confirm('Esse profissional não estará mais disponível para agendamentos, deseja continuar?')){
+      if(!$window.confirm('Esse serviço não estará mais disponível para agendamentos, deseja continuar?')){
         return;
       }
-      Servicos.excluir(id, function(error, data) {
+      Servicos.excluirServicoEstabelecimento($scope.model.servicoSelecionado, function(error, data) {
         if(error) return console.warn(error);
-        $scope.init();
+        Servico.excluirProfissionalServico($scope.model.servicoSelecionado, function(error, pro) {
+          if(error) return console.warn(error);
+          $scope.init();
+        });
       });
     };
 
