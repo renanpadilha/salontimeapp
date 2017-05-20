@@ -14,6 +14,7 @@ angular.module('salontimeApp')
     $scope.salvar = function() {
       Servicos.update($scope.servico, function(error, servico) {
         if(error) return console.warn(error);
+        console.log('ae', $scope.servico);
         $scope.init();
       });
     };
