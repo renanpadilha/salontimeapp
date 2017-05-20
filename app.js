@@ -450,14 +450,10 @@ app.post('/api/v1/estabelecimentos/:id/servicos/', function(req, res){
 });
 
 /* atualiza um serviço do estabelecimento */
-app.put('/api/v1/estabelecimentos/:id/servicos/', function(req, res) {
-	var servico_estabelecimento = {
-		id: req.body.id,
-		preco: req.body.preco
-	};
-	knex('estabelecimentos_servicos')
-	.where({id: id})
-	.update(servico_estabelecimento.preco)
+app.put('/api/v1/estabelecimentos/:id/servicos', function(req, res) {
+	var id = req.body.id;
+	var preco = req.body.preco;
+	knex.raw('UPDATE estabelecimentos_servicos SET preco = ? WHERE id = ?', [preco, id])
 	.then(function(profissional) {
 		res.status(200).json(profissional);
 	});
