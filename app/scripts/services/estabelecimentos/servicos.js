@@ -21,7 +21,6 @@ angular.module('salontimeApp')
         var userId = data[0].id;
         $http.get(API_URL + '/servicos/' + id + '/estabelecimentos/' + userId)
         .then(function(response) {
-          response.data[0].preco = parseFloat(response.data[0].preco);
           callback(null, response.data[0]);
         }, function(error) {
           callback(error, null);
