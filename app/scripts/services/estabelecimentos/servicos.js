@@ -46,11 +46,18 @@ angular.module('salontimeApp')
     };
 
     this.associarServicoProfissional = function(profissional, servico, callback) {
-      $http.post(API_URL + '/profissionais/' + profissional.id + '/servicos', servico)
-      .then(function(response) {
-        callback(null, response.data);
-      }, function(error) {
-        callback(error, null);
+      Authentication.me(function(error, data) {
+        var userId = data[0].id;
+        var servico = {
+          id_servico: servico,
+          id_estabelecimento: userId
+        };
+        $http.post(API_URL + '/profissionais/' + profissional + '/servicos', servico)
+        .then(function(response) {
+          callback(null, response.data);
+        }, function(error) {
+          callback(error, null);
+        });
       });
     };
 
@@ -58,9 +65,9 @@ angular.module('salontimeApp')
       Authentication.me(function(error, data) {
         var userId = data[0].id;
         var servico = {
-          preco: object.preco,
-          id_estabelecimento: object.id_estabelecimento,
-          id_servico: object.id_servico
+          preco: preco,
+          id_estabelecimento: userId,
+          id_servico: servico
         };
         $http.post(API_URL + '/estabelecimentos/'+ userId +'/servicos/', servico)
         .then(function(response) {
