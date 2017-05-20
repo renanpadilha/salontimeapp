@@ -56,11 +56,11 @@ angular.module('salontimeApp')
       Servicos.excluirServicoEstabelecimento(idServico, function(error, data) {
         if(error) return console.warn(error);
         console.log('serv_estab', data);
-        Servico.excluirProfissionalServico(idServico, function(error, pro) {
-          if(error) return console.warn(error);
-          console.log('PRO_SER', pro);
-          $scope.init();
-        });
+        // Servico.excluirProfissionalServico(idServico, function(error, pro) {
+        //   if(error) return console.warn(error);
+        //   console.log('PRO_SER', pro);
+        //   $scope.init();
+        // });
       });
     };
 
