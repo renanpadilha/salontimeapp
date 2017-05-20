@@ -49,13 +49,13 @@ angular.module('salontimeApp')
       });
     };
 
-    $scope.excluir = function(id) {
+    $scope.excluir = function(idServico) {
       if(!$window.confirm('Esse serviço não estará mais disponível para agendamentos, deseja continuar?')){
         return;
       }
-      Servicos.excluirServicoEstabelecimento($scope.model.servicoSelecionado, function(error, data) {
+      Servicos.excluirServicoEstabelecimento(idServico, function(error, data) {
         if(error) return console.warn(error);
-        Servico.excluirProfissionalServico($scope.model.servicoSelecionado, function(error, pro) {
+        Servico.excluirProfissionalServico(idServico, function(error, pro) {
           if(error) return console.warn(error);
           $scope.init();
         });
