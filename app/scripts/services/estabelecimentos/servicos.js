@@ -64,12 +64,12 @@ angular.module('salontimeApp')
     this.associarServicoEstabelecimento = function(preco, servico, callback) {
       Authentication.me(function(error, data) {
         var userId = data[0].id;
-        var servico = {
+        var data = {
           preco: preco,
           id_estabelecimento: userId,
           id_servico: servico
         };
-        $http.post(API_URL + '/estabelecimentos/'+ userId +'/servicos/', servico)
+        $http.post(API_URL + '/estabelecimentos/'+ userId +'/servicos/', data)
         .then(function(response) {
           callback(null, response.data);
         }, function(error) {

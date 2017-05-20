@@ -634,7 +634,7 @@ app.get('/api/v1/servicos/:id/estabelecimentos', function(req, res){
 app.delete('api/v1/servicos/:id/estabelecimentos/:id_estabelecimento', function(req, res) {
 	var id = req.params.id;
 	var id_estabelecimento = req.params.id_estabelecimento;
-	knex.raw('DELETE FROM estabalecimentos_servicos WHERE id_servico = ? AND id_estabelecimento = ?', [id, id_estabelecimento])
+	knex.raw('DELETE FROM estabelecimentos_servicos WHERE id_servico = ? AND id_estabelecimento = ?', [id, id_estabelecimento])
 	.then(function(response) {
 		res.status(204).json();
 	}).catch(function(error) {
