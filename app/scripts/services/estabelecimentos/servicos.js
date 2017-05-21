@@ -44,7 +44,7 @@ angular.module('salontimeApp')
       Authentication.me(function(error, data) {
         var userId = data[0].id;
         var estabelecimentos_servicos = {
-          id: object.id,
+          id: object.idservico,
           preco: object.preco
         };
         $http.put(API_URL + '/estabelecimentos/' + userId + '/servicos/', estabelecimentos_servicos)

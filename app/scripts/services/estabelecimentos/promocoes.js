@@ -29,7 +29,7 @@ angular.module('salontimeApp')
         var promocao = {
           nome: object.nome,
           id_estabelecimento: userId,
-          id_servico: object.servico.id,
+          id_servico: object.id_servico,
           preco: object.preco
         };
         $http.post(API_URL + '/promocoes', promocao)

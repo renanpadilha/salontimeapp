@@ -2,35 +2,33 @@
 angular.module('salontimeApp')
   .controller('PromocoesCtrl', function ($scope, $location, $routeParams, Promocoes, Estabelecimentos, _, $window) {
     $scope.promocoes = {};
+    $scope.servicos = [];
+    $scope.model = {};
 
     $scope.init = function() {
       Promocoes.getPromocoes(function(error, promocoes) {
-        if(error) {
-          console.log(error);
-          return;
-        }
+        if(error) return console.warn(error);
         $scope.promocoes = promocoes;
-      });
-    };
-
-    $scope.novo = function() {
-      Estabelecimentos.getServicos(function(error, batata) {
-        if (error) {
-          console.log(error);
-        }
-        $scope.promocao = {};
-        _.extend($scope.promocao, {
-          servicos: batata
+        Estabelecimentos.getServicos(function(error, servicos) {
+          if(error) return console.warn(error);
+          $scope.servicos = servicos;
         });
       });
     };
 
+    $scope.novo = function() {
+      $scope.promocao = {};
+    };
+
     $scope.criar = function() {
-      Promocoes.create($scope.promocao, function(error, data) {
-        if(error) {
-          console.log(error);
-          return;
-        }
+      var promo = {
+        nome: $scope.promocao.nome,
+        id_servico: $scope.model.servicoSelecionado,
+        preco: $scope.promocao.preco
+      };
+      Promocoes.create(promo, function(error, data) {
+        if(error) return console.warn(error);
+        $scope.promocao = false;
         $scope.init();
       });
     };
@@ -40,10 +38,7 @@ angular.module('salontimeApp')
         return;
       }
       Promocoes.cancel(id, function(error, data) {
-        if(error) {
-          console.log(error);
-          return;
-        }
+        if(error) return console.warn(error);
         $scope.init();
       });
     };

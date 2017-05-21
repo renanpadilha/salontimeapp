@@ -17,8 +17,8 @@
           id="servico"
           name="servico"
           class="form-control"
-          ng-model="promocao.servico.id"
-          ng-options="servico.id as servico.nome for servico in promocao.servicos">
+          ng-model="model.servicoSelecionado"
+          ng-options="servico.id_servico as servico.nomeservico for servico in servicos">
         </select>
       </div>
       <div class="form-group">
