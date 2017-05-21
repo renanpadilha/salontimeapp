@@ -44,6 +44,12 @@ angular
         controllerAs: 'ctrl',
         authenticated: true
       })
+      .when('/clientes/favoritos', {
+        templateUrl: 'views/clientes/favoritos/index.html',
+        controller: 'ClientesFavoritosCtrl',
+        controllerAs: 'ctrl',
+        authenticated: true
+      })
       .when('/estabelecimentos/agendamentos', {
         templateUrl: 'views/estabelecimentos/agendamentos/index.html',
         controller: 'EstabelecimentosAgendamentosCtrl',

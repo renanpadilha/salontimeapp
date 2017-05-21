@@ -306,6 +306,30 @@ app.get('/api/v1/clientes/:id/estabelecimentos/:id_estabelecimento/agendamentos/
 	});
 });
 
+// FAVORITOS
+
+app.get('/api/v1/clientes/:id_cliente/estabelecimentos', function(req, res) {
+	var id_cliente = req.params.id_cliente;
+	knex.raw('SELECT DISTINCT e.id, e.nome, e.rate FROM estabelecimentos e JOIN agendamentos a ON a.id_estabelecimento = e.id WHERE a.id_cliente = ?', id_cliente)
+	.then(function(estabelecimentos) {
+		res.json(estabelecimentos.rows);
+	}).catch(function(error) {
+		console.log(error);
+	});
+});
+
+app.get('/api/v1/clientes/:id_cliente/favoritos', function(req, res) {
+	var id_cliente = req.params.id_cliente;
+	knex.raw('SELECT * FROM favoritos f JOIN estabelecimentos e ON f.id_estabelecimento = e.id WHERE f.id_cliente = ?', id_cliente)
+	.then(function(favoritos) {
+		res.json(favoritos.rows);
+	}).catch(function(error) {
+		console.log(error);
+	});
+});
+
+// END FAVORITOS
+
 //
 // FIM CLIENTES
 //
@@ -782,6 +806,5 @@ app.put('/api/v1/promocoes/:id', function(req, res){
 //
 // FIM PROMOÇÕES
 //
-
 
 app.listen(port);

@@ -1,0 +1,51 @@
+<header>
+  <h1>
+    Favoritos
+  </h1>
+</header>
+<div class="panel-body table-responsive">
+  <div ng-if="!favoritos.length">
+    <div class="alert alert-info">Você ainda não possui favoritos.</div>
+  </div>
+  <div ng-if="favoritos.length">
+    <table class="table table-responsive">
+      <thead>
+        <tr>
+          <th>Estabelecimento</th>
+          <th>Qualificação</th>
+          <th class="text-right">Ações</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="favorito in favoritos">
+          <td>{{favorito.nome}}</td>
+          <td>{{favorito.rate}}</td>
+          <td class="pull-right">
+            BOTÃO
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="panel-body table-responsive">
+    <h3>
+      Lista de Estabelecimentos
+    </h3>
+    <table class="table table-responsive">
+      <thead>
+        <tr>
+          <th>Estabelecimento</th>
+          <th>Qualificação</th>
+          <th class="text-right">Favorito?</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="estabelecimento in estabelecimentos">
+          <td>{{estabelecimento.nome}}</td>
+          <td>{{estabelecimento.rate}}</td>
+          <td class="pull-right"><input type="checkbox"></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
