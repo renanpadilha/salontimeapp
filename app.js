@@ -312,7 +312,6 @@ app.post('/api/v1/favoritos', function(req, res) {
 	var favorito = {
 		id_cliente: req.body.id_cliente,
 		id_estabelecimento: req.body.id_estabelecimento,
-		favorito: req.body.favorito
 	};
 	knex.insert(favorito).into('favoritos')
 	.then(function(favorito) {
