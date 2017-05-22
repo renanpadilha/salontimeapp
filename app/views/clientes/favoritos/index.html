@@ -7,30 +7,10 @@
   <div ng-if="!favoritos.length">
     <div class="alert alert-info">Você ainda não possui favoritos.</div>
   </div>
-  <div ng-if="favoritos.length">
-    <table class="table table-responsive">
-      <thead>
-        <tr>
-          <th>Estabelecimento</th>
-          <th>Qualificação</th>
-          <th class="text-right">Ações</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr ng-repeat="favorito in favoritos">
-          <td>{{favorito.nome}}</td>
-          <td>{{favorito.rate}}</td>
-          <td class="pull-right">
-            BOTÃO
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+  <h3>
+    Lista de Estabelecimentos
+  </h3>
   <div class="panel-body table-responsive">
-    <h3>
-      Lista de Estabelecimentos
-    </h3>
     <table class="table table-responsive">
       <thead>
         <tr>
@@ -40,10 +20,12 @@
         </tr>
       </thead>
       <tbody>
-        <tr ng-repeat="estabelecimento in estabelecimentos">
+        <tr ng-repeat="estabelecimento in estabelecimentos track by $index">
           <td>{{estabelecimento.nome}}</td>
-          <td>{{estabelecimento.rate}}</td>
-          <td class="pull-right"><input type="checkbox"></td>
+          <td><span uib-rating ng-model="estabelecimento.rate" max="5" read-only="true"></span></td>
+          <td class="text-right">
+            <input type="checkbox" ng-model="estabelecimento[$index]" ng-change="addFavorito(estabelecimento)">
+          </td>
         </tr>
       </tbody>
     </table>

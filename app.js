@@ -308,6 +308,30 @@ app.get('/api/v1/clientes/:id/estabelecimentos/:id_estabelecimento/agendamentos/
 
 // FAVORITOS
 
+app.post('/api/v1/favoritos', function(req, res) {
+	var favorito = {
+		id_cliente: req.body.id_cliente,
+		id_estabelecimento: req.body.id_estabelecimento,
+		favorito: req.body.favorito
+	};
+	knex.insert(favorito).into('favoritos')
+	.then(function(favorito) {
+		res.status(201).json(favorito);
+	}).catch(function(err) {
+		console.log(err);
+	});
+});
+
+app.put('/api/v1/favoritos/:id', function(req, res) {
+	knex('favoritos').where({id: req.params.id}).update(req.body)
+	.then(function(favorito) {
+		res.status(204).json(favorito);
+	}).catch(function(err) {
+		console.log(err);
+	});
+});
+
+
 app.get('/api/v1/clientes/:id_cliente/estabelecimentos', function(req, res) {
 	var id_cliente = req.params.id_cliente;
 	knex.raw('SELECT DISTINCT e.id, e.nome, e.rate FROM estabelecimentos e JOIN agendamentos a ON a.id_estabelecimento = e.id WHERE a.id_cliente = ?', id_cliente)
@@ -320,7 +344,7 @@ app.get('/api/v1/clientes/:id_cliente/estabelecimentos', function(req, res) {
 
 app.get('/api/v1/clientes/:id_cliente/favoritos', function(req, res) {
 	var id_cliente = req.params.id_cliente;
-	knex.raw('SELECT * FROM favoritos f JOIN estabelecimentos e ON f.id_estabelecimento = e.id WHERE f.id_cliente = ?', id_cliente)
+	knex.raw('SELECT f.id, f.favorito, e.nome, e.rate FROM favoritos f JOIN estabelecimentos e ON f.id_estabelecimento = e.id WHERE f.id_cliente = ?', id_cliente)
 	.then(function(favoritos) {
 		res.json(favoritos.rows);
 	}).catch(function(error) {

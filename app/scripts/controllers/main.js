@@ -1,6 +1,6 @@
 'use strict';
 angular.module('salontimeApp')
-  .controller('MainCtrl', function ($scope, $routeParams, $http, ClientesAgendamentos, Categorias, Servicos, Estabelecimentos, Blacklist, $window) {
+  .controller('MainCtrl', function ($scope, $routeParams, $http, ClientesAgendamentos, Categorias, Servicos, Estabelecimentos, Blacklist, $window, Favoritos) {
     const API_URL = 'https://salontime.herokuapp.com/api/v1';
     $scope.init = function() {
       if(!$scope.agendamento) {
@@ -31,7 +31,6 @@ angular.module('salontimeApp')
       Estabelecimentos.getProfissionaisByServico($scope.estabelecimentoSelecionado, $scope.servicoSelecionado, function(error, profissionais) {
         if(error) return console.warn(error);
         $scope.profissionais = profissionais;
-        console.log('Profissionais', $scope.profissionais);
       });
       Estabelecimentos.getPreco($scope.estabelecimentoSelecionado, $scope.servicoSelecionado, function(error, preco) {
         if(error) return console.warn(error);
@@ -53,8 +52,7 @@ angular.module('salontimeApp')
         if(error) return console.warn(error);
         var blacklist = blacklist;
         if(blacklist.length >= 2) {
-          $window.alert('Você não pode agendar nesse estabelecimento porque se atrasou/faltou ao compromisso');
-          return;
+          return $window.alert('Você não pode agendar nesse estabelecimento porque se atrasou/faltou ao compromisso');
         }
         var dataLocal = moment($scope.datahora.getTime()).local().format();
         var agendamento = {
@@ -65,6 +63,12 @@ angular.module('salontimeApp')
         };
         ClientesAgendamentos.create(agendamento, function(error, data){
           if(error) return console.warn(error);
+          Favoritos.create($scope.estabelecimentoSelecionado, function(error, fav) {
+            if(error) return console.warn(error);
+            console.log('favorito criado', fav);
+            $window.alert('Agendamento criado com sucesso');
+            $scope.init();
+          });
         });
       });
     };
