@@ -1,6 +1,6 @@
 'use strict';
 angular.module('salontimeApp')
-  .controller('ClientesFavoritosCtrl', function ($scope, $routeParams, Favoritos, Clientes, $window) {
+  .controller('ClientesFavoritosCtrl', function ($scope, $routeParams, Favoritos, Clientes, $window, Estabelecimentos) {
     $scope.favoritos = [];
     $scope.estabelecimentos = [];
     $scope.model = {};
@@ -46,8 +46,29 @@ angular.module('salontimeApp')
     $scope.openModal = function(model) {
       $scope.model = {};
       $scope.model = model;
-      console.log($scope.model);
+      Favoritos.getServicos($scope.model.estabelecimento, function(error, servicos) {
+        if(error) return console.warn(error);
+        $scope.model.servicos = servicos;
+      });
     };
+
+    $scope.atualizarPreco = function() {
+      Estabelecimentos.getPreco($scope.model.estabelecimento, $scope.servico.id_servico, function(error, preco) {
+        if(error) return console.warn(error);
+        Favoritos.getPromocoes($scope.model.estabelecimento, function(error, promocao) {
+          if(error) return console.warn(error);
+          console.log($scope.servico, promocao);
+          if(promocao && promocao.servico === $scope.servico.nomeservico) {
+            $scope.model.promocao = promocao.preco;
+            $scope.model.preco = $scope.model.promocao;
+          } else {
+            $scope.model.preco = preco.preco;
+          }
+        });
+      });
+    };
+
+
 
     $scope.agendar = function() {
 

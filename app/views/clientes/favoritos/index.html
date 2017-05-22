@@ -47,7 +47,34 @@
                   <h4 class="modal-title" id="modal-favorito-label">Agendar</h4>
                 </div>
                 <div class="modal-body">
+                  <form name="agendarFavorito">
+                    <div class="form-group">
+                      <label class="form-control-label"><span class="glyphicon glyphicon-list"></span> Estabelecimento</label>
+                      <select
+                        class="form-control"
+                        ng-model="model.estabelecimento"
+                        ng-options="e.id as e.nome for e in estabelecimentos"
+                        ng-disabled="true">
+                      </select>
+                    </div>
+                    <div class="form-group">
+                      <label class="form-control-label"><span class="glyphicon glyphicon-th"></span> Serviço</label>
+                      <select
+                        class="form-control"
+                        ng-model="servico"
+                        ng-change="atualizarPreco()"
+                        ng-options="servico.nomeservico for servico in model.servicos">
+                      </select>
+                    </div>
+                    <div class="form-group">
+                      <label for="preco"><span class="glyphicon glyphicon-usd"></span> Preço</label>
+                      <span class="form-control">{{model.preco | currency:"R$ "}}</span>
+                    </div>
+                    <div ng-if="model.promocao" class="alert alert-success" role="alert">
+                      Preço com promoção
+                    </div>
 
+                  </form>
                 </div>
                 <div class="modal-footer">
                   <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>

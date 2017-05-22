@@ -801,7 +801,7 @@ app.get('/api/v1/estabelecimentos/:id/servicos/:id_servico/promocoes', function(
 	var id_servico = req.params.id_servico;
 	knex.raw("SELECT p.id, p.nome, p.preco, s.id, s.nome, e.id FROM promocoes p JOIN servicos s ON p.id_servico = s.id JOIN estabelecimentos e ON p.id_estabelecimento = e.id WHERE s.id = ? AND e.id = ?", [id_servico, id])
 	.then(function(promocoes) {
-		res.json(promocoes);
+		res.json(promocoes.rows);
 	});
 });
 

@@ -28,6 +28,24 @@ angular.module('salontimeApp')
       });
     };
 
+    this.getServicos = function(estabelecimento, callback) {
+      $http.get(API_URL + '/estabelecimentos/' + estabelecimento + '/servicos')
+      .then(function(response) {
+        callback(null, response.data);
+      }, function(error) {
+        callback(error, null);
+      });
+    };
+
+    this.getPromocoes = function(estabelecimento, callback) {
+      $http.get(API_URL + '/estabelecimentos/' + estabelecimento + '/promocoes')
+      .then(function(response) {
+        callback(null, response.data);
+      }, function(error) {
+        callback(error, null);
+      });
+    };
+
     this.create = function(estabelecimento, callback) {
       Authentication.me(function(error, data) {
         var userId = data[0].id;
