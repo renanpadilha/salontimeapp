@@ -4,7 +4,6 @@ exports.up = function(knex, Promise) {
     table.increments('id').primary();
     table.integer('id_cliente').references('clientes.id');
     table.integer('id_estabelecimento').references('estabelecimentos.id');
-    table.boolean('favorito').notNullable().defaultTo(false);
   });
 };
 

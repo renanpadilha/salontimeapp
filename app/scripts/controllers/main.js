@@ -63,12 +63,8 @@ angular.module('salontimeApp')
         };
         ClientesAgendamentos.create(agendamento, function(error, data){
           if(error) return console.warn(error);
-          Favoritos.create($scope.estabelecimentoSelecionado, function(error, fav) {
-            if(error) return console.warn(error);
-            console.log('favorito criado', fav);
-            $window.alert('Agendamento criado com sucesso');
-            $scope.init();
-          });
+          $window.alert('Agendamento criado com sucesso');
+          $scope.init();
         });
       });
     };

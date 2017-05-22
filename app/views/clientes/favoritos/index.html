@@ -3,29 +3,59 @@
     Favoritos
   </h1>
 </header>
-<div class="panel-body table-responsive">
-  <div ng-if="!favoritos.length">
-    <div class="alert alert-info">Você ainda não possui favoritos.</div>
-  </div>
-  <h3>
-    Lista de Estabelecimentos
-  </h3>
+<div class="col-xs-12">
+  <a class="btn btn-success btn-lg" ng-click="novo()"><span class="glyphicon glyphicon-plus"></span> Novo</a>
   <div class="panel-body table-responsive">
-    <table class="table table-responsive">
+    <form ng-if="favorito">
+      <div class="form-group">
+        <label><span class="glyphicon glyphicon-bullhorn"></span> Estabelecimento</label>
+        <select
+          class="form-control"
+          ng-model="model.estabelecimentoFavorito"
+          ng-options="e.id as e.nome for e in estabelecimentos">
+        </select>
+      </div>
+      <div class="btn-group nowrap btn-group nowrap-justified">
+        <a class="btn btn-success btn-lg" ng-click="criar()"><span class="glyphicon glyphicon-ok"></span> Criar</a>
+        <a class="btn btn-default btn-lg" ng-click="cancelar()"><span class="glyphicon glyphicon-remove"></span> Cancelar</a>
+      </div>
+    </form>
+  </div>
+  <div class="panel-body table-responsive">
+    <table class="table table-striped">
       <thead>
         <tr>
-          <th>Estabelecimento</th>
+          <th>Nome</th>
           <th>Qualificação</th>
-          <th class="text-right">Favorito?</th>
+          <th class="text-right">Ações</th>
         </tr>
       </thead>
       <tbody>
-        <tr ng-repeat="estabelecimento in estabelecimentos track by $index">
-          <td>{{estabelecimento.nome}}</td>
-          <td><span uib-rating ng-model="estabelecimento.rate" max="5" read-only="true"></span></td>
-          <td class="text-right">
-            <input type="checkbox" ng-model="estabelecimento[$index]" ng-change="addFavorito(estabelecimento)">
+        <tr ng-repeat="favorito in favoritos track by $index">
+          <td>{{favorito.nome}}</td>
+          <td><span uib-rating ng-model="favorito.rate" max="5" read-only="true"></span></td>
+          <td>
+            <div class="btn-group pull-right nowrap">
+              <button ng-click="openModal(favorito)" data-toggle="modal" data-target="#modal-favorito" type="button" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span> Agendar</button>
+              <button ng-click="excluir(favorito.id)" type="button" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span> Excluir</button>
+            </div>
           </td>
+          <div class="modal fade" id="modal-favorito" tabindex="-1" role="dialog" aria-labelledby="#modal-favorito-label">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h4 class="modal-title" id="modal-favorito-label">Agendar</h4>
+                </div>
+                <div class="modal-body">
+
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+                  <button type="button" class="btn btn-success" ng-click="agendar(model.agendamento)">Agendar!</button>
+                </div>
+              </div>
+            </div>
+          </div>
         </tr>
       </tbody>
     </table>

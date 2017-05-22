@@ -344,11 +344,18 @@ app.get('/api/v1/clientes/:id_cliente/estabelecimentos', function(req, res) {
 
 app.get('/api/v1/clientes/:id_cliente/favoritos', function(req, res) {
 	var id_cliente = req.params.id_cliente;
-	knex.raw('SELECT f.id, f.favorito, e.nome, e.rate FROM favoritos f JOIN estabelecimentos e ON f.id_estabelecimento = e.id WHERE f.id_cliente = ?', id_cliente)
+	knex.raw('SELECT f.id, f.favorito, e.nome, e.id as idestabelecimento, e.rate FROM favoritos f JOIN estabelecimentos e ON f.id_estabelecimento = e.id WHERE f.id_cliente = ?', id_cliente)
 	.then(function(favoritos) {
 		res.json(favoritos.rows);
 	}).catch(function(error) {
 		console.log(error);
+	});
+});
+
+app.delete('/api/v1/favoritos/:id', function(req, res) {
+	knex('favoritos').where({id: req.params.id}).del()
+	.then(function(favorito) {
+		res.status(204).json();
 	});
 });
 

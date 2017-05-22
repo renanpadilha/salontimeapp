@@ -16,6 +16,18 @@ angular.module('salontimeApp')
       });
     };
 
+    this.getEstabelecimentos = function(callback) {
+      Authentication.me(function(error, data) {
+        var userId = data[0].id;
+        $http.get(API_URL + '/clientes/' + userId + '/estabelecimentos')
+        .then(function(response) {
+          callback(null, response.data);
+        }, function(error) {
+          callback(error, null);
+        });
+      });
+    };
+
     this.create = function(estabelecimento, callback) {
       Authentication.me(function(error, data) {
         var userId = data[0].id;
