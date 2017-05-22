@@ -12,6 +12,20 @@ angular.module('salontimeApp')
     var service = this;
     const API_URL = 'https://salontime.herokuapp.com/api/v1';
 
+    this.sendEmail = function() {
+      var mensagem = {
+        to: 'renanpadilha94@hotmail.com',
+        subject: 'Agendamento realizado',
+        message: 'Agendamento biruleibe'
+      };
+      $http.post(API_URL + '/message', mensagem)
+      .then(function(response) {
+        callback(null, response.data);
+      }, function(error) {
+        callback(error, null);
+      });
+    };
+
     this.create = function(agendamento, callback) {
       Authentication.me(function(error, data) {
         var userId = data[0].id;

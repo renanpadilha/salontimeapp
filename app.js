@@ -1,5 +1,7 @@
 var express = require('express');
 var bodyParser = require('body-parser');
+var helper = require('sendgrid').mail;
+var sg = require('sendgrid')('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');
 var app = express();
 var router = express.Router();
 var port = process.env.PORT || 4002;
@@ -80,6 +82,34 @@ function getUsuarioByToken(token) {
 app.get('/health', function(req, res) {
   res.send('Bem vindo a SALONTIME API');
 });
+
+
+// EMAIL
+app.post('/message', function(req, res) {
+	var fromEmail = new helper.Email('salontimee@gmail.com');
+	var toEmail = new helper.Email(req.body.to);
+	var subject = req.body.subject;
+	var content = new helper.Content('text/plain', req.body.message);
+	var mail = new helper.Mail(fromEmail, subject, toEmail, content);
+
+	var request = sg.emptyRequest({
+	  method: 'POST',
+	  path: '/v3/mail/send',
+	  body: mail.toJSON()
+	});
+
+	sg.API(request, function (error, response) {
+  if (error) {
+    console.log('Error response received');
+  }
+  console.log(response.statusCode);
+  console.log(response.body);
+  console.log(response.headers);
+});
+
+});
+
+// FIM EMAIL
 
 // AUTÊNTICAÇÃO
 
