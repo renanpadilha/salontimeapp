@@ -37,10 +37,10 @@ angular.module('salontimeApp')
       });
     };
 
-    this.getPromocoes = function(estabelecimento, callback) {
-      $http.get(API_URL + '/estabelecimentos/' + estabelecimento + '/promocoes')
+    this.getPromocoes = function(estabelecimento, servico, callback) {
+      $http.get(API_URL + '/estabelecimentos/' + estabelecimento + '/servicos/'+ servico +'/promocoes')
       .then(function(response) {
-        callback(null, response.data);
+        callback(null, response.data[0]);
       }, function(error) {
         callback(error, null);
       });

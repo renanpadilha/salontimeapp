@@ -1,6 +1,6 @@
 'use strict';
 angular.module('salontimeApp')
-  .controller('ClientesFavoritosCtrl', function ($scope, $routeParams, Favoritos, Clientes, $window, Estabelecimentos) {
+  .controller('ClientesFavoritosCtrl', function ($scope, $routeParams, Favoritos, Clientes, $window, Estabelecimentos, Blacklist, ClientesAgendamentos) {
     $scope.favoritos = [];
     $scope.estabelecimentos = [];
     $scope.model = {};
@@ -53,15 +53,19 @@ angular.module('salontimeApp')
     };
 
     $scope.atualizarPreco = function() {
-      Estabelecimentos.getPreco($scope.model.estabelecimento, $scope.servico.id_servico, function(error, preco) {
+      Estabelecimentos.getProfissionaisByServico($scope.model.estabelecimento, $scope.model.servico.id_servico, function(error, profissionais) {
         if(error) return console.warn(error);
-        Favoritos.getPromocoes($scope.model.estabelecimento, function(error, promocao) {
+        $scope.model.profissionais = profissionais;
+      });
+      Estabelecimentos.getPreco($scope.model.estabelecimento, $scope.model.servico.id_servico, function(error, preco) {
+        if(error) return console.warn(error);
+        Favoritos.getPromocoes($scope.model.estabelecimento, $scope.model.servico.id_servico, function(error, promocao) {
           if(error) return console.warn(error);
-          console.log($scope.servico, promocao);
-          if(promocao && promocao.servico === $scope.servico.nomeservico) {
+          if(promocao && promocao.nome === $scope.model.servico.nomeservico) {
             $scope.model.promocao = promocao.preco;
             $scope.model.preco = $scope.model.promocao;
           } else {
+            $scope.model.promocao = false;
             $scope.model.preco = preco.preco;
           }
         });
@@ -70,8 +74,26 @@ angular.module('salontimeApp')
 
 
 
-    $scope.agendar = function() {
-
+    $scope.agendar = function(model) {
+      Blacklist.getByCliente(function(error, blacklist) {
+        if(error) return console.warn(error);
+        var blacklist = blacklist;
+        if(blacklist.length >= 2) {
+          return $window.alert('Você não pode agendar nesse estabelecimento porque se atrasou/faltou ao compromisso');
+        }
+        var dataLocal = moment($scope.model.datahora.getTime()).local().format();
+        var agendamento = {
+          id_estabelecimento: $scope.model.estabelecimento,
+          id_profissional: $scope.model.profissional.id,
+          id_servico: $scope.model.servico.id_servico,
+          data: dataLocal
+        };
+        ClientesAgendamentos.create(agendamento, function(error, data){
+          if(error) return console.warn(error);
+          $window.alert('Agendamento criado com sucesso');
+          $scope.init();
+        });
+      });
     };
 
     $scope.init();
