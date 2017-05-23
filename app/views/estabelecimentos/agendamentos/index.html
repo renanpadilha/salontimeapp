@@ -25,10 +25,30 @@
         <td>
           <div class="btn-group nowrap nowrap">
             <button class="btn btn-success btn-sm" ng-click="concluirAgendamento(agendamento)" ng-disabled="agendamento.atendido"><span class="glyphicon glyphicon-ok"></span> Concluir</a>
-            <button class="btn btn-warning btn-sm" ng-click="cancelarAgendamento(agendamento.id)" ng-disabled="agendamento.atendido"><span class="glyphicon glyphicon-remove"></span> Cancelar</a>
+            <button class="btn btn-warning btn-sm" data-toggle="modal" data-target="#modal-email" ng-click="openModal(agendamento)" ng-disabled="agendamento.atendido"><span class="glyphicon glyphicon-remove"></span> Cancelar</a>
             <button class="btn btn-danger btn-sm" ng-click="enviarParaBlacklist(agendamento)" ng-disabled="checkDay(agendamento)"><span class="glyphicon glyphicon-thumbs-down"></span> Blacklist</a>
           </div>
         </td>
+        <div class="modal fade" id="modal-email" tabindex="-1" role="dialog" aria-labelledby="#modal-email-label">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h4 class="modal-title" id="modal-email-label">Cancelamento</h4>
+              </div>
+              <div class="modal-body">
+                <div class="form-group">
+                  <label class="form-control-label">Informe o motivo do cancelamento</label>
+                  <textarea class="form-control" row="10" ng-model="model.motivo"></textarea>
+                  <small>{{model.motivo.length || 0}}/300 caracteres</small>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-success" ng-click="cancelarAgendamento(model.agendamento.id)" ng-disabled="!model.motivo.length">Cancelar</button>
+              </div>
+            </div>
+          </div>
+        </div>
       </tr>
     </tbody>
   </table>

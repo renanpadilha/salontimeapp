@@ -21,20 +21,20 @@ angular.module('salontimeApp')
     };
 
     $scope.atualizaEstabelecimentos = function() {
-      Servicos.getEstabelecimentos($scope.servicoSelecionado, function(error, estabelecimentos) {
+      Servicos.getEstabelecimentos($scope.servicoSelecionado.id, function(error, estabelecimentos) {
         if(error) return console.warn(error);
         $scope.estabelecimentos = estabelecimentos;
       });
     };
 
     $scope.atualizaProfissionais = function() {
-      Estabelecimentos.getProfissionaisByServico($scope.estabelecimentoSelecionado, $scope.servicoSelecionado, function(error, profissionais) {
+      Estabelecimentos.getProfissionaisByServico($scope.estabelecimentoSelecionado.id, $scope.servicoSelecionado.id, function(error, profissionais) {
         if(error) return console.warn(error);
         $scope.profissionais = profissionais;
       });
-      Estabelecimentos.getPreco($scope.estabelecimentoSelecionado, $scope.servicoSelecionado, function(error, preco) {
+      Estabelecimentos.getPreco($scope.estabelecimentoSelecionado.id, $scope.servicoSelecionado.id, function(error, preco) {
         if(error) return console.warn(error);
-        Estabelecimentos.getPromocoes($scope.estabelecimentoSelecionado, function(error, promocao) {
+        Estabelecimentos.getPromocoes($scope.estabelecimentoSelecionado.id, function(error, promocao) {
           if(error) return console.warn(error);
           if(promocao && promocao.servico === $scope.servicos[0].nome) {
             $scope.promocao = promocao.preco;
@@ -54,15 +54,23 @@ angular.module('salontimeApp')
         if(blacklist.length >= 2) {
           return $window.alert('Você não pode agendar nesse estabelecimento porque se atrasou/faltou ao compromisso');
         }
-        var dataLocal = moment($scope.datahora.getTime()).local().format();
+        var dataLocal = moment($scope.model.datahora.getTime()).local().format();
         var agendamento = {
-          id_estabelecimento: $scope.estabelecimentoSelecionado,
-          id_profissional: $scope.profissionalSelecionado,
-          id_servico: $scope.servicoSelecionado,
+          id_estabelecimento: $scope.estabelecimentoSelecionado.id,
+          id_profissional: $scope.profissionalSelecionado.id,
+          id_servico: $scope.servicoSelecionado.id,
           data: dataLocal
         };
         ClientesAgendamentos.create(agendamento, function(error, data){
           if(error) return console.warn(error);
+          var email = {
+            subject: 'Agendamento Realizado!',
+            message: 'Seu agendamento no estabelecimento ' + $scope.estabelecimentoSelecionado.nome + ' está marcado para o dia ' + $scope.model.datahora
+            + ' para realização do serviço ' + $scope.servicoSelecionado.nome + ' com ' + $scope.profissionalSelecionado.nome
+          };
+          ClientesAgendamentos.sendEmail(email, function(error, data) {
+            if(error) console.warn(error);
+          });
           $window.alert('Agendamento criado com sucesso');
           $scope.init();
         });

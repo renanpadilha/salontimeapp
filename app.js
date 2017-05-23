@@ -85,8 +85,8 @@ app.get('/health', function(req, res) {
 
 
 // EMAIL
-app.post('/message', function(req, res) {
-	var fromEmail = new helper.Email('salontimee@gmail.com');
+app.post('/api/v1/message', function(req, res) {
+	var fromEmail = new helper.Email('no-reply@salontime.com.br');
 	var toEmail = new helper.Email(req.body.to);
 	var subject = req.body.subject;
 	var content = new helper.Content('text/plain', req.body.message);

@@ -25,7 +25,7 @@
           class="form-control"
           ng-change="atualizaEstabelecimentos()"
           ng-model="servicoSelecionado"
-          ng-options="servico.id as servico.nome for servico in servicos">
+          ng-options="servico.nome for servico in servicos">
         </select>
       </div>
     </div>
@@ -40,8 +40,7 @@
           id="datahora"
           name="datahora"
           class="form-control"
-          ng-change="valorData(datahora)"
-          ng-model="datahora">
+          ng-model="model.datahora">
       </div>
     </div>
     <div class="col-xs-12 col-lg-6">
@@ -53,7 +52,7 @@
           class="form-control"
           ng-model="estabelecimentoSelecionado"
           ng-change="atualizaProfissionais()"
-          ng-options="estabelecimento.id as estabelecimento.nome for estabelecimento in estabelecimentos">
+          ng-options="estabelecimento.nome for estabelecimento in estabelecimentos">
         </select>
       </div>
     </div>
@@ -76,7 +75,7 @@
           name="profissional"
           class="form-control"
           ng-model="profissionalSelecionado"
-          ng-options="profissional.id as profissional.nome for profissional in profissionais">
+          ng-options="profissional.nome for profissional in profissionais">
         </select>
       </div>
     </div>
