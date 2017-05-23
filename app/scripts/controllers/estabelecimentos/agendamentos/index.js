@@ -29,8 +29,6 @@ angular.module('salontimeApp')
         message: 'Seu agendamento do dia ' + $scope.model.agendamento.dataagendamento
         + ' foi cancelado pelo motivo: ' + $scope.model.motivo
       };
-      EstabelecimentosAgendamentos.sendEmail(email, function(error, msg) {
-        if(error) return console.warn(error);
         EstabelecimentosAgendamentos.cancel(id, function(error, data) {
           if(error) return console.warn(error);
           switch (data.status) {
@@ -43,9 +41,11 @@ angular.module('salontimeApp')
             default:
             alert('Não foi possível cancelar o agendamento');
           }
-          $scope.init();
+          EstabelecimentosAgendamentos.sendEmail(email, function(error, msg) {
+            if(error) return console.warn(error);
+            $scope.init();
+          });
         });
-      });
     };
 
     $scope.concluirAgendamento = function(agendamento) {

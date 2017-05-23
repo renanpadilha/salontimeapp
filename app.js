@@ -86,7 +86,8 @@ app.get('/health', function(req, res) {
 
 // EMAIL
 app.post('/api/v1/message', function(req, res) {
-	var fromEmail = new helper.Email('no-reply@salontime.com.br');
+	// var fromEmail = new helper.Email('no-reply@salontime.com.br');
+	var fromEmail = new helper.Email('salontimee@gmail.com');
 	var toEmail = new helper.Email(req.body.to);
 	var subject = req.body.subject;
 	var content = new helper.Content('text/plain', req.body.message);
@@ -99,13 +100,13 @@ app.post('/api/v1/message', function(req, res) {
 	});
 
 	sg.API(request, function (error, response) {
-  if (error) {
-    console.log('Error response received');
-  }
-  console.log(response.statusCode);
-  console.log(response.body);
-  console.log(response.headers);
-});
+	  if (error) {
+	    console.log('Error response received');
+	  }
+	  console.log(response.statusCode);
+	  console.log(response.body);
+	  console.log(response.headers);
+	});
 
 });
 
