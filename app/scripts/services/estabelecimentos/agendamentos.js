@@ -24,7 +24,7 @@ angular.module('salontimeApp')
     this.sendEmail = function(email, callback) {
       var mensagem = {
         to: email.email,
-        subject: 'SalonTime |' + email.subject,
+        subject: 'SalonTime | ' + email.subject,
         message: email.message
       };
       $http.post(API_URL + '/message', mensagem)

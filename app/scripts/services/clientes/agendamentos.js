@@ -17,7 +17,7 @@ angular.module('salontimeApp')
         var usuario = data[0];
         var mensagem = {
           to: usuario.email,
-          subject: 'SalonTime |' + email.subject,
+          subject: 'SalonTime | ' + email.subject,
           message: email.message
         };
         $http.post(API_URL + '/message', mensagem)

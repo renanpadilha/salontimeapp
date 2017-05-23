@@ -1,7 +1,7 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 var helper = require('sendgrid').mail;
-var sg = require('sendgrid')('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');
+var sg = require('sendgrid')('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');
 var app = express();
 var router = express.Router();
 var port = process.env.PORT || 4002;
