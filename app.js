@@ -703,7 +703,7 @@ app.delete('/api/v1/servicos/:id', function(req, res){
 /* LISTA TODOS OS ESTABELECIMENTOS QUE POSSUEM UM SERVIÇO PRIMÁRIO ESPECÍFICO */
 app.get('/api/v1/servicos/:id/estabelecimentos', function(req, res){
 	var id = req.params.id;
-	knex.raw('SELECT e.id, e.nome, e.endereco, es.id_servico FROM  estabelecimentos e JOIN estabelecimentos_servicos es ON es.id_estabelecimento = e.id WHERE es.id_servico = ? GROUP BY e.id, e.nome, e.endereco, es.id_servico;', id)
+	knex.raw('SELECT e.id, e.nome, e.endereco, es.id_servico, e.rate FROM  estabelecimentos e JOIN estabelecimentos_servicos es ON es.id_estabelecimento = e.id WHERE es.id_servico = ? GROUP BY e.id, e.nome, e.endereco, es.id_servico;', id)
 	.then(function(id){
 		console.log(id);
 		res.json(id.rows);
