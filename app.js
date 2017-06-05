@@ -87,8 +87,8 @@ app.get('/health', function(req, res) {
 // EMAIL
 app.post('/api/v1/message', function(req, res) {
 	// var fromEmail = new helper.Email('no-reply@salontime.com.br');
-	var fromEmail = new helper.Email('salontimee@gmail.com');
-	var toEmail = new helper.Email(req.body.to);
+	var fromEmail = new helper.Email('salontimee@gmail.com', 'SalonTime');
+	var toEmail = new helper.Email(req.body.to, 'SendGrid');
 	var subject = req.body.subject;
 	var content = new helper.Content('text/plain', req.body.message);
 	console.log('ENVIO', fromEmail, toEmail, subject, content);
