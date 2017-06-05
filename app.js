@@ -91,6 +91,7 @@ app.post('/api/v1/message', function(req, res) {
 	var toEmail = new helper.Email(req.body.to);
 	var subject = req.body.subject;
 	var content = new helper.Content('text/plain', req.body.message);
+	console.log('ENVIO', fromEmail, toEmail, subject, content);
 	var mail = new helper.Mail(fromEmail, subject, toEmail, content);
 
 	var request = sg.emptyRequest({

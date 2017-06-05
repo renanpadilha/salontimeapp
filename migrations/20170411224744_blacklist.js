@@ -1,4 +1,3 @@
-cd
 exports.up = function(knex, Promise) {
   return knex.schema.createTableIfNotExists('blacklist', (table) => {
     table.increments('id').primary();
