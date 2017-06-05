@@ -36,7 +36,7 @@ angular.module('salontimeApp')
         if(error) return console.warn(error);
         Estabelecimentos.getPromocoes($scope.estabelecimentoSelecionado.id, function(error, promocao) {
           if(error) return console.warn(error);
-          if(promocao && promocao.servico === $scope.servicos[0].nome) {
+          if(promocao && promocao.servico === $scope.servicoSelecionado.nome) {
             $scope.promocao = promocao.preco;
             $scope.preco = $scope.promocao;
           } else {
