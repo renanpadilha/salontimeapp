@@ -570,7 +570,7 @@ app.get('/api/v1/estabelecimentos/:id/servicos/:id_servico/precos', function(req
 });
 
 app.get('/api/v1/estabelecimentos/:id/blacklist', function(req, res) {
-	knex.raw('SELECT c.id, c.nome, c.email from blacklist b JOIN cliente c ON b.id_cliente = c.id WHERE b.id_estabelecimento = ? GROUP BY c.id HAVING COUNT(c.id) >= 2', req.params.id)
+	knex.raw('SELECT c.id, c.nome, c.email from blacklist b JOIN clientes c ON b.id_cliente = c.id WHERE b.id_estabelecimento = ? GROUP BY c.id HAVING COUNT(c.id) >= 2', req.params.id)
 	.then(function(blacklisted) {
 		res.json(blacklisted.rows);
 	}).catch(function(error){
