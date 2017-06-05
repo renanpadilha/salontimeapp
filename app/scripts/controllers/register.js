@@ -45,7 +45,7 @@ angular.module('salontimeApp')
           var cliente = {
             id_usuario: data.id,
             nome: $scope.cliente.nome,
-            email: $scope.cliente.password,
+            email: $scope.cliente.email,
             telefone: $scope.cliente.telefone
           };
           Register.cliente(cliente, function(error, cliente) {
