@@ -45,7 +45,10 @@
     </div>
     <div class="col-xs-12 col-lg-6">
       <div class="form-group">
-        <label for="estabelecimento"><span class="glyphicon glyphicon-list"></span> Estabelecimento</label>
+        <label for="estabelecimento"><span class="glyphicon glyphicon-list"></span>
+          Estabelecimento
+          <span uib-rating ng-model="estabelecimentoSelecionado.rate" max="5" read-only="true" ng-if="estabelecimentoSelecionado">
+        </label>
         <select
           id="estabelecimento"
           name="estabelecimento"
@@ -54,11 +57,6 @@
           ng-change="atualizaProfissionais()"
           ng-options="estabelecimento.nome for estabelecimento in estabelecimentos">
         </select>
-      </div>
-    </div>
-    {{estabelecimentoSelecionado | json}}
-    <div class="col-xs-12" ng-if="true">
-      <div class="alert alert-info" role="alert">
       </div>
     </div>
     <div class="col-xs-12 col-lg-6">
